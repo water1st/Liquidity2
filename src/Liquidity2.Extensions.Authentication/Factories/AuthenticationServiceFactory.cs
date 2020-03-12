@@ -6,16 +6,16 @@ namespace Liquidity2.Extensions.Authentication.Factories
 {
     internal class AuthenticationServiceFactory : IAuthenticationServiceFactory
     {
-        private readonly IServiceProvider provider;
+        private readonly IServiceProvider _provider;
 
         public AuthenticationServiceFactory(IServiceProvider provider)
         {
-            this.provider = provider;
+            _provider = provider;
         }
 
         public IAuthenticationService GetAuthenticationService(AuthorizationType type)
         {
-            var service = provider.GetServiceByName<IAuthenticationService>(type.ToString());
+            var service = _provider.GetServiceByName<IAuthenticationService>(type.ToString());
             return service;
         }
     }

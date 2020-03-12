@@ -10,7 +10,7 @@ namespace Liquidity2.UI.Core.Core
 {
     public class WpfApplication : IWpfApplication
     {
-        private IApplicationLifecycleSubject applicationLifecycleSubject;
+        private IApplicationLifecycleSubject _applicationLifecycleSubject;
 
         public WpfApplication(IServiceProvider service)
         {
@@ -23,32 +23,32 @@ namespace Liquidity2.UI.Core.Core
 
         public void Dispose()
         {
-            Block(applicationLifecycleSubject.OnStop());
+            Block(_applicationLifecycleSubject.OnStop());
         }
 
         public void Start()
         {
-            Block(applicationLifecycleSubject.OnStart());
+            Block(_applicationLifecycleSubject.OnStart());
         }
 
         public async Task StartAsync(CancellationToken cancellationToken = default)
         {
-            await applicationLifecycleSubject.OnStart();
+            await _applicationLifecycleSubject.OnStart();
         }
 
         public async Task StopAsync(CancellationToken cancellationToken = default)
         {
-            await applicationLifecycleSubject.OnStop();
+            await _applicationLifecycleSubject.OnStop();
         }
 
         private void LifecycleRegister()
         {
-            applicationLifecycleSubject = Services.GetService<IApplicationLifecycleSubject>();
+            _applicationLifecycleSubject = Services.GetService<IApplicationLifecycleSubject>();
             var lifecycleObservers = Services.GetServices<ILifecycleParticipant<IApplicationLifecycle>>();
 
             foreach (var lifecycleObserver in lifecycleObservers)
             {
-                lifecycleObserver.Participate(applicationLifecycleSubject);
+                lifecycleObserver.Participate(_applicationLifecycleSubject);
             }
         }
 

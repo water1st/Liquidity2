@@ -10,15 +10,15 @@ namespace Liquidity2.Extensions.Lifecycle
 {
     public partial class LifecycleSubject : ILifecycleSubject
     {
-        private readonly ConcurrentDictionary<object, OrderedObserver> subscribers;
-        private readonly ILogger<LifecycleSubject> logger;
+        private readonly ConcurrentDictionary<object, OrderedObserver> _subscribers;
+        private readonly ILogger<LifecycleSubject> _logger;
 
         private int? highStage = null;
 
         public LifecycleSubject(ILogger<LifecycleSubject> logger)
         {
-            this.logger = logger;
-            subscribers = new ConcurrentDictionary<object, OrderedObserver>();
+            this._logger = logger;
+            _subscribers = new ConcurrentDictionary<object, OrderedObserver>();
         }
 
         public virtual async Task OnStart(CancellationToken token)
@@ -30,7 +30,7 @@ namespace Liquidity2.Extensions.Lifecycle
 
             try
             {
-                foreach (var observerGroup in subscribers.Values
+                foreach (var observerGroup in _subscribers.Values
                     .GroupBy(orderedObserver => orderedObserver.Stage)
                     .OrderBy(group => group.Key))
                 {
@@ -49,7 +49,7 @@ namespace Liquidity2.Extensions.Lifecycle
             }
             catch (Exception ex) when (!(ex is LifecycleCanceledException))
             {
-                logger?.LogError("Lifecycle start canceled due to errors at stage {Stage}: {Exception}",
+                _logger?.LogError("Lifecycle start canceled due to errors at stage {Stage}: {Exception}",
                     highStage, ex);
                 throw;
             }
@@ -61,7 +61,7 @@ namespace Liquidity2.Extensions.Lifecycle
                 return;
 
             var loggedCancellation = false;
-            foreach (var observerGroup in subscribers.Values
+            foreach (var observerGroup in _subscribers.Values
                 .GroupBy(group => group.Stage)
                 .OrderByDescending(group => group.Key)
                 .SkipWhile(group => !highStage.Equals(group.Key)))
@@ -69,7 +69,7 @@ namespace Liquidity2.Extensions.Lifecycle
 
                 if (token.IsCancellationRequested && !loggedCancellation)
                 {
-                    logger?.LogWarning("Lifecycle stop operations canceled by request.");
+                    _logger?.LogWarning("Lifecycle stop operations canceled by request.");
                     loggedCancellation = true;
                 }
 
@@ -81,7 +81,7 @@ namespace Liquidity2.Extensions.Lifecycle
                 }
                 catch (Exception ex)
                 {
-                    logger?.LogError("Stopping lifecycle encountered an error at stage {Stage}. Continuing to stop. Exception: {Exception}", highStage, ex);
+                    _logger?.LogError("Stopping lifecycle encountered an error at stage {Stage}. Continuing to stop. Exception: {Exception}", highStage, ex);
                 }
 
                 OnStopStageCompleted(stage);
@@ -101,8 +101,8 @@ namespace Liquidity2.Extensions.Lifecycle
             }
 
             var orderedObserver = new OrderedObserver(stage, observer);
-            subscribers.TryAdd(orderedObserver, orderedObserver);
-            return new Disposabler(() => subscribers.TryRemove(orderedObserver, out _));
+            _subscribers.TryAdd(orderedObserver, orderedObserver);
+            return new Disposabler(() => _subscribers.TryRemove(orderedObserver, out _));
         }
 
         protected virtual void OnStartStageCompleted(int stage) { }

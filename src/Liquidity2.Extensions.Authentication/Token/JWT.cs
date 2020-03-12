@@ -4,11 +4,11 @@ namespace Liquidity2.Extensions.Authentication
 {
     public struct JWT
     {
-        private readonly DateTime expiresDate;
+        private readonly DateTime _expiresDate;
 
         public JWT(string type, string accessToken, string refreshToken, int expiresIn) : this()
         {
-            expiresDate = DateTime.Now.AddSeconds(expiresIn);
+            _expiresDate = DateTime.Now.AddSeconds(expiresIn);
             Type = type ?? throw new ArgumentNullException(nameof(type));
             AccessToken = accessToken ?? throw new ArgumentNullException(nameof(accessToken));
             RefreshToken = refreshToken ?? throw new ArgumentNullException(nameof(refreshToken));
@@ -20,7 +20,7 @@ namespace Liquidity2.Extensions.Authentication
 
         public string RefreshToken { get; }
 
-        public bool IsExpired => DateTime.Now < expiresDate;
+        public bool IsExpired => DateTime.Now < _expiresDate;
 
         public static implicit operator string(JWT jwt)
         {

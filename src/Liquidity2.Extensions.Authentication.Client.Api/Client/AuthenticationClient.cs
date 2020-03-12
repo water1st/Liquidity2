@@ -7,24 +7,24 @@ namespace Liquidity2.Extensions.Authentication.Client.Api
 {
     internal class AuthenticationClient : IAuthenticationClient
     {
-        private readonly HttpClient httpClient;
-        private readonly AuthorizationOptions options;
-        private readonly ILogger logger;
+        private readonly HttpClient _httpClient;
+        private readonly AuthorizationOptions _options;
+        private readonly ILogger _logger;
 
-        public AuthenticationClient(HttpClient _httpClient, AuthorizationOptions _options, ILogger<AuthenticationClient> _logger)
+        public AuthenticationClient(HttpClient httpClient, AuthorizationOptions options, ILogger<AuthenticationClient> logger)
         {
-            httpClient = _httpClient;
-            options = _options;
-            logger = _logger;
+            _httpClient = httpClient;
+            _options = options;
+            _logger = logger;
         }
 
         public async Task<GetClientCredentialAccessTokenResponse> GetClientCredentialAccessToken()
         {
-            var response = await httpClient.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
+            var response = await _httpClient.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
             {
-                ClientId = options.ClientId,
-                ClientSecret = options.ClientSecret,
-                Scope = options.Scope
+                ClientId = _options.ClientId,
+                ClientSecret = _options.ClientSecret,
+                Scope = _options.Scope
             });
 
             if (response.IsError)
@@ -43,11 +43,11 @@ namespace Liquidity2.Extensions.Authentication.Client.Api
 
         public async Task<GetPasswordAccessTokenResponse> GetPasswordAccessToken(GetPasswordAccessTokenRequest request)
         {
-            var response = await httpClient.RequestPasswordTokenAsync(new PasswordTokenRequest
+            var response = await _httpClient.RequestPasswordTokenAsync(new PasswordTokenRequest
             {
-                ClientId = options.ClientId,
-                ClientSecret = options.ClientSecret,
-                Scope = options.Scope,
+                ClientId = _options.ClientId,
+                ClientSecret = _options.ClientSecret,
+                Scope = _options.Scope,
                 UserName = request.UserName,
                 Password = request.Password
             });
@@ -68,11 +68,11 @@ namespace Liquidity2.Extensions.Authentication.Client.Api
 
         public async Task<RefreshAccessTokenResponse> RefreshAccessToken(RefreshAccessTokenRequest request)
         {
-            var response = await httpClient.RequestRefreshTokenAsync(new RefreshTokenRequest
+            var response = await _httpClient.RequestRefreshTokenAsync(new RefreshTokenRequest
             {
-                ClientId = options.ClientId,
-                ClientSecret = options.ClientSecret,
-                Scope = options.Scope,
+                ClientId = _options.ClientId,
+                ClientSecret = _options.ClientSecret,
+                Scope = _options.Scope,
                 RefreshToken = request.RefreshToken,
             });
 
@@ -92,16 +92,16 @@ namespace Liquidity2.Extensions.Authentication.Client.Api
 
         public async Task RevocationAccessToken(RevocationAccessTokenRequest request)
         {
-            var response = await httpClient.RevokeTokenAsync(new TokenRevocationRequest
+            var response = await _httpClient.RevokeTokenAsync(new TokenRevocationRequest
             {
-                ClientId = options.ClientId,
-                ClientSecret = options.ClientSecret,
+                ClientId = _options.ClientId,
+                ClientSecret = _options.ClientSecret,
                 Token = request.AccessToken,
             });
 
             if (response.IsError)
             {
-                logger.LogWarning(response.Error, response.Exception);
+                _logger.LogWarning(response.Error, response.Exception);
             }
         }
     }

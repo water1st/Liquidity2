@@ -1,6 +1,6 @@
 ﻿using Liquidity2.Extensions.Authentication.Events;
 using Liquidity2.Extensions.Authentication.Service;
-using Liquidity2.Extensions.EventBus;
+using Liquidity2.Extensions.EventBus.EventObserver;
 using Liquidity2.Extensions.Identity.Client;
 using Liquidity2.Utilities.JWT;
 using System.Threading;
@@ -10,21 +10,21 @@ namespace Liquidity2.Extensions.Identity
 {
     public class UserService : IUserService
     {
-        private readonly IIdentityClient client;
-        private readonly IAuthenticationService authenticationService;
+        private readonly IIdentityClient _client;
+        private readonly IAuthenticationService _authenticationService;
 
         public UserService(IIdentityClient client,
             IAuthenticationService authenticationService)
         {
-            this.client = client;
-            this.authenticationService = authenticationService;
+            _client = client;
+            _authenticationService = authenticationService;
         }
 
         public async Task SynchronizeUserInfo()
         {
-            var token = await authenticationService.GetAccessTokenWithIdentity();
+            var token = await _authenticationService.GetAccessToken();
             var request = new GetUserInfoRequest { AccessToken = token };
-            var response = await client.GetUserInfo(request);
+            var response = await _client.GetUserInfo(request);
 
             var user = User.Current;
             user.Name = response.Name;
@@ -40,14 +40,9 @@ namespace Liquidity2.Extensions.Identity
             return Task.CompletedTask;
         }
 
-        public void Subscribe(IEventBus eventBus)
-        {
-            eventBus.Subscribe(this);
-        }
-
         public async Task UpdateUserInfo()
         {
-            var token = await authenticationService.GetAccessTokenWithoutIdentity();
+            var token = await _authenticationService.GetAccessToken();
             var user = User.Current;
 
             var request = new UpdateUserInfoRequest
@@ -56,7 +51,12 @@ namespace Liquidity2.Extensions.Identity
                 UserName = user.Name
             };
 
-            await client.UpdateUserInfo(request);
+            await _client.UpdateUserInfo(request);
+        }
+
+        public void Subscribe(IEventBusRegistrator registrator)
+        {
+            registrator.Register(this);
         }
     }
 }

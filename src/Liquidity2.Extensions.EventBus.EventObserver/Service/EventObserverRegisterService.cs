@@ -6,22 +6,22 @@ namespace Liquidity2.Extensions.EventBus.EventObserver
 {
     public class EventObserverRegisterService : ApplicationStageObject
     {
-        private readonly IEventBusRegistrator registrator;
-        private readonly IEventObserverFactory factory;
+        private readonly IEventBusRegistrator _registrator;
+        private readonly IEventObserverFactory _factory;
 
         public EventObserverRegisterService(IEventBusRegistrator registrator, IEventObserverFactory factory)
         {
-            this.registrator = registrator;
-            this.factory = factory;
+            _registrator = registrator;
+            _factory = factory;
         }
 
         protected override int SecondaryStage => 100;
 
         protected override Task OnStart(CancellationToken token)
         {
-            foreach (var observer in factory.Create())
+            foreach (var observer in _factory.Create())
             {
-                observer.Subscribe(registrator);
+                observer.Subscribe(_registrator);
             }
 
             return Task.CompletedTask;

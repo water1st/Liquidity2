@@ -10,13 +10,13 @@ namespace Liquidity2.Extensions.EventBus
 {
     public partial class MemoryEventBus : IEventBus
     {
-        private readonly ILogger logger;
-        private readonly ConcurrentDictionary<string, ISet<object>> handlers;
+        private readonly ILogger _logger;
+        private readonly ConcurrentDictionary<string, ISet<object>> _handlers;
 
         public MemoryEventBus(ILogger<MemoryEventBus> logger)
         {
-            this.logger = logger;
-            handlers = new ConcurrentDictionary<string, ISet<object>>();
+            _logger = logger;
+            _handlers = new ConcurrentDictionary<string, ISet<object>>();
         }
 
         public async Task Publish<TEvent>(TEvent @event, CancellationToken token) where TEvent : Event
@@ -44,7 +44,7 @@ namespace Liquidity2.Extensions.EventBus
                 throw new ArgumentNullException(nameof(handler));
             }
 
-            var handlers = this.handlers.GetOrAdd(typeof(TEvent).FullName, new HashSet<object>());
+            var handlers = _handlers.GetOrAdd(typeof(TEvent).FullName, new HashSet<object>());
             handlers.Add(handler);
             return new Disposabler(() => Unsubscribe(handler));
         }
@@ -56,14 +56,14 @@ namespace Liquidity2.Extensions.EventBus
                 throw new ArgumentNullException(nameof(handler));
             }
 
-            var handlers = this.handlers.GetOrAdd(typeof(TEvent).FullName, new HashSet<object>());
+            var handlers = this._handlers.GetOrAdd(typeof(TEvent).FullName, new HashSet<object>());
             handlers.Remove(handler);
         }
 
 
         private async Task NotifyObservers<TEvent>(TEvent @event, CancellationToken token) where TEvent : Event
         {
-            if (handlers.TryGetValue(@event.GetType().FullName, out ISet<object> observers))
+            if (_handlers.TryGetValue(@event.GetType().FullName, out ISet<object> observers))
             {
                 var deadedObservers = new HashSet<IEventHandler<TEvent>>();
 
@@ -79,7 +79,7 @@ namespace Liquidity2.Extensions.EventBus
                     }
                     catch (Exception e)
                     {
-                        logger.LogError(e, e.Message);
+                        _logger.LogError(e, e.Message);
                         deadedObservers.Add(handler);
                     }
                 }

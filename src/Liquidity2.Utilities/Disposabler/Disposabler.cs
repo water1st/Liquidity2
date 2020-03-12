@@ -4,20 +4,20 @@ namespace Liquidity2.Utilities
 {
     public sealed class Disposabler : IDisposable
     {
-        private readonly Action dispose;
-        private bool disposed = false;
+        private readonly Action _dispose;
+        private bool _disposed = false;
 
         public Disposabler(Action dispose)
         {
-            this.dispose = dispose;
+            this._dispose = dispose;
         }
 
         public void Dispose()
         {
-            if (!disposed && dispose != null)
+            if (!_disposed && _dispose != null)
             {
-                dispose();
-                disposed = true;
+                _dispose();
+                _disposed = true;
             }
         }
     }

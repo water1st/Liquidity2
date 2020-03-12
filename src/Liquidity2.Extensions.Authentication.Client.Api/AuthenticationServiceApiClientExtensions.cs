@@ -12,7 +12,6 @@ namespace Liquidity2.Extensions.Authentication.Client.Api
         public static IAuthorizationBuilder AddApiClient(this IAuthorizationBuilder builder)
         {
             var service = builder.Services;
-            service.TryAddSingleton<IClientMapper, ClientMapper>();
             service.TryAddSingleton<IAuthenticationClientFactory, AuthenticationClientFactory>();
 
             var authorizationTypes = Enum.GetNames(typeof(AuthorizationType));
