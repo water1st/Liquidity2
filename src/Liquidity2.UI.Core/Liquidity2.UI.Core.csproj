@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Liquidity2.Extensions.EventBus.EventObserver\Liquidity2.Extensions.EventBus.EventObserver.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Lifecycle.Application\Liquidity2.Extensions.Lifecycle.Application.csproj" />
   </ItemGroup>
 

@@ -11,10 +11,10 @@ namespace Liquidity2.Extensions.Identity
     public class UserService : IUserService
     {
         private readonly IIdentityClient _client;
-        private readonly IAuthenticationService _authenticationService;
+        private readonly IAuthorizationService _authenticationService;
 
         public UserService(IIdentityClient client,
-            IAuthenticationService authenticationService)
+            IAuthorizationService authenticationService)
         {
             _client = client;
             _authenticationService = authenticationService;

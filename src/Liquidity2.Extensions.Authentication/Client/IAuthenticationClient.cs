@@ -6,6 +6,8 @@ namespace Liquidity2.Extensions.Authentication.Client
     {
         Task<GetPasswordAccessTokenResponse> GetPasswordAccessToken(GetPasswordAccessTokenRequest request);
 
+        Task<GetTradeAccessTokenResponse> GetTradeAccessToken(GetTradeAccessTokenRequest request);
+
         Task<GetClientCredentialAccessTokenResponse> GetClientCredentialAccessToken();
 
         Task<RefreshAccessTokenResponse> RefreshAccessToken(RefreshAccessTokenRequest request);

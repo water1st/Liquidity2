@@ -10,7 +10,7 @@ namespace Liquidity2.Extensions.EventBus.EventObserver
 
         public EventObserverFactory(IServiceProvider provider)
         {
-            this._provider = provider;
+            _provider = provider;
         }
 
         public IEnumerable<IEventObserver> Create()

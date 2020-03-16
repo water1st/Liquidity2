@@ -4,9 +4,9 @@ using Liquidity2.Extensions.EventBus.EventObserver;
 
 namespace Liquidity2.Extensions.Authentication.Service
 {
-    public interface IIdentityAuthenticationService :
-        IAuthenticationService<IdentityAuthentication>,
-        IEventHandler<IdentityAuthorizationSuccessEvent>,
+    public interface ITradeAuthorizationService :
+        IAuthenticationService<TradeAuthInfo>,
+        IEventHandler<TradeAuthorizationSuccessEvent>,
         IEventObserver
     {
     }

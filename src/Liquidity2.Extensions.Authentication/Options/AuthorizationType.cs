@@ -3,6 +3,7 @@
     public enum AuthorizationType
     {
         IdentityAuthentication,
-        ClientCredentialAuthentication
+        ClientCredentialAuthentication,
+        TradeAuthentication
     }
 }

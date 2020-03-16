@@ -5,11 +5,11 @@ namespace Liquidity2.Extensions.Authentication.Service
     /// <summary>
     /// 授权
     /// </summary>
-    public interface IAuthenticationService
+    public interface IAuthorizationService
     {
         Task<JWT> GetAccessToken();
     }
 
-    public interface IAuthenticationService<TAuthenticationType> : IAuthenticationService
-        where TAuthenticationType : IAuthenticationType { }
+    public interface IAuthenticationService<TAuthInfo> : IAuthorizationService
+        where TAuthInfo : IAuthInfo { }
 }

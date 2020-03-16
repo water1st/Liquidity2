@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Liquidity2.Extensions.Authentication.Service
 {
-    public class IdentityAuthenticationService : IIdentityAuthenticationService
+    public class IdentityAuthorizationService : IIdentityAuthorizationService
     {
         private readonly IAuthenticationClient _client;
         private readonly IAuthenticationMapper _mapper;
         private JWT _token;
 
-        public IdentityAuthenticationService(IAuthenticationClientFactory factory,
+        public IdentityAuthorizationService(IAuthenticationClientFactory factory,
             IAuthenticationMapper mapper)
         {
             _client = factory.Create(AuthorizationType.IdentityAuthentication);

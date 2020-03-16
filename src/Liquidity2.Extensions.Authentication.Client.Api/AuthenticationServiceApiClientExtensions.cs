@@ -9,7 +9,7 @@ namespace Liquidity2.Extensions.Authentication.Client.Api
 {
     public static class AuthenticationServiceApiClientExtensions
     {
-        public static IAuthorizationBuilder AddApiClient(this IAuthorizationBuilder builder)
+        public static IAuthorizationBuilder AddOpenidClient(this IAuthorizationBuilder builder)
         {
             var service = builder.Services;
             service.TryAddSingleton<IAuthenticationClientFactory, AuthenticationClientFactory>();
@@ -19,6 +19,16 @@ namespace Liquidity2.Extensions.Authentication.Client.Api
             {
                 AddAuthenticationClient(service, type);
             }
+
+            return builder;
+        }
+
+        public static IAuthorizationBuilder AddTradeClient<TTradeClient>(this IAuthorizationBuilder builder)
+            where TTradeClient : class, ITradeAccessClient
+        {
+            var service = builder.Services;
+
+            service.TryAddSingleton<ITradeAccessClient, TTradeClient>();
 
             return builder;
         }
@@ -36,13 +46,14 @@ namespace Liquidity2.Extensions.Authentication.Client.Api
             services.AddTransientNamedService<IAuthenticationClient>(name,
                 (provider, name) =>
                 {
-                    var httpClientFactory = provider.GetService<IHttpClientFactory>();
-                    var optionsMonitor = provider.GetService<IOptionsMonitor<AuthorizationOptions>>();
+                    var httpClientFactory = provider.GetRequiredService<IHttpClientFactory>();
+                    var optionsMonitor = provider.GetRequiredService<IOptionsMonitor<AuthorizationOptions>>();
                     var logger = provider.GetService<ILogger<AuthenticationClient>>();
+                    var tradeClient = provider.GetRequiredService<ITradeAccessClient>();
                     var httpClient = httpClientFactory.CreateClient(name);
                     var options = optionsMonitor.Get(name);
 
-                    var client = new AuthenticationClient(httpClient, options, logger);
+                    var client = new AuthenticationClient(httpClient, options, logger, tradeClient);
                     return client;
                 });
         }
