@@ -9,5 +9,6 @@ namespace Liquidity2.Extensions.Authentication
 
         IAuthorizationBuilder ConfigureClientCredentialOptions(Action<AuthorizationOptions> action);
         IAuthorizationBuilder ConfigureIdentityOptions(Action<AuthorizationOptions> action);
+        IAuthorizationBuilder ConfigureTradeOptions(Action<AuthorizationOptions> action);
     }
 }

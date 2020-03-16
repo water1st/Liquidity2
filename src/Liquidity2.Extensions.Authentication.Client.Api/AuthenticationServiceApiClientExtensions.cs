@@ -1,11 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Liquidity2.Extensions.Authentication.Client;
+using Liquidity2.Extensions.Authentication.Client.Api;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Net.Http;
 
-namespace Liquidity2.Extensions.Authentication.Client.Api
+namespace Liquidity2.Extensions.Authentication
 {
     public static class AuthenticationServiceApiClientExtensions
     {

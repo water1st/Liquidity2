@@ -71,6 +71,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liquidity2.Extensions.Ident
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Data.Client.Abstractions", "src\Liquidity2.Data.Client.Abstractions\Liquidity2.Data.Client.Abstractions.csproj", "{AFE668CA-3A7E-4262-AE7F-3011BB476ABE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{AE2BE1C9-5657-4E9F-9F12-04D0A5133351}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.Services.Abstractions", "src\Liquidity2.Extensions.Services.Abstractions\Liquidity2.Extensions.Services.Abstractions.csproj", "{8A022A95-3C1E-4A16-8DAA-EAD9D01D60B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAdapter", "DataAdapter", "{EB197FB9-29A4-4E41-8618-0CAC7B3F1708}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.DataAdapter", "src\Liquidity2.Extensions.DataAdapter\Liquidity2.Extensions.DataAdapter.csproj", "{7B71DEA1-00A2-4D30-89E2-05A818F63A15}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -165,6 +173,14 @@ Global
 		{AFE668CA-3A7E-4262-AE7F-3011BB476ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFE668CA-3A7E-4262-AE7F-3011BB476ABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFE668CA-3A7E-4262-AE7F-3011BB476ABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A022A95-3C1E-4A16-8DAA-EAD9D01D60B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A022A95-3C1E-4A16-8DAA-EAD9D01D60B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A022A95-3C1E-4A16-8DAA-EAD9D01D60B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A022A95-3C1E-4A16-8DAA-EAD9D01D60B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B71DEA1-00A2-4D30-89E2-05A818F63A15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B71DEA1-00A2-4D30-89E2-05A818F63A15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B71DEA1-00A2-4D30-89E2-05A818F63A15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B71DEA1-00A2-4D30-89E2-05A818F63A15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -202,6 +218,10 @@ Global
 		{C24388FA-B293-4AC6-A77F-C29ADA7A03BF} = {B99FF307-FDFA-4C96-BA16-A544ADB7D896}
 		{912CE82A-AB54-4204-A27B-D021B2D86023} = {C24388FA-B293-4AC6-A77F-C29ADA7A03BF}
 		{AFE668CA-3A7E-4262-AE7F-3011BB476ABE} = {8532D993-E3DA-4DBB-8ACA-D5F8477147D6}
+		{AE2BE1C9-5657-4E9F-9F12-04D0A5133351} = {B99FF307-FDFA-4C96-BA16-A544ADB7D896}
+		{8A022A95-3C1E-4A16-8DAA-EAD9D01D60B7} = {AE2BE1C9-5657-4E9F-9F12-04D0A5133351}
+		{EB197FB9-29A4-4E41-8618-0CAC7B3F1708} = {B99FF307-FDFA-4C96-BA16-A544ADB7D896}
+		{7B71DEA1-00A2-4D30-89E2-05A818F63A15} = {EB197FB9-29A4-4E41-8618-0CAC7B3F1708}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7B4E2B9A-0830-4FE0-A0BC-C30BD096BCA0}

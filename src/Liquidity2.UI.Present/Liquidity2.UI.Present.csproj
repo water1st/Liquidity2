@@ -6,4 +6,18 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Liquidity2.Extensions.Authentication.Client.Api\Liquidity2.Extensions.Authentication.Client.Api.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.Authentication.Grpc.Interceptors\Liquidity2.Extensions.Authentication.Grpc.Interceptors.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.Authentication\Liquidity2.Extensions.Authentication.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.DependencyInjection\Liquidity2.Extensions.DependencyInjection.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.EventBus.Abstractions\Liquidity2.Extensions.EventBus.Abstractions.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.EventBus.EventObserver\Liquidity2.Extensions.EventBus.EventObserver.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.EventBus.MemoryProvider\Liquidity2.Extensions.EventBus.MemoryProvider.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.Lifecycle.Abstractions\Liquidity2.Extensions.Lifecycle.Abstractions.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.Lifecycle.Application\Liquidity2.Extensions.Lifecycle.Application.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.Lifecycle\Liquidity2.Extensions.Lifecycle.csproj" />
+    <ProjectReference Include="..\Liquidity2.UI.Core\Liquidity2.UI.Core.csproj" />
+  </ItemGroup>
+
 </Project>
