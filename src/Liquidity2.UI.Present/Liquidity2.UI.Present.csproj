@@ -11,6 +11,10 @@
     <ProjectReference Include="..\Liquidity2.Extensions.Authentication.Client.Api\Liquidity2.Extensions.Authentication.Client.Api.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Authentication.Grpc.Interceptors\Liquidity2.Extensions.Authentication.Grpc.Interceptors.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Authentication\Liquidity2.Extensions.Authentication.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.BackgroundJob\Liquidity2.Extensions.BackgroundJob.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.Blocker.WPFBlocker\Liquidity2.Extensions.Blocker.WPFBlocker.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.Data.LocalStorage\Liquidity2.Extensions.Data.LocalStorage.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.Data.Network\Liquidity2.Extensions.Data.Network.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.DependencyInjection\Liquidity2.Extensions.DependencyInjection.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.EventBus.Abstractions\Liquidity2.Extensions.EventBus.Abstractions.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.EventBus.EventObserver\Liquidity2.Extensions.EventBus.EventObserver.csproj" />

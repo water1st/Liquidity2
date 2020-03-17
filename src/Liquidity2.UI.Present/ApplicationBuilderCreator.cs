@@ -1,12 +1,12 @@
-﻿using Liquidity2.UI.Core;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Liquidity2.Extensions.Authentication;
+using Liquidity2.Extensions.BackgroundJob;
+using Liquidity2.Extensions.Blocker.WPFBlocker;
+using Liquidity2.Extensions.Data.Network;
+using Liquidity2.Extensions.DependencyInjection;
 using Liquidity2.Extensions.EventBus;
 using Liquidity2.Extensions.Lifecycle;
-using Liquidity2.Extensions.DependencyInjection;
-using Liquidity2.Extensions.Authentication;
-
+using Liquidity2.UI.Core;
+using System;
 
 namespace Liquidity2.UI.Present
 {
@@ -52,8 +52,11 @@ namespace Liquidity2.UI.Present
                         options.ClientSecret = "";
                         options.IssuerUri = new Uri("");
                         options.Scope = "";
-                    })
-                    ;
+                    });
+
+                    service.AddBlocker();
+                    service.AddReconnectService();
+                    service.AddBackgroundJobService();
 
                 });
         }
