@@ -19,9 +19,9 @@ namespace Liquidity2.Extensions.Blocker.WPFBlocker
         {
             TResult result = default;
             var frame = new DispatcherFrame();
-            task.ContinueWith(t =>
+            task.ContinueWith(async t =>
             {
-                result = t.Result;
+                result = await t;
                 frame.Continue = false;
             });
             Dispatcher.PushFrame(frame);
