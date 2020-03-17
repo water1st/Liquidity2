@@ -1,21 +1,23 @@
-﻿using Liquidity2.Extensions.Lifecycle;
+﻿using Liquidity2.Extensions.Blocker;
+using Liquidity2.Extensions.Lifecycle;
 using Liquidity2.Extensions.Lifecycle.Application;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Threading;
 
 namespace Liquidity2.UI.Core.Core
 {
     public class WpfApplication : IWpfApplication
     {
         private IApplicationLifecycleSubject _applicationLifecycleSubject;
+        private readonly IBlocker _blocker;
 
         public WpfApplication(IServiceProvider service)
         {
             Services = service;
             Container.Insecure = service;
+            _blocker = service.GetService<IBlocker>();
             LifecycleRegister();
         }
 
@@ -23,12 +25,12 @@ namespace Liquidity2.UI.Core.Core
 
         public void Dispose()
         {
-            Block(_applicationLifecycleSubject.OnStop());
+            _blocker.Block(_applicationLifecycleSubject.OnStop());
         }
 
         public void Start()
         {
-            Block(_applicationLifecycleSubject.OnStart());
+            _blocker.Block(_applicationLifecycleSubject.OnStart());
         }
 
         public async Task StartAsync(CancellationToken cancellationToken = default)
@@ -50,16 +52,6 @@ namespace Liquidity2.UI.Core.Core
             {
                 lifecycleObserver.Participate(_applicationLifecycleSubject);
             }
-        }
-
-        private void Block(Task task)
-        {
-            var frame = new DispatcherFrame();
-            task.ContinueWith(_ =>
-            {
-                frame.Continue = false;
-            });
-            Dispatcher.PushFrame(frame);
         }
     }
 }
