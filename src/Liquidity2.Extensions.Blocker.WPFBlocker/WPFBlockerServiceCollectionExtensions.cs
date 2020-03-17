@@ -1,12 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Liquidity2.Extensions.Blocker.WPFBlocker
 {
     public static class WPFBlockerServiceCollectionExtensions
     {
-        public static void AddWPFBlockerProvider(this IBlockerBuilder builder)
+        public static IServiceCollection AddBlocker(this IServiceCollection services)
         {
-            builder.Services.TryAddSingleton<IBlocker, Blocker>();
+            services.TryAddSingleton<IBlocker, Blocker>();
+
+            return services;
         }
     }
 }
