@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <RootNamespace>Liquidity2.UI</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +19,13 @@
     <ProjectReference Include="..\Liquidity2.Extensions.Lifecycle.Application\Liquidity2.Extensions.Lifecycle.Application.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Lifecycle\Liquidity2.Extensions.Lifecycle.csproj" />
     <ProjectReference Include="..\Liquidity2.UI.Core\Liquidity2.UI.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\ErrorPresent\" />
+    <Folder Include="Services\Authentication\" />
+    <Folder Include="Templates\Black\" />
+    <Folder Include="Windows\" />
   </ItemGroup>
 
 </Project>
