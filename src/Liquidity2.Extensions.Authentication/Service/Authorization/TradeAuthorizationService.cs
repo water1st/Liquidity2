@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Liquidity2.Extensions.Authentication.Service
 {
-    public class TradeAuthorizationService : ITradeAuthorizationService
+    internal class TradeAuthorizationService : ITradeAuthorizationService
     {
         private JWT _token;
         public Task<JWT> GetAccessToken()

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Liquidity2.Extensions.Authentication.Service
 {
-    public class IdentityAuthorizationService : IIdentityAuthorizationService
+    internal class IdentityAuthorizationService : IIdentityAuthorizationService
     {
         private readonly IAuthenticationClient _client;
         private readonly IAuthenticationMapper _mapper;

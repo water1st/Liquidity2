@@ -20,9 +20,11 @@ namespace Liquidity2.UI.Present
                     ///注册总线
                     service.AddEventBus()
                     .AddMemoryProvider()
+                    //事件观察者重载可使用builder注册事件观察者
                     .AddEventObservers();
                     //注册生命周期
                     service.AddLifecycle()
+                    //应用程序生命周期重载可使用builder注册应用程序生命周期对象
                     .AddApplicationLifecycle();
                     //注册依赖注入服务
                     service.AddDependencyInjectionService();

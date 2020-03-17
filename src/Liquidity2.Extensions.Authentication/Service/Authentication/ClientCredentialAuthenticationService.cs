@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Liquidity2.Extensions.Authentication.Service
 {
-    public class ClientCredentialAuthenticationService : IAuthorizationService<ClientCredentialAuthInfo>
+    internal class ClientCredentialAuthenticationService : IAuthorizationService<ClientCredentialAuthInfo>
     {
         private readonly IEventBus _eventBus;
         private readonly IAuthenticationClientFactory _factory;

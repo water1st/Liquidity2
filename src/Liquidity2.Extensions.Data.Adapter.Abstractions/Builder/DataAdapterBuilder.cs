@@ -3,7 +3,7 @@ using System;
 
 namespace Liquidity2.Extensions.Data.Adapter
 {
-    public class DataAdapterBuilder<TService> : IDataAdapterBuilder<TService> where TService : class
+    internal class DataAdapterBuilder<TService> : IDataAdapterBuilder<TService> where TService : class
     {
         private readonly IServiceCollection _services;
 
