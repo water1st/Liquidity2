@@ -1,4 +1,5 @@
 ﻿using Liquidity2.Extensions.Identity;
+using Liquidity2.Extensions.WindowPostions;
 using Liquidity2.UI.Core;
 using Liquidity2.UI.Services;
 using System.Windows;

@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace Liquidity2.UI.Core
 {
-    public class WindowBase : Window, INotifyPropertyChanged, IWindowPostion
+    public class WindowBase : Window, INotifyPropertyChanged, IWindowPostion, ITemplateLoader
     {
         private readonly IWindowCommonBehavior _windowCommonBehavior;
         protected bool GroupActivate;
@@ -140,5 +140,7 @@ namespace Liquidity2.UI.Core
         {
             OnSearchText(e.PropertyName);
         }
+
+        public void LoadeTemplate() => _windowCommonBehavior.LoadeTemplate();
     }
 }
