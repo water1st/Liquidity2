@@ -1,29 +1,21 @@
-﻿using Liquidity2.Extensions.EventBus.EventObserver;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 
-namespace Liquidity2.UI.Core.Core
+namespace Liquidity2.UI.Core
 {
     public class WindowFactory : IWindowFactory
     {
-        private readonly IServiceProvider provider;
-        private readonly IEventBusRegistrator registrator;
+        private readonly IServiceProvider _provider;
 
-        public WindowFactory(IServiceProvider provider, IEventBusRegistrator registrator)
+        public WindowFactory(IServiceProvider provider)
         {
-            this.provider = provider;
-            this.registrator = registrator;
+            _provider = provider;
         }
 
         public TWindow Create<TWindow>() where TWindow : Window
         {
-            var window = provider.GetService<TWindow>();
-            if (window is IEventObserver observer)
-            {
-                observer.Subscribe(registrator);
-            }
-
+            var window = _provider.GetService<TWindow>();
             return window;
         }
     }

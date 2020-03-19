@@ -87,6 +87,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.Block
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.Blocker.WPFBlocker", "src\Liquidity2.Extensions.Blocker.WPFBlocker\Liquidity2.Extensions.Blocker.WPFBlocker.csproj", "{A2DD1A61-94CB-492B-B132-D5EFD2D8B6B7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows", "Windows", "{A88CD10F-0B12-4051-8BFB-6AD782A2BD55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.WindowPostions", "src\Liquidity2.Extensions.WindowPostions\Liquidity2.Extensions.WindowPostions.csproj", "{ED903E14-2D7F-4035-A257-F263C8B7B9BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.WindowPostions.Data.LocalStorage", "src\Liquidity2.Extensions.WindowPostions.Data.LocalStorage\Liquidity2.Extensions.WindowPostions.Data.LocalStorage.csproj", "{BC3E4FD9-702B-4A1A-AFF3-6207B098959D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.Data.CRUD.Abstractions", "src\Liquidity2.Extensions.Data.CRUD.Abstractions\Liquidity2.Extensions.Data.CRUD.Abstractions.csproj", "{BB559AA5-C9A2-43F4-B84C-639C703168EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.Data.Dapper.Extend", "src\Liquidity2.Extensions.Data.Dapper.Extend\Liquidity2.Extensions.Data.Dapper.Extend.csproj", "{E527AEC2-CEF2-40B9-9831-CDB264901424}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -201,6 +211,22 @@ Global
 		{A2DD1A61-94CB-492B-B132-D5EFD2D8B6B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2DD1A61-94CB-492B-B132-D5EFD2D8B6B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2DD1A61-94CB-492B-B132-D5EFD2D8B6B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED903E14-2D7F-4035-A257-F263C8B7B9BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED903E14-2D7F-4035-A257-F263C8B7B9BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED903E14-2D7F-4035-A257-F263C8B7B9BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED903E14-2D7F-4035-A257-F263C8B7B9BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC3E4FD9-702B-4A1A-AFF3-6207B098959D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC3E4FD9-702B-4A1A-AFF3-6207B098959D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC3E4FD9-702B-4A1A-AFF3-6207B098959D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC3E4FD9-702B-4A1A-AFF3-6207B098959D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB559AA5-C9A2-43F4-B84C-639C703168EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB559AA5-C9A2-43F4-B84C-639C703168EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB559AA5-C9A2-43F4-B84C-639C703168EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB559AA5-C9A2-43F4-B84C-639C703168EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E527AEC2-CEF2-40B9-9831-CDB264901424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E527AEC2-CEF2-40B9-9831-CDB264901424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E527AEC2-CEF2-40B9-9831-CDB264901424}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E527AEC2-CEF2-40B9-9831-CDB264901424}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -246,6 +272,11 @@ Global
 		{FE64E863-DFAB-4D01-8478-F8E23D164038} = {B99FF307-FDFA-4C96-BA16-A544ADB7D896}
 		{A3B07237-A778-4EA8-A1F5-57293793826A} = {FE64E863-DFAB-4D01-8478-F8E23D164038}
 		{A2DD1A61-94CB-492B-B132-D5EFD2D8B6B7} = {FE64E863-DFAB-4D01-8478-F8E23D164038}
+		{A88CD10F-0B12-4051-8BFB-6AD782A2BD55} = {B99FF307-FDFA-4C96-BA16-A544ADB7D896}
+		{ED903E14-2D7F-4035-A257-F263C8B7B9BD} = {A88CD10F-0B12-4051-8BFB-6AD782A2BD55}
+		{BC3E4FD9-702B-4A1A-AFF3-6207B098959D} = {A88CD10F-0B12-4051-8BFB-6AD782A2BD55}
+		{BB559AA5-C9A2-43F4-B84C-639C703168EC} = {CF9BA604-DDA5-4DA1-AED7-666DABD45EC9}
+		{E527AEC2-CEF2-40B9-9831-CDB264901424} = {CF9BA604-DDA5-4DA1-AED7-666DABD45EC9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7B4E2B9A-0830-4FE0-A0BC-C30BD096BCA0}

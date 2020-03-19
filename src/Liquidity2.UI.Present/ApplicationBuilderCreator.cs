@@ -5,6 +5,7 @@ using Liquidity2.Extensions.Data.Network;
 using Liquidity2.Extensions.DependencyInjection;
 using Liquidity2.Extensions.EventBus;
 using Liquidity2.Extensions.Lifecycle;
+using Liquidity2.UI.Components;
 using Liquidity2.UI.Core;
 using System;
 
@@ -31,6 +32,7 @@ namespace Liquidity2.UI.Present
                     //注册授权服务
                     service.AddAuthentication()
                     .AddOpenidClient()
+                    //添加交易服务客户端
                     //.AddTradeClient<TTradeClientImp>()
                     .ConfigureClientCredentialOptions(options =>
                     {
@@ -57,6 +59,11 @@ namespace Liquidity2.UI.Present
                     service.AddBlocker();
                     service.AddReconnectService();
                     service.AddBackgroundJobService();
+                    service.AddUICore(builder => builder.UseTemplate("BLACK"))
+                    .AddUIComponents()
+                    .AddUIService()
+                    .AddWindows();
+
 
                 });
         }

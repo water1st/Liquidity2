@@ -6,7 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Liquidity2.UI.Core.Core
+namespace Liquidity2.UI.Core
 {
     public class WpfApplication : IWpfApplication
     {

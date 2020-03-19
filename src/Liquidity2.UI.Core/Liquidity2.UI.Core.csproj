@@ -18,6 +18,7 @@
     <ProjectReference Include="..\Liquidity2.Extensions.Blocker.Abstractions\Liquidity2.Extensions.Blocker.Abstractions.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.EventBus.EventObserver\Liquidity2.Extensions.EventBus.EventObserver.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Lifecycle.Application\Liquidity2.Extensions.Lifecycle.Application.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.WindowPostions\Liquidity2.Extensions.WindowPostions.csproj" />
   </ItemGroup>
 
 </Project>

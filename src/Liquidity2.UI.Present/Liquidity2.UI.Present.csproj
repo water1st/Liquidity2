@@ -19,17 +19,19 @@
     <ProjectReference Include="..\Liquidity2.Extensions.EventBus.Abstractions\Liquidity2.Extensions.EventBus.Abstractions.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.EventBus.EventObserver\Liquidity2.Extensions.EventBus.EventObserver.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.EventBus.MemoryProvider\Liquidity2.Extensions.EventBus.MemoryProvider.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.Identity\Liquidity2.Extensions.Identity.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Lifecycle.Abstractions\Liquidity2.Extensions.Lifecycle.Abstractions.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Lifecycle.Application\Liquidity2.Extensions.Lifecycle.Application.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Lifecycle\Liquidity2.Extensions.Lifecycle.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.WindowPostions\Liquidity2.Extensions.WindowPostions.csproj" />
+    <ProjectReference Include="..\Liquidity2.Service\Liquidity2.Service.csproj" />
+    <ProjectReference Include="..\Liquidity2.UI.Components\Liquidity2.UI.Components.csproj" />
     <ProjectReference Include="..\Liquidity2.UI.Core\Liquidity2.UI.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Services\ErrorPresent\" />
-    <Folder Include="Services\Authentication\" />
     <Folder Include="Templates\Black\" />
-    <Folder Include="Windows\" />
   </ItemGroup>
 
 </Project>
