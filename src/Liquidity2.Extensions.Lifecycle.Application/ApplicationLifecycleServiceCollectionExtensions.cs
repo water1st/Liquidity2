@@ -1,9 +1,9 @@
-﻿using Liquidity2.Extensions.Lifecycle.Application;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Liquidity2.Extensions.Lifecycle;
+using Liquidity2.Extensions.Lifecycle.Application;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 
-namespace Liquidity2.Extensions.Lifecycle
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ApplicationLifecycleServiceCollectionExtensions
     {

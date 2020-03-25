@@ -2,9 +2,8 @@
 using Liquidity2.Extensions.Lifecycle.Application;
 using Liquidity2.UI.Core.Builder;
 using Liquidity2.UI.Services;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace Liquidity2.UI
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class UIServiceExtensions
     {

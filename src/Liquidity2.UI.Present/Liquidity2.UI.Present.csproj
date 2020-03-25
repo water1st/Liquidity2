@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Page Remove="Templates\Black\LoginWindow_Template.xaml" />
+    <Page Remove="Templates\Black\NavigationWindow_Template.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Liquidity2.Data.LocalStorageFile\Liquidity2.Data.LocalStorageFile.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Authentication.Client.Api\Liquidity2.Extensions.Authentication.Client.Api.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Authentication.Grpc.Interceptors\Liquidity2.Extensions.Authentication.Grpc.Interceptors.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Authentication\Liquidity2.Extensions.Authentication.csproj" />
@@ -23,6 +29,7 @@
     <ProjectReference Include="..\Liquidity2.Extensions.Lifecycle.Abstractions\Liquidity2.Extensions.Lifecycle.Abstractions.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Lifecycle.Application\Liquidity2.Extensions.Lifecycle.Application.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Lifecycle\Liquidity2.Extensions.Lifecycle.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.WindowPostions.Data.LocalStorage\Liquidity2.Extensions.WindowPostions.Data.LocalStorage.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.WindowPostions\Liquidity2.Extensions.WindowPostions.csproj" />
     <ProjectReference Include="..\Liquidity2.Service\Liquidity2.Service.csproj" />
     <ProjectReference Include="..\Liquidity2.UI.Components\Liquidity2.UI.Components.csproj" />
@@ -31,7 +38,15 @@
 
   <ItemGroup>
     <Folder Include="Services\ErrorPresent\" />
-    <Folder Include="Templates\Black\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Templates\Black\LoginWindow_Template.xaml" />
+    <Resource Include="Templates\Black\NavigationWindow_Template.xaml" />
   </ItemGroup>
 
 </Project>

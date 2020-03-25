@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Liquidity2.Extensions.Lifecycle;
 
-namespace Liquidity2.Extensions.Lifecycle
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class LifecycleServiceCollectionExtensions
     {

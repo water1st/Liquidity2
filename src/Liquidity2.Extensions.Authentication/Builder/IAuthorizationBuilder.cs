@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Liquidity2.Extensions.Authentication;
 using System;
 
-namespace Liquidity2.Extensions.Authentication
+namespace Microsoft.Extensions.DependencyInjection
 {
     public interface IAuthorizationBuilder
     {

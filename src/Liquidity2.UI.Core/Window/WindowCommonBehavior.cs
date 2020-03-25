@@ -242,7 +242,7 @@ namespace Liquidity2.UI.Core
         {
             _window.AllowsTransparency = true;
             _window.WindowStyle = WindowStyle.None;
-            string resourceName = $"{GetType().Name}_Style";
+            string resourceName = $"{_window.GetType().Name}_Style";
             _window.Style = (Style)Application.Current.Resources[resourceName];
 
             ConfigureWindowChrome();

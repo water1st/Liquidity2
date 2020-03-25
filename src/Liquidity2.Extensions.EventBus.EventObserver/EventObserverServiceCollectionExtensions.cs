@@ -1,9 +1,10 @@
-﻿using Liquidity2.Extensions.EventBus.EventObserver;
+﻿using Liquidity2.Extensions.EventBus;
+using Liquidity2.Extensions.EventBus.EventObserver;
 using Liquidity2.Extensions.Lifecycle.Application;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 
-namespace Liquidity2.Extensions.EventBus
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class EventObserverServiceCollectionExtensions
     {

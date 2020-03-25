@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Liquidity2.Extensions.WindowPostions;
 
-namespace Liquidity2.Extensions.WindowPostions
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class WindowPostionExtensions
     {

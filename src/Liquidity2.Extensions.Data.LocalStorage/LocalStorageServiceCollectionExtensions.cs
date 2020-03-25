@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Liquidity2.Extensions.Data.LocalStorage;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 
-namespace Liquidity2.Extensions.Data.LocalStorage
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class LocalStorageServiceCollectionExtensions
     {

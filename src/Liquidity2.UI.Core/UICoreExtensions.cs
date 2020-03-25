@@ -1,9 +1,10 @@
-﻿using Liquidity2.UI.Core.Builder;
+﻿using Liquidity2.UI.Core;
+using Liquidity2.UI.Core.Builder;
 using Liquidity2.UI.Core.Options;
-using Microsoft.Extensions.DependencyInjection;
 using System;
+using Liquidity2.Extensions.Lifecycle.Application;
 
-namespace Liquidity2.UI.Core
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class UICoreExtensions
     {
@@ -11,6 +12,9 @@ namespace Liquidity2.UI.Core
         {
             services.AddSingleton<IWindowFactory, WindowFactory>();
             services.AddTransient<IWindowCommonBehavior, WindowCommonBehavior>();
+            services.AddSingleton<IResourceLoader, ResourceLoader>();
+            services.AddApplicationStageObject<LoadResourceLifecycleStageObject>();
+
             var options = new UIOptions();
             services.AddSingleton(options);
             var builder = new UICoreBuilder(options);

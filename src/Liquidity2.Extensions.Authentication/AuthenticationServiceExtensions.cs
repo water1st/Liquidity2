@@ -1,10 +1,10 @@
-﻿using Liquidity2.Extensions.Authentication.Factories;
+﻿using Liquidity2.Extensions.Authentication;
+using Liquidity2.Extensions.Authentication.Factories;
 using Liquidity2.Extensions.Authentication.Mapper;
 using Liquidity2.Extensions.Authentication.Service;
 using Liquidity2.Extensions.EventBus.EventObserver;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace Liquidity2.Extensions.Authentication
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class AuthenticationServiceExtensions
     {
@@ -13,21 +13,21 @@ namespace Liquidity2.Extensions.Authentication
             services.AddSingleton<IAuthenticationServiceFactory, AuthenticationServiceFactory>();
             services.AddSingleton<IAuthenticationMapper, AuthenticationMapper>();
 
-            services.AddSingletonNamedService<IAuthorizationService<IdentityAuthInfo>, IdentityAuthenticationService>(AuthorizationType.IdentityAuthentication.ToString());
-            services.AddSingletonNamedService<IAuthorizationService<TradeAuthInfo>, TradeAuthenticationService>(AuthorizationType.TradeAuthentication.ToString());
-            services.AddSingletonNamedService<IAuthorizationService<ClientCredentialAuthInfo>, ClientCredentialAuthenticationService>(AuthorizationType.ClientCredentialAuthentication.ToString());
+            services.AddSingleton<IAuthorizationService<IdentityAuthInfo>, IdentityAuthenticationService>();
+            services.AddSingleton<IAuthorizationService<TradeAuthInfo>, TradeAuthenticationService>();
+            services.AddSingleton<IAuthorizationService<ClientCredentialAuthInfo>, ClientCredentialAuthenticationService>();
 
             services.AddSingleton<ClientCredentialAuthorizationService>();
-            services.AddSingleton<IEventObserver>(provider => provider.GetService<ClientCredentialAuthorizationService>());
-            services.AddSingletonNamedService<IAuthorizationService>(AuthorizationType.ClientCredentialAuthentication.ToString(), (provider, key) => provider.GetService<ClientCredentialAuthorizationService>());
+            services.AddSingleton<IEventObserver>(provider => provider.GetRequiredService<ClientCredentialAuthorizationService>());
+            services.AddSingletonNamedService<IAuthorizationService>(AuthorizationType.ClientCredentialAuthentication.ToString(), (provider, key) => provider.GetRequiredService<ClientCredentialAuthorizationService>());
 
-            services.AddSingleton<IdentityAuthenticationService>();
-            services.AddSingleton<IEventObserver>(provider => provider.GetService<IdentityAuthorizationService>());
-            services.AddSingletonNamedService<IAuthorizationService>(AuthorizationType.IdentityAuthentication.ToString(), (provider, key) => provider.GetService<IdentityAuthorizationService>());
+            services.AddSingleton<IdentityAuthorizationService>();
+            services.AddSingleton<IEventObserver>(provider => provider.GetRequiredService<IdentityAuthorizationService>());
+            services.AddSingletonNamedService<IAuthorizationService>(AuthorizationType.IdentityAuthentication.ToString(), (provider, key) => provider.GetRequiredService<IdentityAuthorizationService>());
 
             services.AddSingleton<TradeAuthorizationService>();
-            services.AddSingleton<IEventObserver>(provider => provider.GetService<TradeAuthorizationService>());
-            services.AddSingletonNamedService<IAuthorizationService>(AuthorizationType.TradeAuthentication.ToString(), (provider, key) => provider.GetService<TradeAuthorizationService>());
+            services.AddSingleton<IEventObserver>(provider => provider.GetRequiredService<TradeAuthorizationService>());
+            services.AddSingletonNamedService<IAuthorizationService>(AuthorizationType.TradeAuthentication.ToString(), (provider, key) => provider.GetRequiredService<TradeAuthorizationService>());
 
             return new AuthorizationBuilder(services);
         }

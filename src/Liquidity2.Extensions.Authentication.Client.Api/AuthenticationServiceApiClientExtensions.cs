@@ -1,13 +1,14 @@
-﻿using Liquidity2.Extensions.Authentication.Client;
+﻿using Liquidity2.Extensions.Authentication;
+using Liquidity2.Extensions.Authentication.Client;
 using Liquidity2.Extensions.Authentication.Client.Api;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Linq;
 using System.Net.Http;
 
-namespace Liquidity2.Extensions.Authentication
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class AuthenticationServiceApiClientExtensions
     {
@@ -15,12 +16,15 @@ namespace Liquidity2.Extensions.Authentication
         {
             var service = builder.Services;
             service.TryAddSingleton<IAuthenticationClientFactory, AuthenticationClientFactory>();
+            service.TryAddSingleton<ITradeAccessClient, NullTradeClient>();
 
             var authorizationTypes = Enum.GetNames(typeof(AuthorizationType));
             foreach (var type in authorizationTypes)
             {
                 AddAuthenticationClient(service, type);
             }
+
+            
 
             return builder;
         }
@@ -29,6 +33,12 @@ namespace Liquidity2.Extensions.Authentication
             where TTradeClient : class, ITradeAccessClient
         {
             var service = builder.Services;
+            var serviceInfo = service.FirstOrDefault(sd =>
+             sd.ServiceType == typeof(ITradeAccessClient) &&
+             sd.ImplementationType == typeof(NullTradeClient));
+
+            if (serviceInfo != null)
+                service.Remove(serviceInfo);
 
             service.TryAddSingleton<ITradeAccessClient, TTradeClient>();
 

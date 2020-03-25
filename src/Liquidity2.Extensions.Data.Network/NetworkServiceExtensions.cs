@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Liquidity2.Extensions.Data.Network;
 
-namespace Liquidity2.Extensions.Data.Network
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class NetworkServiceExtensions
     {

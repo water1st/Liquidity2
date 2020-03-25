@@ -1,7 +1,7 @@
-﻿using Liquidity2.Extensions.WindowPostions.Client;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Liquidity2.Extensions.WindowPostions;
+using Liquidity2.Extensions.WindowPostions.Client;
 
-namespace Liquidity2.Extensions.WindowPostions
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class WindowPostionLocalStorageClientExtensions
     {

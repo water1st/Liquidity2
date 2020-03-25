@@ -19,13 +19,13 @@ namespace Liquidity2.UI.Present
         protected override void OnStartup(StartupEventArgs e)
         {
             application = ApplicationBuilderCreator.CreateAppBuilder().Build();
-            //application.Start();
+            application.Start();
             base.OnStartup(e);
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
-            //application.Dispose();
+            application.Dispose();
             base.OnExit(e);
         }
     }

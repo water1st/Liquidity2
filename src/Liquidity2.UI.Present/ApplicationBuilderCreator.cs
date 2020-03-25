@@ -1,13 +1,18 @@
 ﻿using Liquidity2.Extensions.Authentication;
 using Liquidity2.Extensions.BackgroundJob;
 using Liquidity2.Extensions.Blocker.WPFBlocker;
+using Liquidity2.Extensions.Data.LocalStorage;
 using Liquidity2.Extensions.Data.Network;
 using Liquidity2.Extensions.DependencyInjection;
 using Liquidity2.Extensions.EventBus;
 using Liquidity2.Extensions.Lifecycle;
+using Liquidity2.Extensions.WindowPostions;
 using Liquidity2.UI.Components;
 using Liquidity2.UI.Core;
+using Liquidity2.UI.Templates;
+using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.IO;
 
 namespace Liquidity2.UI.Present
 {
@@ -34,32 +39,27 @@ namespace Liquidity2.UI.Present
                     .AddOpenidClient()
                     //添加交易服务客户端
                     //.AddTradeClient<TTradeClientImp>()
-                    .ConfigureClientCredentialOptions(options =>
-                    {
-                        options.ClientId = "";
-                        options.ClientSecret = "";
-                        options.IssuerUri = new Uri("");
-                        options.Scope = "";
-                    })
                     .ConfigureIdentityOptions(options =>
                     {
-                        options.ClientId = "";
-                        options.ClientSecret = "";
-                        options.IssuerUri = new Uri("");
-                        options.Scope = "";
-                    })
-                    .ConfigureTradeOptions(options =>
-                    {
-                        options.ClientId = "";
-                        options.ClientSecret = "";
-                        options.IssuerUri = new Uri("");
-                        options.Scope = "";
+                        options.ClientId = "trades_grpc_client";
+                        options.ClientSecret = "abb21609-f9a4-2b28-6622-ec410abe648b";
+                        options.IssuerUri = new Uri("http://47.56.95.192:20000/");
+                        options.Scope = "profile openid trades_api offline_access";
                     });
+                    service.AddLocalStorage(options =>
+                    {
+                        var fileName = $"{Directory.GetCurrentDirectory()}\\localstorage.db";
+                        options.UseSQLite($"Data Source={fileName};Version=3;");
+                    });
+                    service.AddMemoryCache();
+
+                    service.AddWindowPostionService()
+                    .AddWindowPostionsLocalStorageClient();
 
                     service.AddBlocker();
                     service.AddReconnectService();
                     service.AddBackgroundJobService();
-                    service.AddUICore(builder => builder.UseTemplate("BLACK"))
+                    service.AddUICore(builder => builder.UseTemplate(TemplateNames.BLACK))
                     .AddUIComponents()
                     .AddUIService()
                     .AddWindows();

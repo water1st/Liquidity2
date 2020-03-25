@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Liquidity2.Extensions.EventBus;
 
-namespace Liquidity2.Extensions.EventBus
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class EventBusServiceCollectionExtensions
     {

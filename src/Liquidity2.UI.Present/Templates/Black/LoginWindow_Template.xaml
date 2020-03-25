@@ -1,0 +1,324 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:attachProperties="clr-namespace:Liquidity2.UI.Components.AttachProperties;assembly=Liquidity2.UI.Components">
+
+    <ControlTemplate x:Key="LoginWindow_Template">
+        <ControlTemplate.Resources>
+            <Style x:Key="TitleBarButtonStyle" TargetType="Button">
+                <Setter Property="Height" Value="12" />
+                <Setter Property="Width" Value="12" />
+                <Setter Property="Foreground" Value="#333333" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="Transparent">
+                                <ContentPresenter />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetProperty="Foreground.Color" To="#EB2832" Duration="0:0:0.2" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetProperty="Foreground.Color" To="#333333" Duration="0:0:0.2" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="TextBoxBorderStyle" TargetType="Border">
+                <Setter Property="CornerRadius" Value="17" />
+                <Setter Property="Background" Value="#F2F6FF" />
+                <Setter Property="BorderBrush" Value="#C1D0DC" />
+                <Setter Property="Height" Value="34" />
+                <Setter Property="Width" Value="250" />
+            </Style>
+
+            <Style x:Key="ImageCanvasStyle" TargetType="Canvas">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Height" Value="16" />
+                <Setter Property="Width" Value="14" />
+            </Style>
+
+            <VisualBrush x:Key="HintTextAccount" Opacity="0.5" Stretch="None" AlignmentX="Left">
+                <VisualBrush.Visual>
+                    <TextBlock Foreground="#CECECE" Text="请输入账号" />
+                </VisualBrush.Visual>
+            </VisualBrush>
+            <Style x:Key="TextBoxStyleAccount" TargetType="TextBox">
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Background" Value="#F2F6FF" />
+                <Setter Property="Foreground" Value="#333333" />
+                <Style.Triggers>
+                    <Trigger Property="Text" Value="{x:Null}">
+                        <Setter Property="Background" Value="{StaticResource HintTextAccount}" />
+                    </Trigger>
+                    <Trigger Property="Text" Value="">
+                        <Setter Property="Background" Value="{StaticResource HintTextAccount}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <VisualBrush x:Key="HintTextPassword" Opacity="0.5" Stretch="None" AlignmentX="Left">
+                <VisualBrush.Visual>
+                    <TextBlock Foreground="#CECECE" Text="请输入密码" />
+                </VisualBrush.Visual>
+            </VisualBrush>
+            <Style x:Key="TextBoxStylePassword" TargetType="TextBox">
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Background" Value="#F2F6FF" />
+                <Setter Property="Foreground" Value="#333333" />
+                <Style.Triggers>
+                    <Trigger Property="Text" Value="{x:Null}">
+                        <Setter Property="Background" Value="{StaticResource HintTextPassword}" />
+                    </Trigger>
+                    <Trigger Property="Text" Value="">
+                        <Setter Property="Background" Value="{StaticResource HintTextPassword}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="PasswordBoxStylePassword" TargetType="PasswordBox">
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Background" Value="#F2F6FF" />
+                <Setter Property="Foreground" Value="#333333" />
+                <Style.Triggers>
+                    <Trigger Property="attachProperties:PasswordBoxProperty.Password" Value="{x:Null}">
+                        <Setter Property="Background" Value="{StaticResource HintTextPassword}" />
+                    </Trigger>
+                    <Trigger Property="attachProperties:PasswordBoxProperty.Password" Value="">
+                        <Setter Property="Background" Value="{StaticResource HintTextPassword}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
+                <Setter Property="Foreground" Value="#BABABA" />
+                <Setter Property="BorderBrush" Value="#999999" />
+                <Setter Property="Height" Value="16" />
+                <Setter Property="Width" Value="120" />
+                <Style.Triggers>
+                    <Trigger Property="IsChecked" Value="true">
+                        <Setter Property="BorderBrush" Value="#1564F7" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="LoginButton" TargetType="Button">
+                <Setter Property="Background" Value="#1564F7" />
+                <Setter Property="Foreground" Value="#FFFFFF" />
+                <Setter Property="Height" Value="30" />
+                <Setter Property="Width" Value="250" />
+                <Setter Property="Content" Value="登录" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Name="Border" Background="{TemplateBinding Background}">
+                                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Background.Color" To="#3A78FF" Duration="0:0:0.2" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Background.Color" To="#1564F7" Duration="0:0:0.2" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ControlTemplate.Resources>
+        <Grid Background="#FFFFFF">
+            <Grid.InputBindings>
+                <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.WindowDragMoveCmd, RelativeSource={RelativeSource AncestorType=Window}}" />
+            </Grid.InputBindings>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="428" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+            <Canvas>
+                <Path Fill="#333333">
+                    <Path.Data>
+                        <PathGeometry Figures="M299.144531,-1.70530257e-13 C286.16276,60 309.226563,113.666667 368.335938,161 C457,232 419.457031,307.810547 413.675781,334 C407.894531,360.189453 400,378.228516 416.625,420 L0,420 L0,-1.70530257e-13" />
+                    </Path.Data>
+                </Path>
+            </Canvas>
+            <Grid Grid.Column="1" Margin="60,0,0,0" VerticalAlignment="Center">
+                <Grid.DataContext>
+                    <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=Window}" />
+                </Grid.DataContext>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="34" />
+                    <RowDefinition Height="22" />
+                    <RowDefinition Height="54" />
+                    <RowDefinition Height="44" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="16" />
+                </Grid.RowDefinitions>
+                <TextBlock Foreground="#333333" FontSize="18" Text="用户登录" />
+                <TextBlock Grid.Row="1" HorizontalAlignment="Center" Foreground="#F51313" FontSize="12" Text="{Binding ErrorMessage, Mode=TwoWay}" />
+                <Border Grid.Row="2" Style="{StaticResource TextBoxBorderStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="14" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="36" />
+                        </Grid.ColumnDefinitions>
+                        <Canvas Grid.Column="1" Style="{StaticResource ImageCanvasStyle}">
+                            <Path Fill="#999999" Opacity="0.5">
+                                <Path.Data>
+                                    <PathGeometry FillRule="Nonzero" Figures="M14,14.3438453 L14,1.69634939 C14,0.77160217 13.0211636,0.0200973465 11.8148923,0.0200973465 L2.18520453,0.0200973465 C0.978836436,0.0200973465 0,0.76976623 0,1.69634939 L0,14.3438453 C0,15.2686121 0.978836436,16.0200973 2.18520453,16.0200973 L11.8148923,16.0200973 C13.0211636,16.0200973 14,15.2686121 14,14.3438453 Z M2.55324299,14.5655519 C2.06434959,14.5655519 1.4,14.2482947 1.4,13.8580629 L1.4,2.18213179 C1.4,1.4746428 1.4800533,1.4746428 2.55324299,1.4746428 L11.4791768,1.4746428 C12.5157568,1.4746428 12.6,1.4746428 12.6,2.18213179 L12.6,13.8580629 C12.6,14.2496474 11.9680702,14.5655519 11.4791768,14.5655519 L2.55324299,14.5655519 Z M0,11.6378207 L14,11.6378207 L14,10.1832752 L0,10.1832752 L0,11.6378207 Z M7.00000726,13.8196389 C6.61341115,13.8196389 6.3,13.494032 6.3,13.0923586 C6.3,12.6907003 6.61341115,12.3650934 7.00000726,12.3650934 C7.38660337,12.3650934 7.7,12.6907003 7.7,13.0923586 C7.7,13.494032 7.38660337,13.8196389 7.00000726,13.8196389 Z" />
+                                </Path.Data>
+                            </Path>
+                        </Canvas>
+                        <TextBox Grid.Column="3" Style="{StaticResource TextBoxStyleAccount}" Text="{Binding AccountText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding DataContext.LoginButtonClickCmd, RelativeSource={RelativeSource AncestorType=Window}}" />
+                            </TextBox.InputBindings>
+                        </TextBox>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="3" Style="{StaticResource TextBoxBorderStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="14" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="20" />
+                        </Grid.ColumnDefinitions>
+                        <Canvas Grid.Column="1" Style="{StaticResource ImageCanvasStyle}">
+                            <Path Fill="#999999" Opacity="0.5">
+                                <Path.Data>
+                                    <PathGeometry FillRule="Nonzero" Figures="M11.2,5.68888889 L2.8,5.68888889 L2.8,4.06348566 C2.8,1.78795252 4.64793187,0 6.99998841,0 C9.35197544,0 11.2,1.78795252 11.2,4.06348566 L11.2,5.68888889 Z M4.4800139,4.06348566 L9.5199861,4.06348566 C9.5199861,2.68188394 8.4280095,1.62540323 6.99998841,1.62540323 C5.5719905,1.62540323 4.4800139,2.68188394 4.4800139,4.06348566 Z M11.6666989,14.0605942 L2.33330115,14.0605942 C1.01108572,14.0605942 0,13.1977286 0,12.0694391 L0,6.09612044 C0,4.96783098 1.01108572,4.10503863 2.33330115,4.10503863 L11.6666989,4.10503863 C12.9889143,4.10503863 14,4.96783098 14,6.09612044 L14,12.0694391 C14,13.1977286 12.9889143,14.0605942 11.6666989,14.0605942 Z M2.19996059,5.68888889 C1.72001955,5.68888889 1.4,5.94749031 1.4,6.33532111 L1.4,12.1534964 C1.4,12.5413986 1.72001955,12.8 2.19996059,12.8 L11.8000394,12.8 C12.2799805,12.8 12.6,12.5413986 12.6,12.1534964 L12.6,6.33532111 C12.6,5.94749031 12.2799805,5.68888889 11.8000394,5.68888889 L2.19996059,5.68888889 Z M6.99421133,11.131949 C6.52790199,11.131949 6.2170291,10.8161416 6.2170291,10.3424305 L6.2170291,7.97404934 C6.2170291,7.50033827 6.52790199,7.18453088 6.99421133,7.18453088 C7.46052067,7.18453088 7.77132925,7.50033827 7.77132925,7.97404934 L7.77132925,10.3424305 C7.77132925,10.8161416 7.46052067,11.131949 6.99421133,11.131949 Z M6.99421133,7.57929011 L6.99421133,7.97404934 L6.99421133,7.57929011 Z" />
+                                </Path.Data>
+                            </Path>
+                        </Canvas>
+                        <TextBox Grid.Column="3" Style="{StaticResource TextBoxStylePassword}" Visibility="{Binding TextBoxVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Text="{Binding PasswordText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding DataContext.LoginButtonClickCmd, RelativeSource={RelativeSource AncestorType=Window}}" />
+                            </TextBox.InputBindings>
+                        </TextBox>
+                        <PasswordBox Grid.Column="3" Style="{StaticResource PasswordBoxStylePassword}" Visibility="{Binding PasswordBoxVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" attachProperties:PasswordBoxProperty.Password="{Binding PasswordText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <PasswordBox.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding DataContext.LoginButtonClickCmd, RelativeSource={RelativeSource AncestorType=Window}}" />
+                            </PasswordBox.InputBindings>
+                        </PasswordBox>
+                        <Button Grid.Column="4">
+                            <Button.InputBindings>
+                                <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.ShowPasswordButtonClickCmd, RelativeSource={RelativeSource AncestorType=Window}}" />
+                            </Button.InputBindings>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border BorderBrush="Transparent">
+                                                    <ContentPresenter />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                            <Canvas Style="{StaticResource ImageCanvasStyle}" Width="16" Height="10">
+                                <Path Fill="{Binding ShowPasswordButtonBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <Path.Data>
+                                        <PathGeometry Figures="M7.97298032,0.000325646714 C4.33308746,0.0445219049 0,4.05120955 0,4.99252388 C0,5.93317857 4.13618541,10.0645392 8.120191,9.99923432 C12.1048177,9.93326976 16,5.69240791 16,4.99252388 C16,4.29198021 11.6134943,-0.0432109658 7.97298032,0.000325646714 Z M7.99968943,8.87717708 C6.68159768,8.89541907 5.45621329,8.15908677 4.79215891,6.94977509 C4.12810454,5.7404634 4.12810454,4.24524401 4.79215891,3.03593232 C5.45621329,1.82662064 6.68159768,1.09028834 7.99968943,1.10853033 C10.0011352,1.13622973 11.6099301,2.86716132 11.6099301,4.9928537 C11.6099301,7.11854609 10.0011352,8.84947768 7.99968943,8.87717708 L7.99968943,8.87717708 Z M6.00031751,4.96443988 C5.98746239,5.68733357 6.3657632,6.36088465 6.98975244,6.72609342 C7.61374169,7.09130219 8.38625831,7.09130219 9.01024756,6.72609342 C9.6342368,6.36088465 10.0125376,5.68733357 9.99968249,4.96443988 C9.98028967,3.87390519 9.09070637,3 8,3 C6.90929363,3 6.01971033,3.87390519 6.00031751,4.96443988 L6.00031751,4.96443988 Z" />
+                                    </Path.Data>
+                                </Path>
+                            </Canvas>
+                        </Button>
+                    </Grid>
+                </Border>
+                <DockPanel Grid.Row="4">
+                    <CheckBox HorizontalAlignment="Left" Margin="0,2,0,0" Content="记住账号" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding RememberAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Content="忘记密码" FontSize="12" Foreground="#1564F7" HorizontalAlignment="Right" />
+                </DockPanel>
+                <Button Grid.Row="5" Style="{StaticResource LoginButton}">
+                    <Button.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.LoginButtonClickCmd, RelativeSource={RelativeSource AncestorType=Window}}" />
+                    </Button.InputBindings>
+                </Button>
+                <StackPanel Grid.Row="6" Orientation="Horizontal">
+                    <CheckBox HorizontalAlignment="Left" Margin="0,2,0,0" Content="已阅读并同意软件" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding ReadTermsOfUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Padding="0,0,0,0" Content="《使用条款》" FontSize="12" Foreground="#1564F7" />
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="16" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Row="1" Style="{StaticResource TitleBarButtonStyle}">
+                    <Button.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.WindowMinimizeCmd, RelativeSource={RelativeSource AncestorType=Window}}" />
+                    </Button.InputBindings>
+                    <Canvas>
+                        <Path Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
+                            <Path.Data>
+                                <PathGeometry Figures="M0.389725415,10 L11.6102746,10 C11.8246492,10 12,10.2073917 12,10.4613121 L12,11.5386879 C12,11.7926083 11.8246492,12 11.6102746,12 L0.389725415,12 C0.175350811,12 1.04083409e-17,11.7926083 1.04083409e-17,11.5386879 L0,10.4613121 C0,10.2920318 0.129908472,10.1382612 0.389725415,10 Z" />
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                </Button>
+                <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource TitleBarButtonStyle}">
+                    <Button.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.WindowCloseCmd, RelativeSource={RelativeSource AncestorType=Window}}" />
+                    </Button.InputBindings>
+                    <Canvas>
+                        <Path Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
+                            <Path.Data>
+                                <PathGeometry Figures="M11.7689615,11.7659216 C11.6412129,11.8939148 11.4678017,11.9658412 11.2869648,11.9658412 C11.1061278,11.9658412 10.9327166,11.8939148 10.804968,11.7659216 L6.00299998,6.96395358 L1.16703221,11.7999213 C0.994474088,11.9724795 0.742965131,12.0398711 0.507246338,11.9767104 C0.271527545,11.9135498 0.0874102091,11.7294324 0.0242495516,11.4937137 C-0.0389111058,11.2579949 0.028480522,11.0064859 0.20103866,10.8339278 L5.03600643,5.99796001 L0.202038656,1.16299225 C-0.0638846707,0.89679277 -0.0636608107,0.465422008 0.202538661,0.199498677 C0.468738134,-0.0664246538 0.900108896,-0.0662008003 1.16603223,0.199998668 L6,5.03496643 L10.8329678,0.200998664 C11.0997195,-0.0657530903 11.5322096,-0.0657530903 11.7989613,0.200998664 C12.0657131,0.467750418 12.0657131,0.900240464 11.7989613,1.16699222 L6.96699355,5.99996 L11.7699615,10.801928 C11.8979548,10.9296767 11.9698812,11.1030879 11.9698812,11.2839248 C11.9698812,11.4647617 11.8979548,11.6381729 11.7699615,11.7659216 L11.7689615,11.7659216 Z" />
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                </Button>
+            </Grid>
+        </Grid>
+    </ControlTemplate>
+    <Style x:Key="LoginWindow_Style" TargetType="{x:Type Window}">
+        <Setter Property="Template" Value="{StaticResource LoginWindow_Template}"/>
+        <Setter Property="Width" Value="800"/>
+        <Setter Property="Height" Value="420"/>
+        <Setter Property="Foreground" Value="#FFFFFF" />
+        <Setter Property="WindowStyle" Value="None" />
+        <Setter Property="AllowsTransparency" Value="True" />
+        <Setter Property="ResizeMode" Value="NoResize"/>
+    </Style>
+</ResourceDictionary>

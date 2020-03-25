@@ -1,8 +1,8 @@
 ﻿using Liquidity2.UI.Core.Builder;
+using Liquidity2.UI.Templates;
 using Liquidity2.UI.Windows;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace Liquidity2.UI
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class UIPresentExtensions
     {
@@ -15,12 +15,17 @@ namespace Liquidity2.UI
         }
         private static void AddAddTemplates(IUIBuilder builder)
         {
-            //builder.AddTemplate("模板名", "路径");
+            const string blackTemplate = TemplateNames.BLACK;
+            const string assemblyName = "Liquidity2.UI.Present";
+
+            builder.AddTemplate("Black", $"/{assemblyName};component/Templates/{blackTemplate}/LoginWindow_Template.xaml");
+            builder.AddTemplate("Black", $"/{assemblyName};component/Templates/{blackTemplate}/NavigationWindow_Template.xaml");
         }
 
         private static void AddWindows(IServiceCollection services)
         {
             services.AddTransient<NavigationWindow>();
+            services.AddTransient<LoginWindow>();
         }
     }
 }

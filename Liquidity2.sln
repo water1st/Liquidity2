@@ -69,33 +69,35 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liquidity2.Extensions.Ident
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liquidity2.Data.Client.Abstractions", "src\Liquidity2.Data.Client.Abstractions\Liquidity2.Data.Client.Abstractions.csproj", "{AFE668CA-3A7E-4262-AE7F-3011BB476ABE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.Data.Adapter.Abstractions", "src\Liquidity2.Extensions.Data.Adapter.Abstractions\Liquidity2.Extensions.Data.Adapter.Abstractions.csproj", "{41CDBC82-6EC1-4E19-9C0C-FC15F8B1F910}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liquidity2.Extensions.Data.Adapter.Abstractions", "src\Liquidity2.Extensions.Data.Adapter.Abstractions\Liquidity2.Extensions.Data.Adapter.Abstractions.csproj", "{41CDBC82-6EC1-4E19-9C0C-FC15F8B1F910}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{CF9BA604-DDA5-4DA1-AED7-666DABD45EC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.Data.LocalStorage", "src\Liquidity2.Extensions.Data.LocalStorage\Liquidity2.Extensions.Data.LocalStorage.csproj", "{4FC184D8-4801-4D8D-9EDC-B3B6832635BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liquidity2.Extensions.Data.LocalStorage", "src\Liquidity2.Extensions.Data.LocalStorage\Liquidity2.Extensions.Data.LocalStorage.csproj", "{4FC184D8-4801-4D8D-9EDC-B3B6832635BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.Data.Network", "src\Liquidity2.Extensions.Data.Network\Liquidity2.Extensions.Data.Network.csproj", "{108BC38F-A760-4095-9EF2-5E3E5D06B203}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liquidity2.Extensions.Data.Network", "src\Liquidity2.Extensions.Data.Network\Liquidity2.Extensions.Data.Network.csproj", "{108BC38F-A760-4095-9EF2-5E3E5D06B203}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackgroundJob", "BackgroundJob", "{D159FF37-E0B5-4686-B0FE-250E12D5ECA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.BackgroundJob", "src\Liquidity2.Extensions.BackgroundJob\Liquidity2.Extensions.BackgroundJob.csproj", "{34FF2766-B2B3-4A26-9A46-3370F920F2C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liquidity2.Extensions.BackgroundJob", "src\Liquidity2.Extensions.BackgroundJob\Liquidity2.Extensions.BackgroundJob.csproj", "{34FF2766-B2B3-4A26-9A46-3370F920F2C4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blocker", "Blocker", "{FE64E863-DFAB-4D01-8478-F8E23D164038}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.Blocker.Abstractions", "src\Liquidity2.Extensions.Blocker.Abstractions\Liquidity2.Extensions.Blocker.Abstractions.csproj", "{A3B07237-A778-4EA8-A1F5-57293793826A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liquidity2.Extensions.Blocker.Abstractions", "src\Liquidity2.Extensions.Blocker.Abstractions\Liquidity2.Extensions.Blocker.Abstractions.csproj", "{A3B07237-A778-4EA8-A1F5-57293793826A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.Blocker.WPFBlocker", "src\Liquidity2.Extensions.Blocker.WPFBlocker\Liquidity2.Extensions.Blocker.WPFBlocker.csproj", "{A2DD1A61-94CB-492B-B132-D5EFD2D8B6B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liquidity2.Extensions.Blocker.WPFBlocker", "src\Liquidity2.Extensions.Blocker.WPFBlocker\Liquidity2.Extensions.Blocker.WPFBlocker.csproj", "{A2DD1A61-94CB-492B-B132-D5EFD2D8B6B7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows", "Windows", "{A88CD10F-0B12-4051-8BFB-6AD782A2BD55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.WindowPostions", "src\Liquidity2.Extensions.WindowPostions\Liquidity2.Extensions.WindowPostions.csproj", "{ED903E14-2D7F-4035-A257-F263C8B7B9BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liquidity2.Extensions.WindowPostions", "src\Liquidity2.Extensions.WindowPostions\Liquidity2.Extensions.WindowPostions.csproj", "{ED903E14-2D7F-4035-A257-F263C8B7B9BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.WindowPostions.Data.LocalStorage", "src\Liquidity2.Extensions.WindowPostions.Data.LocalStorage\Liquidity2.Extensions.WindowPostions.Data.LocalStorage.csproj", "{BC3E4FD9-702B-4A1A-AFF3-6207B098959D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liquidity2.Extensions.WindowPostions.Data.LocalStorage", "src\Liquidity2.Extensions.WindowPostions.Data.LocalStorage\Liquidity2.Extensions.WindowPostions.Data.LocalStorage.csproj", "{BC3E4FD9-702B-4A1A-AFF3-6207B098959D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.Data.CRUD.Abstractions", "src\Liquidity2.Extensions.Data.CRUD.Abstractions\Liquidity2.Extensions.Data.CRUD.Abstractions.csproj", "{BB559AA5-C9A2-43F4-B84C-639C703168EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liquidity2.Extensions.Data.CRUD.Abstractions", "src\Liquidity2.Extensions.Data.CRUD.Abstractions\Liquidity2.Extensions.Data.CRUD.Abstractions.csproj", "{BB559AA5-C9A2-43F4-B84C-639C703168EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.Data.Dapper.Extend", "src\Liquidity2.Extensions.Data.Dapper.Extend\Liquidity2.Extensions.Data.Dapper.Extend.csproj", "{E527AEC2-CEF2-40B9-9831-CDB264901424}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liquidity2.Extensions.Data.Dapper.Extend", "src\Liquidity2.Extensions.Data.Dapper.Extend\Liquidity2.Extensions.Data.Dapper.Extend.csproj", "{E527AEC2-CEF2-40B9-9831-CDB264901424}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Data.LocalStorageFile", "src\Liquidity2.Data.LocalStorageFile\Liquidity2.Data.LocalStorageFile.csproj", "{CC956827-BEC9-4902-9EF7-9218148CF4C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -227,6 +229,10 @@ Global
 		{E527AEC2-CEF2-40B9-9831-CDB264901424}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E527AEC2-CEF2-40B9-9831-CDB264901424}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E527AEC2-CEF2-40B9-9831-CDB264901424}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC956827-BEC9-4902-9EF7-9218148CF4C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC956827-BEC9-4902-9EF7-9218148CF4C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC956827-BEC9-4902-9EF7-9218148CF4C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC956827-BEC9-4902-9EF7-9218148CF4C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -277,6 +283,7 @@ Global
 		{BC3E4FD9-702B-4A1A-AFF3-6207B098959D} = {A88CD10F-0B12-4051-8BFB-6AD782A2BD55}
 		{BB559AA5-C9A2-43F4-B84C-639C703168EC} = {CF9BA604-DDA5-4DA1-AED7-666DABD45EC9}
 		{E527AEC2-CEF2-40B9-9831-CDB264901424} = {CF9BA604-DDA5-4DA1-AED7-666DABD45EC9}
+		{CC956827-BEC9-4902-9EF7-9218148CF4C3} = {8532D993-E3DA-4DBB-8ACA-D5F8477147D6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7B4E2B9A-0830-4FE0-A0BC-C30BD096BCA0}

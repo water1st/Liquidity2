@@ -1,7 +1,6 @@
 ﻿using Liquidity2.UI.Core.Builder;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace Liquidity2.UI.Components
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ComponentsExtensions
     {

@@ -27,12 +27,11 @@ namespace Liquidity2.UI.Services
             return Task.CompletedTask;
         }
 
-        protected override Task OnStart(CancellationToken token)
+        protected override async Task OnStart(CancellationToken token)
         {
-            presentService.ShowLoginWindow();
+            await presentService.ShowLoginWindow();
             frame.Continue = false;
             Dispatcher.PushFrame(frame);
-            return Task.CompletedTask;
         }
 
         public void Subscribe(IEventBusRegistrator registrator)

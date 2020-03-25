@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Liquidity2.Extensions.Blocker;
+using Liquidity2.Extensions.Blocker.WPFBlocker;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Liquidity2.Extensions.Blocker.WPFBlocker
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class WPFBlockerServiceCollectionExtensions
     {

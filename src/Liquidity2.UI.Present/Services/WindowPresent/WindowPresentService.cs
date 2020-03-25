@@ -46,7 +46,7 @@ namespace Liquidity2.UI.Services
 
         public Task ShowLoginWindow()
         {
-            throw new NotImplementedException();
+            return ShowWindow<LoginWindow>();
         }
 
         public Task ShowNavigationWindow()
