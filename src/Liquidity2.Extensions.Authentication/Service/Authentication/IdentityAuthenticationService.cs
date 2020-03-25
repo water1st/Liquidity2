@@ -1,6 +1,7 @@
 ﻿using Liquidity2.Extensions.Authentication.Client;
 using Liquidity2.Extensions.Authentication.Events;
 using Liquidity2.Extensions.EventBus;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -41,7 +42,7 @@ namespace Liquidity2.Extensions.Authentication.Service
 
                 await _eventBus.Publish(@event, CancellationToken.None);
             }
-            catch
+            catch(Exception ex)
             {
                 throw new InvalidAuthenticationExcption("无效身份信息");
             }

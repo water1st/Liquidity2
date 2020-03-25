@@ -23,6 +23,7 @@ namespace Liquidity2.UI.Present
             return new WpfApplicationBuilder()
                 .ConfigureServices((service, provider) =>
                 {
+                    AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
                     ///注册总线
                     service.AddEventBus()
                     .AddMemoryProvider()
