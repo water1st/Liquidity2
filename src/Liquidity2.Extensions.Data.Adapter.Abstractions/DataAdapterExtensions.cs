@@ -10,6 +10,8 @@ namespace Liquidity2.Extensions.Data.Adapter
             where TAdapter : DataAdapter<TService>, TService
         {
             services.AddSingleton<TService, TAdapter>();
+            services.AddSingleton<IClientImplementationFactory, ClientImplementationFactory>();
+
             var builder = new DataAdapterBuilder<TService>(services);
             action(builder);
 
