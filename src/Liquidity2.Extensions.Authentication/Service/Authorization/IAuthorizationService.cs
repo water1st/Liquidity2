@@ -10,6 +10,6 @@ namespace Liquidity2.Extensions.Authentication.Service
         Task<JWT> GetAccessToken();
     }
 
-    public interface IAuthenticationService<TAuthInfo> : IAuthorizationService
-        where TAuthInfo : IAuthInfo { }
+    public interface IAuthenticationService<TAuthenticationType> : IAuthorizationService
+        where TAuthenticationType : IAuthenticationType { }
 }

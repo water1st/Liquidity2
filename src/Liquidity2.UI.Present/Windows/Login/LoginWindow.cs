@@ -17,14 +17,14 @@ namespace Liquidity2.UI.Windows
         ITemplateLoader, IEventObserver
     {
         private LoginViewModel _viewModel;
-        private readonly IAuthorizationService<IdentityAuthInfo> authorizationService;
+        private readonly IAuthenticationService _authenticationService;
         private readonly IWindowCommonBehavior _windowCommonBehavior;
         private bool _showPassword;
 
-        public LoginWindow(IAuthorizationService<IdentityAuthInfo> authorizationService,
+        public LoginWindow(IAuthenticationService authenticationService,
             IWindowCommonBehavior windowCommonBehavior)
         {
-            this.authorizationService = authorizationService;
+            this._authenticationService = authenticationService;
             _windowCommonBehavior = windowCommonBehavior;
             windowCommonBehavior.SetEffectWindow(this);
             _windowCommonBehavior.BorderColorChanged += OnBorderColorChanged;
@@ -79,8 +79,6 @@ namespace Liquidity2.UI.Windows
                 _viewModel.PasswordBoxVisibility = Visibility.Visible;
                 _viewModel.ShowPasswordButtonBrush = new SolidColorBrush(Color.FromRgb(0x99, 0x99, 0x99));
             }
-
-
         }
 
         private void LoginButton_Click_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -99,11 +97,7 @@ namespace Liquidity2.UI.Windows
                     {
                         try
                         {
-                            authorizationService.Authorization(new IdentityAuthInfo
-                            {
-                                Username = _viewModel.AccountText,
-                                Password = _viewModel.PasswordText
-                            });
+                            _authenticationService.Authorization(_viewModel.AccountText, _viewModel.PasswordText);
                         }
                         catch (Exception ex)
                         {

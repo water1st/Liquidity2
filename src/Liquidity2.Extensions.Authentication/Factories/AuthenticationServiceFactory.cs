@@ -13,7 +13,7 @@ namespace Liquidity2.Extensions.Authentication.Factories
             _provider = provider;
         }
 
-        public IAuthorizationService GetAuthenticationService(AuthorizationType type)
+        public IAuthorizationService GetAuthorizationService(AuthorizationType type)
         {
             var service = _provider.GetServiceByName<IAuthorizationService>(type.ToString());
             return service;

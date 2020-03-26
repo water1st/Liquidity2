@@ -12,17 +12,15 @@ namespace Liquidity2.Extensions.Authentication.Client.Api
         private readonly HttpClient _httpClient;
         private readonly AuthorizationOptions _options;
         private readonly ILogger _logger;
-        private readonly ITradeAccessClient _tradeAccessClient;
         private DiscoveryDocumentResponse _discoveryDocument;
 
         public AuthenticationClient(HttpClient httpClient,
             AuthorizationOptions options,
-            ILogger<AuthenticationClient> logger, ITradeAccessClient tradeAccessClient)
+            ILogger<AuthenticationClient> logger)
         {
             _httpClient = httpClient;
             _options = options;
             _logger = logger;
-            _tradeAccessClient = tradeAccessClient;
         }
 
         public async Task<GetClientCredentialAccessTokenResponse> GetClientCredentialAccessToken()
@@ -78,11 +76,6 @@ namespace Liquidity2.Extensions.Authentication.Client.Api
                 ExpiresIn = response.ExpiresIn,
                 RefreshToken = response.RefreshToken
             };
-        }
-
-        public async Task<GetTradeAccessTokenResponse> GetTradeAccessToken(GetTradeAccessTokenRequest request)
-        {
-            return await _tradeAccessClient.GetTradeAccessToken(request);
         }
 
         public async Task<RefreshAccessTokenResponse> RefreshAccessToken(RefreshAccessTokenRequest request)

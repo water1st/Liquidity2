@@ -38,8 +38,6 @@ namespace Liquidity2.UI.Present
                     //注册授权服务
                     service.AddAuthentication()
                     .AddOpenidClient()
-                    //添加交易服务客户端
-                    //.AddTradeClient<TTradeClientImp>()
                     .ConfigureIdentityOptions(options =>
                     {
                         options.ClientId = "trades_grpc_client";

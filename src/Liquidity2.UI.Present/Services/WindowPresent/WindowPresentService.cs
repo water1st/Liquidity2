@@ -1,4 +1,5 @@
-﻿using Liquidity2.Extensions.WindowPostions;
+﻿using Liquidity2.Extensions.EventBus.EventObserver;
+using Liquidity2.Extensions.WindowPostions;
 using Liquidity2.UI.Core;
 using Liquidity2.UI.Windows;
 using System;
@@ -11,12 +12,14 @@ namespace Liquidity2.UI.Services
     {
         private readonly IWindowFactory windowFactory;
         private readonly IWindowPostionsService postionsService;
+        private readonly IEventBusRegistrator registrator;
 
         public WindowPresentService(IWindowFactory windowFactory,
-            IWindowPostionsService postionsService)
+            IWindowPostionsService postionsService, IEventBusRegistrator registrator)
         {
             this.windowFactory = windowFactory;
             this.postionsService = postionsService;
+            this.registrator = registrator;
         }
 
         public Task ShowAccountWindow()
@@ -87,6 +90,11 @@ namespace Liquidity2.UI.Services
                     windowPostion.Postion = postion;
                     defaultPostion = false;
                 }
+            }
+
+            if (window is IEventObserver observer)
+            {
+                observer.Subscribe(registrator);
             }
 
             //加载窗体样式

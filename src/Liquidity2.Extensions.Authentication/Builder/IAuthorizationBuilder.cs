@@ -9,6 +9,5 @@ namespace Microsoft.Extensions.DependencyInjection
 
         IAuthorizationBuilder ConfigureClientCredentialOptions(Action<AuthorizationOptions> action);
         IAuthorizationBuilder ConfigureIdentityOptions(Action<AuthorizationOptions> action);
-        IAuthorizationBuilder ConfigureTradeOptions(Action<AuthorizationOptions> action);
     }
 }

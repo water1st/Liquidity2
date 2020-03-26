@@ -23,11 +23,5 @@ namespace Liquidity2.Extensions.Authentication
             Services.Configure(AuthorizationType.IdentityAuthentication.ToString(), action);
             return this;
         }
-
-        public IAuthorizationBuilder ConfigureTradeOptions(Action<AuthorizationOptions> action)
-        {
-            Services.Configure(AuthorizationType.TradeAuthentication.ToString(), action);
-            return this;
-        }
     }
 }

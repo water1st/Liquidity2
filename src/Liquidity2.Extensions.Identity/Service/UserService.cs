@@ -1,4 +1,6 @@
-﻿using Liquidity2.Extensions.Authentication.Events;
+﻿using Liquidity2.Extensions.Authentication;
+using Liquidity2.Extensions.Authentication.Events;
+using Liquidity2.Extensions.Authentication.Factories;
 using Liquidity2.Extensions.Authentication.Service;
 using Liquidity2.Extensions.EventBus.EventObserver;
 using Liquidity2.Extensions.Identity.Client;
@@ -14,10 +16,10 @@ namespace Liquidity2.Extensions.Identity
         private readonly IAuthorizationService _authenticationService;
 
         public UserService(IIdentityClient client,
-            IAuthorizationService authenticationService)
+            IAuthenticationServiceFactory factory)
         {
             _client = client;
-            _authenticationService = authenticationService;
+            _authenticationService = factory.GetAuthorizationService(AuthorizationType.IdentityAuthentication);
         }
 
         public async Task SynchronizeUserInfo()

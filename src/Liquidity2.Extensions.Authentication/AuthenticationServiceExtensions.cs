@@ -13,9 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IAuthenticationServiceFactory, AuthenticationServiceFactory>();
             services.AddSingleton<IAuthenticationMapper, AuthenticationMapper>();
 
-            services.AddSingleton<IAuthorizationService<IdentityAuthInfo>, IdentityAuthenticationService>();
-            services.AddSingleton<IAuthorizationService<TradeAuthInfo>, TradeAuthenticationService>();
-            services.AddSingleton<IAuthorizationService<ClientCredentialAuthInfo>, ClientCredentialAuthenticationService>();
+            services.AddSingleton<IAuthenticationService, AuthenticationService>();
 
             services.AddSingleton<ClientCredentialAuthorizationService>();
             services.AddSingleton<IEventObserver>(provider => provider.GetRequiredService<ClientCredentialAuthorizationService>());
@@ -24,10 +22,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IdentityAuthorizationService>();
             services.AddSingleton<IEventObserver>(provider => provider.GetRequiredService<IdentityAuthorizationService>());
             services.AddSingletonNamedService<IAuthorizationService>(AuthorizationType.IdentityAuthentication.ToString(), (provider, key) => provider.GetRequiredService<IdentityAuthorizationService>());
-
-            services.AddSingleton<TradeAuthorizationService>();
-            services.AddSingleton<IEventObserver>(provider => provider.GetRequiredService<TradeAuthorizationService>());
-            services.AddSingletonNamedService<IAuthorizationService>(AuthorizationType.TradeAuthentication.ToString(), (provider, key) => provider.GetRequiredService<TradeAuthorizationService>());
 
             return new AuthorizationBuilder(services);
         }

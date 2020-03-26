@@ -5,8 +5,10 @@ namespace Liquidity2.Extensions.Authentication.Service
     /// <summary>
     /// 认证
     /// </summary>
-    public interface IAuthorizationService<TAuthInfo> where TAuthInfo : IAuthInfo
+    public interface IAuthenticationService
     {
-        Task Authorization(TAuthInfo info);
+        Task Authorization();
+
+        Task Authorization(string username, string password);
     }
 }
