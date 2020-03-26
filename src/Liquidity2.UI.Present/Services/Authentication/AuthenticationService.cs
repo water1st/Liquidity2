@@ -5,7 +5,6 @@ using Liquidity2.Extensions.Lifecycle.Application;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
-using System.Windows;
 
 namespace Liquidity2.UI.Services
 {
@@ -13,31 +12,30 @@ namespace Liquidity2.UI.Services
         IEventHandler<IdentityAuthorizationSuccessEvent>,
         IEventObserver
     {
-        private readonly IWindowPresentService presentService;
-        private BufferBlock<object> bufferBlock;
+        private readonly IWindowPresentService _presentService;
+        private BufferBlock<object> _bufferBlock;
 
         public AuthenticationService(IWindowPresentService presentService)
         {
-            Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-            this.presentService = presentService;
+            _presentService = presentService;
         }
 
         public Task Handle(IdentityAuthorizationSuccessEvent @event, CancellationToken token)
         {
-            if (bufferBlock != null)
-                bufferBlock.Complete();
+            if (_bufferBlock != null)
+                _bufferBlock.Complete();
 
             return Task.CompletedTask;
         }
 
         protected override async Task OnStart(CancellationToken token)
         {
-            if (bufferBlock == null)
-                bufferBlock = new BufferBlock<object>();
+            if (_bufferBlock == null)
+                _bufferBlock = new BufferBlock<object>();
 
-            await presentService.ShowLoginWindow();
-            await bufferBlock.Completion;
-            bufferBlock = null;
+            await _presentService.ShowLoginWindow();
+            await _bufferBlock.Completion;
+            _bufferBlock = null;
         }
 
         public void Subscribe(IEventBusRegistrator registrator)

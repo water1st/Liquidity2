@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Liquidity2.UI.Core
 {
@@ -15,6 +16,7 @@ namespace Liquidity2.UI.Core
 
         public WpfApplication(IServiceProvider service)
         {
+            Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             Services = service;
             Container.Insecure = service;
             _blocker = service.GetService<IBlocker>();
