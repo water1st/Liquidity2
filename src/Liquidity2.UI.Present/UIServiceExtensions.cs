@@ -12,8 +12,8 @@ namespace Microsoft.Extensions.DependencyInjection
             var service = builder.Services;
 
             AddServices(service);
-            AddEventObservers(service);
             AddLifecycleStageObjects(service);
+            AddEventObservers(service);
 
             return builder;
         }

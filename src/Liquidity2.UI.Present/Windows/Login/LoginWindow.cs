@@ -24,7 +24,7 @@ namespace Liquidity2.UI.Windows
         public LoginWindow(IAuthenticationService authenticationService,
             IWindowCommonBehavior windowCommonBehavior)
         {
-            this._authenticationService = authenticationService;
+            _authenticationService = authenticationService;
             _windowCommonBehavior = windowCommonBehavior;
             windowCommonBehavior.SetEffectWindow(this);
             _windowCommonBehavior.BorderColorChanged += OnBorderColorChanged;
@@ -34,6 +34,8 @@ namespace Liquidity2.UI.Windows
 
             this.AddCommandBinding(_viewModel.ShowPasswordButtonClickCmd, ShowPasswordButton_Click_CanExecute, ShowPasswordButton_Click_Executed);
             this.AddCommandBinding(_viewModel.LoginButtonClickCmd, LoginButton_Click_CanExecute, LoginButton_Click_Executed);
+            this.AddCommandBinding(_viewModel.WindowCloseCmd, WindowClose_Click_CanExecute, WindowClose_Click_Executed);
+
 
             _viewModel.AccountText = "15736262776";
             _viewModel.PasswordText = "15736262776";
@@ -45,7 +47,7 @@ namespace Liquidity2.UI.Windows
             {
                 WindowDragMoveCmd = _windowCommonBehavior.WindowDragMoveCmd,
                 WindowMinimizeCmd = _windowCommonBehavior.WindowMinimizeCmd,
-                WindowCloseCmd = _windowCommonBehavior.WindowCloseCmd,
+                WindowCloseCmd = new CustomRoutedCommand("LoginWindowCloseCmd", typeof(LoginWindow)),
                 ShowPasswordButtonClickCmd = new CustomRoutedCommand("ShowPasswordButtonClickCmd", typeof(LoginWindow)),
                 LoginButtonClickCmd = new CustomRoutedCommand("LoginButtonClickCmd", typeof(LoginWindow)),
                 //应做在XAML上绑定，而非在程序赋值
@@ -84,6 +86,18 @@ namespace Liquidity2.UI.Windows
         private void LoginButton_Click_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
+            e.Handled = true;
+        }
+
+        private void WindowClose_Click_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.Handled = true;
+        }
+
+        private void WindowClose_Click_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
             e.Handled = true;
         }
 
