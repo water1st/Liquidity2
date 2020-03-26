@@ -18,5 +18,21 @@ namespace Liquidity2.UI.Core
             var window = _provider.GetService<TWindow>();
             return window;
         }
+
+        public object Create(Type type)
+        {
+            if (type is null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (!type.IsSubclassOf(typeof(Window)))
+            {
+                throw new ArgumentException($"'{type.FullName}' is not subclass of Window");
+            }
+
+            var window = _provider.GetService(type);
+            return window;
+        }
     }
 }

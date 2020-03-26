@@ -11,12 +11,27 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             var service = builder.Services;
 
-            service.AddSingleton<IWindowPresentService, WindowPresentService>();
-
-            service.AddApplicationStageObject<AuthenticationService>();
-            service.AddObserverFromExisting<AuthenticationService>();
+            AddServices(service);
+            AddEventObservers(service);
+            AddLifecycleStageObjects(service);
 
             return builder;
+        }
+
+        private static void AddServices(IServiceCollection services)
+        {
+            services.AddSingleton<IWindowPresentService, WindowPresentService>();
+        }
+
+        private static void AddEventObservers(IServiceCollection services)
+        {
+            services.AddObserverFromExisting<AuthenticationService>();
+        }
+
+        private static void AddLifecycleStageObjects(IServiceCollection services)
+        {
+            services.AddApplicationStageObject<AuthenticationService>();
+            services.AddApplicationStageObject<MainInterfacePresentService>();
         }
     }
 }

@@ -10,16 +10,16 @@ namespace Liquidity2.UI.Services
 {
     public class WindowPresentService : IWindowPresentService
     {
-        private readonly IWindowFactory windowFactory;
-        private readonly IWindowPostionsService postionsService;
-        private readonly IEventBusRegistrator registrator;
+        private readonly IWindowFactory _windowFactory;
+        private readonly IWindowPostionsService _postionsService;
+        private readonly IEventBusRegistrator _registrator;
 
         public WindowPresentService(IWindowFactory windowFactory,
             IWindowPostionsService postionsService, IEventBusRegistrator registrator)
         {
-            this.windowFactory = windowFactory;
-            this.postionsService = postionsService;
-            this.registrator = registrator;
+            _windowFactory = windowFactory;
+            _postionsService = postionsService;
+            _registrator = registrator;
         }
 
         public Task ShowAccountWindow()
@@ -49,12 +49,14 @@ namespace Liquidity2.UI.Services
 
         public Task ShowLoginWindow()
         {
-            return ShowWindow<LoginWindow>();
+            var window = _windowFactory.Create<LoginWindow>();
+            return ShowWindow(window);
         }
 
         public Task ShowNavigationWindow()
         {
-            return ShowWindow<NavigationWindow>();
+            var window = _windowFactory.Create<NavigationWindow>();
+            return ShowWindow(window);
         }
 
         public Task ShowOrderWindow()
@@ -77,14 +79,13 @@ namespace Liquidity2.UI.Services
             throw new NotImplementedException();
         }
 
-        private async Task ShowWindow<TWindow>() where TWindow : Window
+        private async Task ShowWindow<TWindow>(TWindow window) where TWindow : Window
         {
-            var window = windowFactory.Create<TWindow>();
             //设置窗体位置
             var defaultPostion = true;
             if (window is IWindowPostion windowPostion)
             {
-                var postion = await postionsService.GetFirstPostionInQueue<TWindow>();
+                var postion = await _postionsService.GetFirstPostionInQueue<TWindow>();
                 if (postion != null)
                 {
                     windowPostion.Postion = postion;
@@ -94,7 +95,7 @@ namespace Liquidity2.UI.Services
 
             if (window is IEventObserver observer)
             {
-                observer.Subscribe(registrator);
+                observer.Subscribe(_registrator);
             }
 
             //加载窗体样式
