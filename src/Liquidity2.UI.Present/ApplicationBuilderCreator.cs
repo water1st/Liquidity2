@@ -40,10 +40,10 @@ namespace Liquidity2.UI.Present
                     .AddOpenidClient()
                     .ConfigureIdentityOptions(options =>
                     {
-                        options.ClientId = "trades_grpc_client";
-                        options.ClientSecret = "abb21609-f9a4-2b28-6622-ec410abe648b";
-                        options.IssuerUri = new Uri("http://47.56.95.192:20000/");
-                        options.Scope = "profile openid trades_api offline_access";
+                        options.ClientId = "";
+                        options.ClientSecret = "";
+                        options.IssuerUri = new Uri("");
+                        options.Scope = "";
                     });
                     service.AddLocalStorage(options =>
                     {
