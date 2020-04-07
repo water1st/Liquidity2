@@ -6,7 +6,12 @@ namespace Liquidity2.Extensions.Blocker.SampleTaskBlocker
     {
         public void Block(Task task)
         {
-            Task.WaitAll(task);
+            var t = new Task(async () =>
+            {
+                await task;
+            });
+
+            Task.WaitAll(t);
         }
 
         public TResult Block<TResult>(Task<TResult> task)
