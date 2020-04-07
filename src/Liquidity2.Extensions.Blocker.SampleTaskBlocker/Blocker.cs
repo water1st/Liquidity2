@@ -11,6 +11,7 @@ namespace Liquidity2.Extensions.Blocker.SampleTaskBlocker
                 await task;
             });
 
+            t.Start();
             Task.WaitAll(t);
         }
 
