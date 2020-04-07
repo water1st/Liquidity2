@@ -97,7 +97,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liquidity2.Extensions.Data.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liquidity2.Extensions.Data.Dapper.Extend", "src\Liquidity2.Extensions.Data.Dapper.Extend\Liquidity2.Extensions.Data.Dapper.Extend.csproj", "{E527AEC2-CEF2-40B9-9831-CDB264901424}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Data.LocalStorageFile", "src\Liquidity2.Data.LocalStorageFile\Liquidity2.Data.LocalStorageFile.csproj", "{CC956827-BEC9-4902-9EF7-9218148CF4C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liquidity2.Data.LocalStorageFile", "src\Liquidity2.Data.LocalStorageFile\Liquidity2.Data.LocalStorageFile.csproj", "{CC956827-BEC9-4902-9EF7-9218148CF4C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liquidity2.Extensions.Blocker.SampleTaskBlocker", "src\Liquidity2.Extensions.Blocker.SampleTaskBlocker\Liquidity2.Extensions.Blocker.SampleTaskBlocker.csproj", "{DD023BE8-4493-4FC9-9A3E-1156C495EBF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -233,6 +235,10 @@ Global
 		{CC956827-BEC9-4902-9EF7-9218148CF4C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC956827-BEC9-4902-9EF7-9218148CF4C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC956827-BEC9-4902-9EF7-9218148CF4C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD023BE8-4493-4FC9-9A3E-1156C495EBF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD023BE8-4493-4FC9-9A3E-1156C495EBF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD023BE8-4493-4FC9-9A3E-1156C495EBF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD023BE8-4493-4FC9-9A3E-1156C495EBF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -284,6 +290,7 @@ Global
 		{BB559AA5-C9A2-43F4-B84C-639C703168EC} = {CF9BA604-DDA5-4DA1-AED7-666DABD45EC9}
 		{E527AEC2-CEF2-40B9-9831-CDB264901424} = {CF9BA604-DDA5-4DA1-AED7-666DABD45EC9}
 		{CC956827-BEC9-4902-9EF7-9218148CF4C3} = {8532D993-E3DA-4DBB-8ACA-D5F8477147D6}
+		{DD023BE8-4493-4FC9-9A3E-1156C495EBF2} = {FE64E863-DFAB-4D01-8478-F8E23D164038}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7B4E2B9A-0830-4FE0-A0BC-C30BD096BCA0}
