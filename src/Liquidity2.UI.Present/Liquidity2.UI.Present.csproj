@@ -10,6 +10,7 @@
   <ItemGroup>
     <Page Remove="Templates\Black\LoginWindow_Template.xaml" />
     <Page Remove="Templates\Black\NavigationWindow_Template.xaml" />
+    <Page Remove="Templates\Black\TosWindow_Template.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,6 +48,7 @@
   <ItemGroup>
     <Resource Include="Templates\Black\LoginWindow_Template.xaml" />
     <Resource Include="Templates\Black\NavigationWindow_Template.xaml" />
+    <Resource Include="Templates\Black\TOSWindow_Template.xaml" />
   </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@
 using Liquidity2.Extensions.WindowPostions;
 using Liquidity2.UI.Core;
 using Liquidity2.UI.Windows;
+using Liquidity2.UI.Windows.TOS;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -76,7 +77,8 @@ namespace Liquidity2.UI.Services
 
         public Task ShowTosWindow()
         {
-            throw new NotImplementedException();
+            var window = _windowFactory.Create<TOSWindow>();
+            return ShowWindow(window);
         }
 
         private async Task ShowWindow<TWindow>(TWindow window) where TWindow : Window
