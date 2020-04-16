@@ -20,8 +20,8 @@ namespace Microsoft.Extensions.DependencyInjection
             const string assemblyName = "Liquidity2.UI.Components";
 
             //builder.AddTemplate("模板名", "路径");
-            builder.AddTemplate("Black", $"/{assemblyName};component/Templates/{blackTemplate}/GroupWindow_Template.xaml");
-            builder.AddTemplate("Black", $"/{assemblyName};component/Templates/{blackTemplate}/SearchTextBox_Template.xaml");
+            builder.AddTemplate(blackTemplate, $"/{assemblyName};component/Templates/{blackTemplate}/GroupWindow_Template.xaml");
+            builder.AddTemplate(blackTemplate, $"/{assemblyName};component/Templates/{blackTemplate}/SearchTextBox_Template.xaml");
         }
 
         private static void AddComponents(IServiceCollection services)

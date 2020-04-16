@@ -1,11 +1,10 @@
-﻿using Liquidity2.UI.Components.CustomCommand;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Liquidity2.UI.Components.UsersControl
 {
-    public class SearchTextBox : UserControl, IInputCommand, IInitializationCommand
+    public class SearchTextBox : UserControl
     {
         private readonly SearchTextboxViewModel viewModel;
         private ControlTemplate searchTextCrlTemplate;
