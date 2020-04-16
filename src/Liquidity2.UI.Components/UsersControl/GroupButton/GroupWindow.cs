@@ -49,7 +49,7 @@ namespace Liquidity2.UI.Components.UsersControl.GroupButton
 
         private void InitializeTemplates()
         {
-            Style = (Style)Application.Current.Resources["GroupWindowStyle"];
+            Style = (Style)Application.Current.Resources[$"{GetType().Name}_Style"];
         }
 
         private void BtnClickcb_Executed(object sender, ExecutedRoutedEventArgs e)
