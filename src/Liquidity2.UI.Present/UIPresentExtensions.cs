@@ -19,9 +19,9 @@ namespace Microsoft.Extensions.DependencyInjection
             const string blackTemplate = TemplateNames.BLACK;
             const string assemblyName = "Liquidity2.UI.Present";
 
-            builder.AddTemplate("Black", $"/{assemblyName};component/Templates/{blackTemplate}/LoginWindow_Template.xaml");
-            builder.AddTemplate("Black", $"/{assemblyName};component/Templates/{blackTemplate}/NavigationWindow_Template.xaml");
-            builder.AddTemplate("Black", $"/{assemblyName};component/Templates/{blackTemplate}/TOSWindow_Template.xaml");
+            builder.AddTemplate(blackTemplate, $"/{assemblyName};component/Templates/{blackTemplate}/LoginWindow_Template.xaml");
+            builder.AddTemplate(blackTemplate, $"/{assemblyName};component/Templates/{blackTemplate}/NavigationWindow_Template.xaml");
+            builder.AddTemplate(blackTemplate, $"/{assemblyName};component/Templates/{blackTemplate}/TOSWindow_Template.xaml");
         }
 
         private static void AddWindows(IServiceCollection services)
