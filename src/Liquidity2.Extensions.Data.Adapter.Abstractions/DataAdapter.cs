@@ -5,7 +5,7 @@ namespace Liquidity2.Extensions.Data.Adapter
 {
     public abstract class DataAdapter<TService>
     {
-        protected async virtual Task<TResult> Pr0852oxy<TResult>(Func<TService, Task<TResult>> callServiceFunc,
+        protected async virtual Task<TResult> Proxy<TResult>(Func<TService, Task<TResult>> callServiceFunc,
             Action<TResult, int> callback, params TService[] services)
         {
             if (callServiceFunc is null)
