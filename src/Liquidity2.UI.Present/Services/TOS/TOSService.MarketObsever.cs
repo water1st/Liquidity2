@@ -17,22 +17,20 @@ namespace Liquidity2.UI.Services.TOS
 
             public MarketObserver(string symbol, MarketSubscribeDataType type, Func<string, MarketSubscribeDataType, int, Task> func, int precision = 0)
             {
-                Symbol = symbol;
                 this.type = type;
                 this.func = func;
                 unsubscribe = false;
-                Precision = precision;
+                ExactSymbol = new ExactSymbol { Precision = precision, Symbol = symbol };
             }
 
-            public string Symbol { get; }
-            public int Precision { get; }
+            public ExactSymbol ExactSymbol { get; set; }
 
-            public async Task Unsubscribe()
+            public void Dispose()
             {
                 if (unsubscribe)
                     return;
 
-                await func(Symbol, type, Precision);
+                func(ExactSymbol.Symbol, type, ExactSymbol.Precision);
             }
         }
     }

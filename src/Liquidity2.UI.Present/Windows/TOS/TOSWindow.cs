@@ -109,7 +109,7 @@ namespace Liquidity2.UI.Windows.TOS
                 //切换精度取消旧订阅
                 var @event = new PrecisionChangeUnsubscribeEvent(TosVM.Symbol, precision);
                 await _bus.Publish(@event, CancellationToken.None);
-                
+
                 //订阅新精度数据
                 var precisionSubscribeEvent = new PrecisionChangeSubscribeEvent(TosVM.Symbol, precision);
                 await _bus.Publish(precisionSubscribeEvent, CancellationToken.None);
@@ -166,7 +166,7 @@ namespace Liquidity2.UI.Windows.TOS
                 // 通知其他同组窗口更变订阅
                 if (_groupActivate && !string.IsNullOrEmpty(TosVM.Symbol))
                 {
-                    _bus.Publish(new GroupSubscribeEvent(WindowId, _tosSubjectObserver.Symbol, TosVM.Group), CancellationToken.None);
+                    _bus.Publish(new GroupSubscribeEvent(WindowId, _tosSubjectObserver.ExactSymbol.Symbol, TosVM.Group), CancellationToken.None);
                 }
             });
         }
@@ -549,7 +549,7 @@ namespace Liquidity2.UI.Windows.TOS
             {
                 if (_l2SubjectObserver != null)
                 {
-                    await _l2SubjectObserver.Unsubscribe();
+                    _l2SubjectObserver.Dispose();
                     TosVM.NowPrecision = @event.Precision;
                     TosVM.SelectPrecision = _mapper.MapToPrecisionString(TosVM.MaxPrecision - @event.Precision);
                 }
@@ -578,8 +578,8 @@ namespace Liquidity2.UI.Windows.TOS
         /// <param name="e"></param>
         protected override void OnClosed(EventArgs e)
         {
-            _tosSubjectObserver?.Unsubscribe();
-            _l2SubjectObserver?.Unsubscribe();
+            _tosSubjectObserver?.Dispose();
+            _l2SubjectObserver?.Dispose();
             //_windowEventObserver.Unsubscribe();
             base.OnClosed(e);
         }
@@ -597,12 +597,12 @@ namespace Liquidity2.UI.Windows.TOS
             {
                 if (_tosSubjectObserver != null)
                 {
-                    await _tosSubjectObserver.Unsubscribe();
+                     _tosSubjectObserver.Dispose();
                 }
 
                 if (_l2SubjectObserver != null)
                 {
-                    await _l2SubjectObserver.Unsubscribe();
+                     _l2SubjectObserver.Dispose();
                 }
             }
         }

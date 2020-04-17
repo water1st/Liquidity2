@@ -2,7 +2,7 @@
 
 namespace Liquidity2.Data.Client.Abstractions.Market
 {
-    public interface IMarketSubject
+    public interface IMarketSubject: ISubscribeManager
     {
         /// <summary>
         /// 订阅TOS

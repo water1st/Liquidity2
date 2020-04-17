@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Liquidity2.UI.Services.TOS
 {
-    public interface IMarketObsever
+    public interface IMarketObsever: IDisposable
     {
-        string Symbol { get; }
-
-        Task Unsubscribe();
+        ExactSymbol ExactSymbol { get; }
     }
 }

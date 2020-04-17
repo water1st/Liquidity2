@@ -13,7 +13,7 @@ namespace Liquidity2.UI.Services.TOS
             return new L2DataIncomingEvent(l2DataIncomingEvent.Symbol, l2DataIncomingEvent.T2Items.Select(data => MapToL2Item(data)), (TradeDirection)l2DataIncomingEvent.Side, l2DataIncomingEvent.Precision);
         }
 
-        private DTO.L2Item MapToL2Item(Service.Market.DTO.L2Item data)
+        private L2Item MapToL2Item(Service.Market.DTO.L2Item data)
         {
             return new DTO.L2Item(data.Amount, data.Price, data.Count, (ExchangeType)data.Exchange);
         }

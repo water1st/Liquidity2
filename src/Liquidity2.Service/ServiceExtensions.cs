@@ -1,4 +1,6 @@
-﻿using Liquidity2.Service.Market;
+﻿using Liquidity2.Data.Client.Abstractions.Market;
+using Liquidity2.Service.Market;
+using Liquidity2.Service.SubscribeManager;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Liquidity2.Service
@@ -9,6 +11,7 @@ namespace Liquidity2.Service
         {
             services.AddSingleton<IMarketMapper, MarketMapper>();
             services.AddSingleton<IMarketServer, MarketServer>();
+            services.AddSingleton<ISubscribeManager<IMarketSubject>, MarketSubscribeManager>();
             return services;
         }
     }

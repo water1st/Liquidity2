@@ -12,11 +12,12 @@ using System.Collections.Concurrent;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using static Liquidity2.Data.Client.Api.Subjects.MarketSubject;
 using static Markets.Rpc.Protobuf.Subscribe.SubMarketService;
 
 namespace Liquidity2.Data.Client.Api.Subjects.Market
 {
-    public partial class MarketSubject: NetworkStageObject, IMarketSubject 
+    public partial class MarketSubject: NetworkStageObject, IMarketSubject
     {
         private readonly IEventBus bus;
         private readonly IMarketModelMapper mapping;
@@ -53,8 +54,6 @@ namespace Liquidity2.Data.Client.Api.Subjects.Market
         public async Task SubscribeTrades(string symbol, MarketSubscribeDataType type)
         {
             var subscribe = subscribes.GetOrAdd($"[{type}][{symbol}]", name => new SubscribeModel(symbol: symbol, type: type));
-            subscribe.AddObserver();
-
             if (subscribe.ObserverCount == 1)
             {
                 await Policy.Handle<Exception>().RetryAsync(5, (e, count) =>
@@ -79,7 +78,6 @@ namespace Liquidity2.Data.Client.Api.Subjects.Market
         {
             var subscribe = subscribes.GetOrAdd($"[{type}][{symbol}]", name => new SubscribeModel(symbol: symbol, type: type));
             subscribe.Precision = precision;
-            subscribe.AddObserver();
             if (subscribe.ObserverCount == 1)
             {
                 await Policy.Handle<Exception>().RetryAsync(5, (e, count) =>
@@ -119,7 +117,6 @@ namespace Liquidity2.Data.Client.Api.Subjects.Market
         public async Task SubscribeCandles(string symbol)
         {
             var subscribe = subscribes.GetOrAdd($"[{MarketSubscribeDataType.CandleItem}][{symbol}]", name => new SubscribeModel(symbol: symbol, type: MarketSubscribeDataType.CandleItem));
-            subscribe.AddObserver();
             if (subscribe.ObserverCount == 1)
             {
                 await Policy.Handle<Exception>().RetryAsync(5, (e, count) =>
@@ -144,7 +141,6 @@ namespace Liquidity2.Data.Client.Api.Subjects.Market
             var name = $"[{type}][{symbol}]";
             if (subscribes.TryGetValue(name, out var subscribe))
             {
-                subscribe.ReduceObserver();
                 if (subscribe.ObserverCount == 0)
                 {
                     await Policy.Handle<Exception>().RetryAsync(5, (e, count) =>
@@ -313,6 +309,18 @@ namespace Liquidity2.Data.Client.Api.Subjects.Market
                 logger.LogWarning("无法链接服务器...");
                 return Task.CompletedTask;
             });
+        }
+
+        public void AddSubscribe(string symbol, MarketSubscribeDataType type)
+        {
+            var subscribe = subscribes.GetOrAdd($"[{type}][{symbol}]", name => new SubscribeModel(symbol: symbol, type: type));
+            subscribe.AddObserver();
+        }
+
+        public void RemoveSubscribe(string symbol, MarketSubscribeDataType type)
+        {
+            var subscribe = subscribes.GetOrAdd($"[{type}][{symbol}]", name => new SubscribeModel(symbol: symbol, type: type));
+            subscribe.ReduceObserver();
         }
     }
 }

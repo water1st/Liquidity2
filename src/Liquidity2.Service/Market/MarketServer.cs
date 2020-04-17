@@ -1,7 +1,7 @@
 ﻿using Liquidity2.Data.Client.Abstractions.Market;
 using Liquidity2.Data.Client.Abstractions.Market.Events;
 using Liquidity2.Extensions.EventBus;
-using System;
+using Liquidity2.Service.SubscribeManager;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,12 +13,12 @@ namespace Liquidity2.Service.Market
         IEventHandler<MarketL2QueryEvent>,
         IEventHandler<MarketTOSQueryEvent>
     {
-        private readonly IMarketSubject _marketSubject;
+        private readonly ISubscribeManager<IMarketSubject> _marketSubject;
         private readonly IEventBus _eventBus;
         private readonly IMarketQuery _marketQuery;
         private readonly IMarketMapper _marketMapper;
 
-        public MarketServer(IMarketSubject marketSubject, IEventBus eventBus, IMarketQuery marketQuery, IMarketMapper marketMapper)
+        public MarketServer(ISubscribeManager<IMarketSubject> marketSubject, IEventBus eventBus, IMarketQuery marketQuery, IMarketMapper marketMapper)
         {
             _marketSubject = marketSubject;
             _eventBus = eventBus;
@@ -29,7 +29,7 @@ namespace Liquidity2.Service.Market
 
         public async Task SubscribeTickerData()
         {
-            await _marketSubject.SubscribeAllTickers();
+            await _marketSubject.Subject.SubscribeAllTickers();
         }
 
         public async Task GetAllTickers()
@@ -49,12 +49,14 @@ namespace Liquidity2.Service.Market
 
         public async Task SubscribeTosData(string symbol)
         {
-            await _marketSubject.SubscribeTrades(symbol, MarketSubscribeDataType.TOSItem);
+            _marketSubject.AddSubscribe(symbol, MarketSubscribeDataType.TOSItem);
+            await _marketSubject.Subject.SubscribeTrades(symbol, MarketSubscribeDataType.TOSItem);
         }
 
         public async Task SubscribeL2Data(string symbol, int precision = 0)
         {
-            await _marketSubject.SubscribeOrderBooks(symbol, MarketSubscribeDataType.L2Item, precision);
+            _marketSubject.AddSubscribe(symbol, MarketSubscribeDataType.L2Item);
+            await _marketSubject.Subject.SubscribeOrderBooks(symbol, MarketSubscribeDataType.L2Item, precision);
         }
 
         private void Subscribe(IEventBus eventBus)
@@ -67,7 +69,8 @@ namespace Liquidity2.Service.Market
 
         public async Task Unsubscribe(string symbol, DTO.MarketSubscribeDataType type, int precision = 0)
         {
-            await _marketSubject.Unsubscribe(symbol, (MarketSubscribeDataType)type, precision);
+            _marketSubject.RemoveSubscribe(symbol, (MarketSubscribeDataType)type);
+            await _marketSubject.Subject.Unsubscribe(symbol, (MarketSubscribeDataType)type, precision);
         }
 
         public async Task Handle(MarketTosDataIncomingEvent @event, CancellationToken token)
@@ -85,13 +88,13 @@ namespace Liquidity2.Service.Market
         public async Task Handle(MarketL2QueryEvent @event, CancellationToken token)
         {
             var l2QueryEvent = _marketMapper.MapToL2QueryEvent(@event);
-            await _eventBus.Publish(l2QueryEvent,token);
+            await _eventBus.Publish(l2QueryEvent, token);
         }
 
         public async Task Handle(MarketTOSQueryEvent @event, CancellationToken token)
         {
             var tosQueryEvent = _marketMapper.MapToTOSQueryEvent(@event);
-            await _eventBus.Publish(tosQueryEvent,token);
+            await _eventBus.Publish(tosQueryEvent, token);
         }
     }
 }

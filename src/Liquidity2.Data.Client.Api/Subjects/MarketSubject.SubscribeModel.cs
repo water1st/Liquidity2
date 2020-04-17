@@ -1,9 +1,7 @@
 ﻿using Liquidity2.Data.Client.Abstractions.Market;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Liquidity2.Data.Client.Api.Subjects.Market
+namespace Liquidity2.Data.Client.Api.Subjects
 {
     public partial class MarketSubject
     {

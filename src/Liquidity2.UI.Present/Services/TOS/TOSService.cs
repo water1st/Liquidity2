@@ -52,16 +52,6 @@ namespace Liquidity2.UI.Services.TOS
                 _marketService.Unsubscribe, precision);
         }
 
-        public async Task SubscribeTickerData()
-        {
-            await _marketService.SubscribeTickerData();
-        }
-
-        public async Task GetAllTickers()
-        {
-            await _marketService.GetAllTickers();
-        }
-
         public async Task GetL2Data(string symbol)
         {
             await _marketService.GetL2Data(symbol);
