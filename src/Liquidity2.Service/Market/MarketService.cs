@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Liquidity2.Service.Market
 {
-    public class MarketServer : IMarketServer,
+    public class MarketService : IMarketService,
         IEventHandler<MarketTosDataIncomingEvent>,
         IEventHandler<MarketL2DataIncomingEvent>,
         IEventHandler<MarketL2QueryEvent>,
@@ -18,7 +18,7 @@ namespace Liquidity2.Service.Market
         private readonly IMarketQuery _marketQuery;
         private readonly IMarketMapper _marketMapper;
 
-        public MarketServer(ISubscribeManager<IMarketSubject> marketSubject, IEventBus eventBus, IMarketQuery marketQuery, IMarketMapper marketMapper)
+        public MarketService(ISubscribeManager<IMarketSubject> marketSubject, IEventBus eventBus, IMarketQuery marketQuery, IMarketMapper marketMapper)
         {
             _marketSubject = marketSubject;
             _eventBus = eventBus;

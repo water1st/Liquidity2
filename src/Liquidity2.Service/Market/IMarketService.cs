@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Liquidity2.Service.Market
 {
-    public interface IMarketServer
+    public interface IMarketService
     {
         Task SubscribeTosData(string symbol);
 

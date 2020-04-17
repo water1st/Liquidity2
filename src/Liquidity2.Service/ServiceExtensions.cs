@@ -10,7 +10,7 @@ namespace Liquidity2.Service
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddSingleton<IMarketMapper, MarketMapper>();
-            services.AddSingleton<IMarketServer, MarketServer>();
+            services.AddSingleton<IMarketService, MarketService>();
             services.AddSingleton<ISubscribeManager<IMarketSubject>, MarketSubscribeManager>();
             return services;
         }

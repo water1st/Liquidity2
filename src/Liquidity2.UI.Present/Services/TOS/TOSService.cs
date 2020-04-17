@@ -14,11 +14,11 @@ namespace Liquidity2.UI.Services.TOS
         IEventHandler<MarketL2QueryToUIEvent>,
         IEventHandler<MarketTOSQueryToUIEvent>
     {
-        private readonly IMarketServer _marketService;
+        private readonly IMarketService _marketService;
         private readonly IEventBus _eventBus;
         private readonly ITOSMapper _mapper;
 
-        public TOSService(IMarketServer marketSever, IEventBus eventBus, ITOSMapper mapper)
+        public TOSService(IMarketService marketSever, IEventBus eventBus, ITOSMapper mapper)
         {
             _marketService = marketSever;
             _eventBus = eventBus;
