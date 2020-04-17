@@ -1,0 +1,43 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:buttons="clr-namespace:Liquidity2.UI.Components.UsersControl.Buttons;assembly=Liquidity2.UI.Components">
+    <ControlTemplate x:Key="SearchTextBox_Template" TargetType="{x:Type UserControl}">
+        <Popup IsOpen="{Binding PopupOpen, RelativeSource={RelativeSource AncestorType=buttons:SearchButton}}" StaysOpen="False" Placement="Left">
+            <Grid Width="158" Height="20" Background="{x:Null}">
+                <Rectangle Fill="Transparent" RadiusX="10" RadiusY="10" Opacity="0.8"/>
+                <Border Background="Transparent" BorderBrush="#99999D" BorderThickness="1" CornerRadius="10" />
+                <TextBox  Foreground="#747479"  Background="Transparent">
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Grid Background="Transparent">
+                                <Grid Margin="6,0,0,0" Visibility="{Binding LittleSearchTextGridVis, Mode=TwoWay}" Background="Transparent">
+                                    <Canvas VerticalAlignment="Center" HorizontalAlignment="Left" Width="12" Height="12" Margin="4,4,2,3">
+                                        <Path  StrokeThickness="1.3" Stroke="White">
+                                            <Path.Data>
+                                                <GeometryGroup>
+                                                    <PathGeometry Figures="M6.99903215,2.08800718 C5.64298561,0.731310635 3.44394121,0.731310635 2.08734468,2.08800718 C0.730648135,3.44465372 0.730648135,5.64369812 2.08734468,6.99969465 C3.44324122,8.35614119 5.64193562,8.35644119 6.99828216,7.00049465 C6.99858216,7.00029465 6.99883216,6.99999465 6.99908215,6.99969465 C8.35542869,5.64384811 8.35582869,3.44510371 6.99988215,2.08875718 C6.99955444,2.08856249 6.99926613,2.0883081 6.99903215,2.08800718 L6.99903215,2.08800718 Z M1.3311966,7.75589272 C-0.443198877,5.98199725 -0.443548877,3.10540458 1.33034661,1.3310591 C3.10429209,-0.443336377 5.98078476,-0.443736377 7.75518022,1.33020911 C9.5295257,3.10415459 9.5299257,5.98064726 7.75603022,7.75509272 C7.75572253,7.7553506 7.7554381,7.75563503 7.75518022,7.75594272 C5.98113475,9.5294882 3.10524208,9.5294882 1.3311966,7.75589272 Z M9.81737496,9.81803746 C9.57547558,10.0603368 9.18297658,10.0606368 8.9406772,9.81873746 L8.93997721,9.81803746 L8.06327944,8.9406897 C7.82118006,8.69859031 7.82118006,8.30604132 8.06327944,8.06394193 C8.30542883,7.82184255 8.69787782,7.82184255 8.93997721,8.06394193 L9.81737496,8.9406897 C10.0597243,9.18158908 10.0607743,9.57328809 9.81982496,9.81558747 C9.81904622,9.8164412 9.8182287,9.81725873 9.81737496,9.81803746 L9.81737496,9.81803746 Z" />
+                                                </GeometryGroup>
+                                            </Path.Data>
+                                        </Path>
+                                    </Canvas>
+                                    <TextBlock Margin="18,0,0,0" Text="搜索" VerticalAlignment="Center" HorizontalAlignment="Left"  />
+                                </Grid>
+                                <TextBox Margin="7,0,0,0" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent"  VerticalAlignment="Center" Foreground="White" BorderThickness="0" CaretBrush="White"  >
+                                    <TextBox.InputBindings>
+                                        <MouseBinding Gesture="LeftClick" Command="{Binding SearchEnterCmd}"/>
+                                    </TextBox.InputBindings>
+                                </TextBox>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <!--鼠标经过高亮-->
+                                <Trigger Property="Button.IsMouseOver" Value="true">
+                                    <Setter Property="Opacity" Value="1"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+            </Grid>
+        </Popup>
+    </ControlTemplate>
+</ResourceDictionary>

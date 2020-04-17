@@ -38,7 +38,7 @@ namespace Liquidity2.UI.Windows
 
 
             _viewModel.AccountText = "15736262776";
-            _viewModel.PasswordText = "15736262776";
+            _viewModel.PasswordText = "jin15736262776";
         }
 
         private void InitViewModel()
