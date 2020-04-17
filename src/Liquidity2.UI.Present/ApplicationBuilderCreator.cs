@@ -1,4 +1,5 @@
-﻿using Liquidity2.Extensions.Authentication;
+﻿using Liquidity2.Data.Client.Api;
+using Liquidity2.Extensions.Authentication;
 using Liquidity2.Extensions.BackgroundJob;
 using Liquidity2.Extensions.Blocker.WPFBlocker;
 using Liquidity2.Extensions.Data.LocalStorage;
@@ -7,12 +8,15 @@ using Liquidity2.Extensions.DependencyInjection;
 using Liquidity2.Extensions.EventBus;
 using Liquidity2.Extensions.Lifecycle;
 using Liquidity2.Extensions.WindowPostions;
+using Liquidity2.Service;
 using Liquidity2.UI.Components;
 using Liquidity2.UI.Core;
 using Liquidity2.UI.Templates;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
+using static Markets.Rpc.Protobuf.Request.QueryMarketService;
+using static Markets.Rpc.Protobuf.Subscribe.SubMarketService;
 
 namespace Liquidity2.UI.Present
 {
@@ -40,16 +44,27 @@ namespace Liquidity2.UI.Present
                     .AddOpenidClient()
                     .ConfigureIdentityOptions(options =>
                     {
-                        options.ClientId = "trades_grpc_client";
-                        options.ClientSecret = "abb21609-f9a4-2b28-6622-ec410abe648b";
-                        options.IssuerUri = new Uri("http://47.56.95.192:20000/");
-                        options.Scope = "profile openid trades_api offline_access";
+                        options.ClientId = Configurations.CLIENT_CLIENT_ID;
+                        options.ClientSecret = Configurations.CLIENT_SECRET;
+                        options.IssuerUri = Configurations.ACCESSTOKEN_ENDPOINT;
+                        options.Scope = Configurations.CLIENT_SCOPE;
                     });
                     service.AddLocalStorage(options =>
                     {
                         var fileName = $"{Directory.GetCurrentDirectory()}\\localstorage.db";
                         options.UseSQLite($"Data Source={fileName};Version=3;");
                     });
+
+                    service.AddGrpcClient<SubMarketServiceClient>(options =>
+                    {
+                        options.Address = Configurations.MARKET_GRPC_SERVICE_ADDRESS;
+                    });
+
+                    service.AddGrpcClient<QueryMarketServiceClient>(options =>
+                    {
+                        options.Address = Configurations.MARKET_GRPC_SERVICE_ADDRESS;
+                    });
+
                     service.AddMemoryCache();
 
                     service.AddWindowPostionService()
@@ -62,8 +77,8 @@ namespace Liquidity2.UI.Present
                     .AddUIComponents()
                     .AddUIService()
                     .AddWindows();
-
-
+                    ServiceExtensions.AddServices(service);
+                    DataApiExtensions.AddServices(service);
                 });
         }
     }

@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Liquidity2.Data.Client.Api\Liquidity2.Data.Client.Api.csproj" />
     <ProjectReference Include="..\Liquidity2.Data.LocalStorageFile\Liquidity2.Data.LocalStorageFile.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Authentication.Client.Api\Liquidity2.Extensions.Authentication.Client.Api.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Authentication.Grpc.Interceptors\Liquidity2.Extensions.Authentication.Grpc.Interceptors.csproj" />

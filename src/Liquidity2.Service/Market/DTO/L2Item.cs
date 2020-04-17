@@ -1,7 +1,7 @@
-﻿using Liquidity2.UI.Services.DTO;
+﻿using Liquidity2.Service.DTO;
 using System;
 
-namespace Liquidity2.UI.Services.TOS.DTO
+namespace Liquidity2.Service.Market.DTO
 {
     public class L2Item
     {
