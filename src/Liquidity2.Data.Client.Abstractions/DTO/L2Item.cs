@@ -1,7 +1,6 @@
-﻿using Liquidity2.UI.Services.DTO;
-using System;
+﻿using System;
 
-namespace Liquidity2.UI.Services.TOS.DTO
+namespace Liquidity2.Data.Client.Abstractions.DTO
 {
     public class L2Item
     {

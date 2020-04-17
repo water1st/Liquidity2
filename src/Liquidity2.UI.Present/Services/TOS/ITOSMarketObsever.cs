@@ -2,7 +2,7 @@
 
 namespace Liquidity2.UI.Services.TOS
 {
-    public interface ITOSMarketObsever
+    public interface IMarketObsever
     {
         string Symbol { get; }
 
