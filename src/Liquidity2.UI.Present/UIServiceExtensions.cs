@@ -2,6 +2,7 @@
 using Liquidity2.Extensions.Lifecycle.Application;
 using Liquidity2.UI.Core.Builder;
 using Liquidity2.UI.Services;
+using Liquidity2.UI.Services.TOS;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -21,6 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
         private static void AddServices(IServiceCollection services)
         {
             services.AddSingleton<IWindowPresentService, WindowPresentService>();
+            services.AddSingleton<ITOSService, TOSService>();
         }
 
         private static void AddEventObservers(IServiceCollection services)

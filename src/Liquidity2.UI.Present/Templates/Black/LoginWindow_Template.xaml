@@ -234,10 +234,7 @@
                                 <KeyBinding Key="Return" Command="{Binding DataContext.LoginButtonClickCmd, RelativeSource={RelativeSource AncestorType=Window}}" />
                             </PasswordBox.InputBindings>
                         </PasswordBox>
-                        <Button Grid.Column="4">
-                            <Button.InputBindings>
-                                <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.ShowPasswordButtonClickCmd, RelativeSource={RelativeSource AncestorType=Window}}" />
-                            </Button.InputBindings>
+                        <Button Grid.Column="4" Command="{Binding DataContext.ShowPasswordButtonClickCmd, RelativeSource={RelativeSource AncestorType=Window}}">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Setter Property="Template">
@@ -251,13 +248,15 @@
                                     </Setter>
                                 </Style>
                             </Button.Style>
-                            <Canvas Style="{StaticResource ImageCanvasStyle}" Width="16" Height="10">
-                                <Path Fill="{Binding ShowPasswordButtonBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                    <Path.Data>
-                                        <PathGeometry Figures="M7.97298032,0.000325646714 C4.33308746,0.0445219049 0,4.05120955 0,4.99252388 C0,5.93317857 4.13618541,10.0645392 8.120191,9.99923432 C12.1048177,9.93326976 16,5.69240791 16,4.99252388 C16,4.29198021 11.6134943,-0.0432109658 7.97298032,0.000325646714 Z M7.99968943,8.87717708 C6.68159768,8.89541907 5.45621329,8.15908677 4.79215891,6.94977509 C4.12810454,5.7404634 4.12810454,4.24524401 4.79215891,3.03593232 C5.45621329,1.82662064 6.68159768,1.09028834 7.99968943,1.10853033 C10.0011352,1.13622973 11.6099301,2.86716132 11.6099301,4.9928537 C11.6099301,7.11854609 10.0011352,8.84947768 7.99968943,8.87717708 L7.99968943,8.87717708 Z M6.00031751,4.96443988 C5.98746239,5.68733357 6.3657632,6.36088465 6.98975244,6.72609342 C7.61374169,7.09130219 8.38625831,7.09130219 9.01024756,6.72609342 C9.6342368,6.36088465 10.0125376,5.68733357 9.99968249,4.96443988 C9.98028967,3.87390519 9.09070637,3 8,3 C6.90929363,3 6.01971033,3.87390519 6.00031751,4.96443988 L6.00031751,4.96443988 Z" />
-                                    </Path.Data>
-                                </Path>
-                            </Canvas>
+                            <Grid Background="Transparent">
+                                <Canvas Style="{StaticResource ImageCanvasStyle}" Width="16" Height="10">
+                                    <Path Fill="{Binding ShowPasswordButtonBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                        <Path.Data>
+                                            <PathGeometry Figures="M7.97298032,0.000325646714 C4.33308746,0.0445219049 0,4.05120955 0,4.99252388 C0,5.93317857 4.13618541,10.0645392 8.120191,9.99923432 C12.1048177,9.93326976 16,5.69240791 16,4.99252388 C16,4.29198021 11.6134943,-0.0432109658 7.97298032,0.000325646714 Z M7.99968943,8.87717708 C6.68159768,8.89541907 5.45621329,8.15908677 4.79215891,6.94977509 C4.12810454,5.7404634 4.12810454,4.24524401 4.79215891,3.03593232 C5.45621329,1.82662064 6.68159768,1.09028834 7.99968943,1.10853033 C10.0011352,1.13622973 11.6099301,2.86716132 11.6099301,4.9928537 C11.6099301,7.11854609 10.0011352,8.84947768 7.99968943,8.87717708 L7.99968943,8.87717708 Z M6.00031751,4.96443988 C5.98746239,5.68733357 6.3657632,6.36088465 6.98975244,6.72609342 C7.61374169,7.09130219 8.38625831,7.09130219 9.01024756,6.72609342 C9.6342368,6.36088465 10.0125376,5.68733357 9.99968249,4.96443988 C9.98028967,3.87390519 9.09070637,3 8,3 C6.90929363,3 6.01971033,3.87390519 6.00031751,4.96443988 L6.00031751,4.96443988 Z" />
+                                        </Path.Data>
+                                    </Path>
+                                </Canvas>
+                            </Grid>
                         </Button>
                     </Grid>
                 </Border>
