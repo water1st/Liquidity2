@@ -1,7 +1,9 @@
 ﻿using Liquidity2.Data.Client.Abstractions.Market;
 using Liquidity2.Data.Client.Abstractions.Market.Events;
+using Liquidity2.Data.Client.Abstractions.Market.SubscribeModel;
 using Liquidity2.Extensions.EventBus;
 using Liquidity2.Service.SubscribeManager;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,23 +15,34 @@ namespace Liquidity2.Service.Market
         IEventHandler<MarketL2QueryEvent>,
         IEventHandler<MarketTOSQueryEvent>
     {
-        private readonly ISubscribeManager<IMarketSubject> _marketSubject;
         private readonly IEventBus _eventBus;
         private readonly IMarketQuery _marketQuery;
         private readonly IMarketMapper _marketMapper;
 
-        public MarketService(ISubscribeManager<IMarketSubject> marketSubject, IEventBus eventBus, IMarketQuery marketQuery, IMarketMapper marketMapper)
+        private readonly ISubscribeManager<L2SubscribeModel> _l2SubscribeManager;
+        private readonly ISubscribeManager<TOSSubscribeModel> _tosSubscribeManager;
+        private readonly ISubscribeManager<KLineSubscribeModel> _kLineSubscribeManager;
+        private readonly ISubscribeManager<TickerSubscribeModel> _tickerSubscribeManager;
+
+        //private readonly
+
+        public MarketService(ISubscribeManagerFactory managerFactory, IEventBus eventBus, IMarketQuery marketQuery, IMarketMapper marketMapper)
         {
-            _marketSubject = marketSubject;
             _eventBus = eventBus;
             _marketQuery = marketQuery;
             _marketMapper = marketMapper;
+
+            _l2SubscribeManager = managerFactory.Create<L2SubscribeModel>();
+            _tosSubscribeManager = managerFactory.Create<TOSSubscribeModel>();
+            _kLineSubscribeManager = managerFactory.Create<KLineSubscribeModel>();
+            _tickerSubscribeManager = managerFactory.Create<TickerSubscribeModel>();
             Subscribe(_eventBus);
         }
 
-        public async Task SubscribeTickerData()
+        public async Task<IDisposable> SubscribeTickerData()
         {
-            await _marketSubject.Subject.SubscribeAllTickers();
+            var disposabler = await _tickerSubscribeManager.AddSubscribe(new TickerSubscribeModel(null, (MarketSubscribeDataType)DTO.MarketSubscribeDataType.TickerItem));
+            return disposabler;
         }
 
         public async Task GetAllTickers()
@@ -47,16 +60,16 @@ namespace Liquidity2.Service.Market
             await _marketQuery.QueryTrade(symbol);
         }
 
-        public async Task SubscribeTosData(string symbol)
+        public async Task<IDisposable> SubscribeTosData(string symbol)
         {
-            _marketSubject.AddSubscribe(symbol, MarketSubscribeDataType.TOSItem);
-            await _marketSubject.Subject.SubscribeTrades(symbol, MarketSubscribeDataType.TOSItem);
+           var disposable = await _tosSubscribeManager.AddSubscribe(new TOSSubscribeModel(symbol, (MarketSubscribeDataType)DTO.MarketSubscribeDataType.TOSItem));
+            return disposable;
         }
 
-        public async Task SubscribeL2Data(string symbol, int precision = 0)
+        public async Task<IDisposable> SubscribeL2Data(string symbol, int precision = 0)
         {
-            _marketSubject.AddSubscribe(symbol, MarketSubscribeDataType.L2Item);
-            await _marketSubject.Subject.SubscribeOrderBooks(symbol, MarketSubscribeDataType.L2Item, precision);
+            var disposable = await _l2SubscribeManager.AddSubscribe(new L2SubscribeModel(symbol, (MarketSubscribeDataType)DTO.MarketSubscribeDataType.L2Item) { Precision = precision });
+            return disposable;
         }
 
         private void Subscribe(IEventBus eventBus)
@@ -67,11 +80,26 @@ namespace Liquidity2.Service.Market
             eventBus.Subscribe<MarketTOSQueryEvent>(this);
         }
 
-        public async Task Unsubscribe(string symbol, DTO.MarketSubscribeDataType type, int precision = 0)
-        {
-            _marketSubject.RemoveSubscribe(symbol, (MarketSubscribeDataType)type);
-            await _marketSubject.Subject.Unsubscribe(symbol, (MarketSubscribeDataType)type, precision);
-        }
+        //public async Task Unsubscribe(string symbol, DTO.MarketSubscribeDataType type, int precision = 0)
+        //{
+        //    switch (type)
+        //    {
+        //        case DTO.MarketSubscribeDataType.L2Item:
+        //            await _l2SubscribeManager.RemoveSubscribe(new L2SubscribeModel(symbol, (MarketSubscribeDataType)type, precision));
+        //            break;
+        //        case DTO.MarketSubscribeDataType.CandleItem:
+        //            await _kLineSubscribeManager.RemoveSubscribe(new KLineSubscribeModel(symbol, (MarketSubscribeDataType)type, precision));
+        //            break;
+        //        case DTO.MarketSubscribeDataType.TOSItem:
+        //            await _tosSubscribeManager.RemoveSubscribe(new TOSSubscribeModel(symbol, (MarketSubscribeDataType)type, precision));
+        //            break;
+        //        case DTO.MarketSubscribeDataType.TickerItem:
+        //            await _tickerSubscribeManager.RemoveSubscribe(new TickerSubscribeModel(symbol, (MarketSubscribeDataType)type, precision));
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
         public async Task Handle(MarketTosDataIncomingEvent @event, CancellationToken token)
         {

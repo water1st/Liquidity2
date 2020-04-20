@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Liquidity2.Data.Client.Abstractions\Liquidity2.Data.Client.Abstractions.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.DependencyInjection\Liquidity2.Extensions.DependencyInjection.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.EventBus.Abstractions\Liquidity2.Extensions.EventBus.Abstractions.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.EventBus.EventObserver\Liquidity2.Extensions.EventBus.EventObserver.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Lifecycle.Application\Liquidity2.Extensions.Lifecycle.Application.csproj" />

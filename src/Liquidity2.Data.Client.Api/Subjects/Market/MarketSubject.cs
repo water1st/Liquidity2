@@ -1,23 +1,23 @@
 ﻿using Grpc.Core;
 using Liquidity2.Data.Client.Abstractions.Market;
+using Liquidity2.Data.Client.Abstractions.Market.SubscribeModel;
 using Liquidity2.Extensions.BackgroundJob;
 using Liquidity2.Extensions.Data.Network;
 using Liquidity2.Extensions.EventBus;
 using Liquidity2.Extensions.Lifecycle.Application;
+using Liquidity2.Utilities;
 using Markets.Rpc.Protobuf.Subscribe;
 using Microsoft.Extensions.Logging;
 using Polly;
 using System;
-using System.Collections.Concurrent;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using static Liquidity2.Data.Client.Api.Subjects.MarketSubject;
 using static Markets.Rpc.Protobuf.Subscribe.SubMarketService;
 
 namespace Liquidity2.Data.Client.Api.Subjects.Market
 {
-    public partial class MarketSubject: NetworkStageObject, IMarketSubject
+    public partial class MarketSubject : NetworkStageObject, IMarketSubject
     {
         private readonly IEventBus bus;
         private readonly IMarketModelMapper mapping;
@@ -28,8 +28,6 @@ namespace Liquidity2.Data.Client.Api.Subjects.Market
         private readonly IReconnectService reconnectService;
         private bool tickerSubscrib = false;
 
-        //SubscribeModel键值对集合
-        private readonly ConcurrentDictionary<string, SubscribeModel> subscribes;
         private string token;
         private readonly string listeneStreamJobName;
 
@@ -44,118 +42,9 @@ namespace Liquidity2.Data.Client.Api.Subjects.Market
             this.background = background;
             this.client = client;
             this.reconnectService = reconnectService;
-            subscribes = new ConcurrentDictionary<string, SubscribeModel>();
 
-            string baseName =GetType().FullName;
+            string baseName = GetType().FullName;
             listeneStreamJobName = $"{baseName}.ListeneStream";
-        }
-
-        //订阅TOS
-        public async Task SubscribeTrades(string symbol, MarketSubscribeDataType type)
-        {
-            var subscribe = subscribes.GetOrAdd($"[{type}][{symbol}]", name => new SubscribeModel(symbol: symbol, type: type));
-            if (subscribe.ObserverCount == 1)
-            {
-                await Policy.Handle<Exception>().RetryAsync(5, (e, count) =>
-                {
-                    if (count == 5)
-                    {
-                        logger.LogError(e, $"订阅TOS失败：{e.Message}");
-                        subscribes.TryRemove($"[{type}][{symbol}]", out _);
-                        //await bus.Publish(new ConnectionFailEvent(), CancellationToken.None);
-                    }
-                }).ExecuteAsync(async () =>
-                {
-                    var response = await client.SubscribeTradesAsync(new SubTradeRequest() { Pair = symbol, Token = token });
-                    subscribe.Id = response.Id;
-                    subscribe.ObserverCount = 1;
-                });
-            }
-        }
-
-        //带精度订阅Lv2
-        public async Task SubscribeOrderBooks(string symbol, MarketSubscribeDataType type, int precision = 0)
-        {
-            var subscribe = subscribes.GetOrAdd($"[{type}][{symbol}]", name => new SubscribeModel(symbol: symbol, type: type));
-            subscribe.Precision = precision;
-            if (subscribe.ObserverCount == 1)
-            {
-                await Policy.Handle<Exception>().RetryAsync(5, (e, count) =>
-                {
-                    if (count == 5)
-                    {
-                        subscribes.TryRemove($"[{type}][{symbol}]", out _);
-                        logger.LogError(e, $"订阅Lv2失败：{e.Message}");
-                    }
-                }).ExecuteAsync(async () =>
-                {
-                    var response = await client.SubscribeOrderBooksAsync(new SubBookRequest() { Pair = symbol, Token = token, Precision = (Markets.Rpc.Protobuf.Precision)precision });
-                    subscribe.Id = response.Id;
-                    subscribe.ObserverCount = 1;
-                });
-            }
-        }
-
-        //订阅Ticker
-        public async Task SubscribeAllTickers()
-        {
-            try
-            {
-                if (!tickerSubscrib)
-                {
-                    await client.SubscribeAllTickersAsync(new SubAllTickerRequest() { Token = token });
-                    tickerSubscrib = true;
-                }
-            }
-            catch (Exception e)
-            {
-                logger.LogWarning($"订阅Ticker失败：{e.Message}");
-            }
-        }
-
-        //订阅k线
-        public async Task SubscribeCandles(string symbol)
-        {
-            var subscribe = subscribes.GetOrAdd($"[{MarketSubscribeDataType.CandleItem}][{symbol}]", name => new SubscribeModel(symbol: symbol, type: MarketSubscribeDataType.CandleItem));
-            if (subscribe.ObserverCount == 1)
-            {
-                await Policy.Handle<Exception>().RetryAsync(5, (e, count) =>
-                {
-                    if (count == 5)
-                    {
-                        subscribes.TryRemove($"[{MarketSubscribeDataType.CandleItem}][{symbol}]", out _);
-                        logger.LogWarning($"订阅K线失败：{e.Message}");
-                    }
-                }).ExecuteAsync(async () =>
-                {
-                    var response = await client.SubscribeCandlesAsync(new SubCandlesRequest() { Pair = symbol, Token = token });
-                    subscribe.Id = response.Id;
-                    subscribe.ObserverCount = 1;
-                });
-            }
-        }
-
-        //取消订阅
-        public async Task Unsubscribe(string symbol, MarketSubscribeDataType type, int precision = 0)
-        {
-            var name = $"[{type}][{symbol}]";
-            if (subscribes.TryGetValue(name, out var subscribe))
-            {
-                if (subscribe.ObserverCount == 0)
-                {
-                    await Policy.Handle<Exception>().RetryAsync(5, (e, count) =>
-                    {
-                        if (count == 5)
-                        {
-                            subscribe.ObserverCount = 1;
-                        }
-                    }).ExecuteAsync(async () =>
-                    {
-                        await client.UnsubscribeAsync(new UnsubscribeRequest { Id = subscribe.Id, Token = token });
-                        subscribes.TryRemove(name, out _);
-                    });
-                }
-            }
         }
 
         public async Task OnSubscribeStart()
@@ -188,7 +77,6 @@ namespace Liquidity2.Data.Client.Api.Subjects.Market
             }
             catch (Exception e)
             {
-
                 throw;
             }
         }
@@ -229,7 +117,6 @@ namespace Liquidity2.Data.Client.Api.Subjects.Market
                     await reconnectService.Reconnect(CreateAsyncMessageStream, async result =>
                     {
                         stream = result;
-                        await ReSubscribeAll();
                     }, error =>
                     {
                         run = false;
@@ -242,55 +129,8 @@ namespace Liquidity2.Data.Client.Api.Subjects.Market
             }
         }
 
-        private async Task ReSubscribeAll()
-        {
-            await SubscribeAllTickers();
-            foreach (var subscribe in subscribes.Values)
-            {
-                SubscribeResponse response = new SubscribeResponse();
-                switch (subscribe.SubscribeType)
-                {
-                    case MarketSubscribeDataType.L2Item:
-                        response = await client.SubscribeOrderBooksAsync(new SubBookRequest
-                        {
-                            Pair = subscribe.Symbol,
-                            Token = token,
-                            Precision = (Markets.Rpc.Protobuf.Precision)subscribe.Precision
-                        });
-                        break;
-                    case MarketSubscribeDataType.CandleItem:
-                        response = await client.SubscribeCandlesAsync(new SubCandlesRequest
-                        {
-                            Pair = subscribe.Symbol,
-                            Token = token
-                        });
-                        break;
-                    case MarketSubscribeDataType.TOSItem:
-                        response = await client.SubscribeTradesAsync(new SubTradeRequest
-                        {
-                            Pair = subscribe.Symbol,
-                            Token = token
-                        });
-                        break;
-                    default:
-                        break;
-                }
-                subscribe.Id = response.Id;
-            }
-        }
-
-        private async Task UnsubscribeAll()
-        {
-            foreach (var item in subscribes.Values)
-            {
-                await client.UnsubscribeAsync(new UnsubscribeRequest { Id = item.Symbol, Token = token });
-            }
-            subscribes.Clear();
-        }
-
         protected override async Task OnStop(CancellationToken token)
         {
-            await UnsubscribeAll();
             background.RemoveJob(listeneStreamJobName);
         }
 
@@ -311,16 +151,107 @@ namespace Liquidity2.Data.Client.Api.Subjects.Market
             });
         }
 
-        public void AddSubscribe(string symbol, MarketSubscribeDataType type)
+        public async Task<IDisposable> Subscribe(L2SubscribeModel SubscribeModel)
         {
-            var subscribe = subscribes.GetOrAdd($"[{type}][{symbol}]", name => new SubscribeModel(symbol: symbol, type: type));
-            subscribe.AddObserver();
+            await Policy.Handle<Exception>().RetryAsync(5, (e, count) =>
+                {
+                    if (count == 5)
+                    {
+                        logger.LogError(e, $"订阅Lv2失败：{e.Message}");
+                        SubscribeModel.ReduceObserver();
+                    }
+                }).ExecuteAsync(async () =>
+                {
+                    var response = await client.SubscribeOrderBooksAsync(new SubBookRequest() { Pair = SubscribeModel.Symbol, Token = token, Precision = (Markets.Rpc.Protobuf.Precision)SubscribeModel.Precision });
+                    SubscribeModel.Id = response.Id;
+                    SubscribeModel.ObserverCount = 1;
+                });
+
+            var disposabler = new Disposabler(async ()=> {
+                await Unsubscribe(SubscribeModel);
+            });
+            return disposabler;
         }
 
-        public void RemoveSubscribe(string symbol, MarketSubscribeDataType type)
+        public async Task Unsubscribe(SubscribeModel unSubscribeModel)
         {
-            var subscribe = subscribes.GetOrAdd($"[{type}][{symbol}]", name => new SubscribeModel(symbol: symbol, type: type));
-            subscribe.ReduceObserver();
+            await Policy.Handle<Exception>().RetryAsync(5, (e, count) =>
+            {
+                if (count == 5)
+                {
+                    unSubscribeModel.ObserverCount = 1;
+                }
+            }).ExecuteAsync(async () =>
+            {
+                await client.UnsubscribeAsync(new UnsubscribeRequest { Id = unSubscribeModel.Id, Token = token });
+            });
+        }
+
+        /// <summary>
+        /// TOS订阅
+        /// </summary>
+        /// <param name="SubscribeModel"></param>
+        /// <returns></returns>
+        public async Task<IDisposable> Subscribe(TOSSubscribeModel SubscribeModel)
+        {
+            await Policy.Handle<Exception>().RetryAsync(5, (e, count) =>
+                {
+                    if (count == 5)
+                    {
+                        logger.LogError(e, $"订阅TOS失败：{e.Message}");
+                        SubscribeModel.ReduceObserver();
+                    }
+                }).ExecuteAsync(async () =>
+                {
+                    var response = await client.SubscribeTradesAsync(new SubTradeRequest() { Pair = SubscribeModel.Symbol, Token = token });
+                    SubscribeModel.Id = response.Id;
+                    SubscribeModel.ObserverCount = 1;
+                });
+            var disposabler = new Disposabler(async () => {
+                await Unsubscribe(SubscribeModel);
+            });
+            return disposabler;
+        }
+
+        public async Task<IDisposable> Subscribe(KLineSubscribeModel SubscribeModel)
+        {
+            await Policy.Handle<Exception>().RetryAsync(5, (e, count) =>
+            {
+                if (count == 5)
+                {
+                    SubscribeModel.ReduceObserver();
+                    logger.LogWarning($"订阅K线失败：{e.Message}");
+                }
+            }).ExecuteAsync(async () =>
+            {
+                var response = await client.SubscribeCandlesAsync(new SubCandlesRequest() { Pair = SubscribeModel.Symbol, Token = token });
+                SubscribeModel.Id = response.Id;
+                SubscribeModel.ObserverCount = 1;
+            });
+            var disposabler = new Disposabler(async () => {
+                await Unsubscribe(SubscribeModel);
+            });
+            return disposabler;
+        }
+
+        public async Task<IDisposable> Subscribe(TickerSubscribeModel SubscribeModel)
+        {
+            try
+            {
+                if (!tickerSubscrib)
+                {
+                    await client.SubscribeAllTickersAsync(new SubAllTickerRequest() { Token = token });
+                    tickerSubscrib = true;
+                }
+            }
+            catch (Exception e)
+            {
+                logger.LogWarning($"订阅Ticker失败：{e.Message}");
+            }
+            var disposabler = new Disposabler(async () => {
+                await Unsubscribe(SubscribeModel);
+            });
+            return disposabler;
         }
     }
 }

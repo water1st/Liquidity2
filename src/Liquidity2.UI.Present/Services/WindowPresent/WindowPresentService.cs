@@ -112,7 +112,6 @@ namespace Liquidity2.UI.Services
             }
 
             window.Show();
-
         }
     }
 }

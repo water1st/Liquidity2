@@ -12,16 +12,22 @@ namespace Liquidity2.UI
         #region GRPC配置
         /// <summary>
         /// 交易服务GRPC地址
+        /// 直连地址：47.56.95.192:54000
+        /// 转发地址：139.196.169.16:60000
         /// </summary>
-        public static readonly Uri TRADE_GRPC_SERVICE_ADDRESS = new Uri("http://47.56.95.192:54000");
+        public static readonly Uri TRADE_GRPC_SERVICE_ADDRESS = new Uri("http://139.196.169.16:60000");
         /// <summary>
         /// 行情服务GRPC地址
+        /// 直连地址：47.56.95.192:50000
+        /// 转发地址：139.196.169.16:50000
         /// </summary>
         public static readonly Uri MARKET_GRPC_SERVICE_ADDRESS = new Uri("http://139.196.169.16:50000");
         /// <summary>
         /// 资金管理
+        /// 直连地址：47.56.95.192:53000
+        /// 转发地址：139.196.169.16:65000
         /// </summary>
-        public static readonly Uri FUNDS_GRPC_SERVICE_ADDRESS = new Uri("http://47.56.95.192:53000");
+        public static readonly Uri FUNDS_GRPC_SERVICE_ADDRESS = new Uri("http://139.196.169.16:65000");
         #endregion
 
 
@@ -41,16 +47,23 @@ namespace Liquidity2.UI
         #region GRPC配置
         /// <summary>
         /// 交易服务GRPC地址
+        /// 直连地址：47.56.95.192:54000
+        /// 转发地址：139.196.169.16:60000
         /// </summary>
-        public static readonly Uri TRADE_GRPC_SERVICE_ADDRESS = new Uri("http://47.56.95.192:54000");
+        public static readonly Uri TRADE_GRPC_SERVICE_ADDRESS = new Uri("http://139.196.169.16:60000");
+
         /// <summary>
         /// 行情服务GRPC地址
+        /// 直连地址：47.56.95.192:50000
+        /// 转发地址：139.196.169.16:50000
         /// </summary>
         public static readonly Uri MARKET_GRPC_SERVICE_ADDRESS = new Uri("http://139.196.169.16:50000");
         /// <summary>
         /// 资金管理
+        /// 直连地址：47.56.95.192:53000
+        /// 转发地址：139.196.169.16:65000
         /// </summary>
-        public static readonly Uri FUNDS_GRPC_SERVICE_ADDRESS = new Uri("http://47.56.95.192:53000");
+        public static readonly Uri FUNDS_GRPC_SERVICE_ADDRESS = new Uri("http://139.196.169.16:65000");
         #endregion
 
 

@@ -1,14 +1,14 @@
 ﻿using Liquidity2.Data.Client.Abstractions.Market;
+using Liquidity2.Data.Client.Abstractions.Market.SubscribeModel;
+using System;
 using System.Threading.Tasks;
 
 namespace Liquidity2.Service.SubscribeManager
 {
-    public interface ISubscribeManager<T> where T : class
+    public interface ISubscribeManager<T>:ISubject<T> where T : SubscribeModel
     {
-        void AddSubscribe(string symbol, MarketSubscribeDataType type);
+        Task<IDisposable> AddSubscribe(T subscribeModel);
 
-        void RemoveSubscribe(string symbol, MarketSubscribeDataType type);
-
-        T Subject { get; set; }
+        Task RemoveSubscribe(T subscribeModel);
     }
 }

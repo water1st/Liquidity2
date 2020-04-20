@@ -24,7 +24,9 @@
     <ProjectReference Include="..\Liquidity2.Data.Client.Abstractions\Liquidity2.Data.Client.Abstractions.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.BackgroundJob\Liquidity2.Extensions.BackgroundJob.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.Data.Network\Liquidity2.Extensions.Data.Network.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.DependencyInjection\Liquidity2.Extensions.DependencyInjection.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.EventBus.Abstractions\Liquidity2.Extensions.EventBus.Abstractions.csproj" />
+    <ProjectReference Include="..\Liquidity2.Utilities\Liquidity2.Utilities.csproj" />
   </ItemGroup>
 
   <ItemGroup>

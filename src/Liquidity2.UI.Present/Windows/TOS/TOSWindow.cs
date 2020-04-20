@@ -157,7 +157,7 @@ namespace Liquidity2.UI.Windows.TOS
             TosVM.NowPrecision = 0;
 
             //取消旧币对
-            _bus.Publish(new UnsubscribeEvent(TosVM.Group), CancellationToken.None);
+            _bus.Publish(new UnsubscribeEvent(TosVM.Group, TosVM.Symbol), CancellationToken.None);
 
             //注意：异步方法不要用Task.Wait()或者Task.Result
             //应使用ContinueWith创建匿名委托把后续方法放在匿名委托里执行
@@ -592,7 +592,7 @@ namespace Liquidity2.UI.Windows.TOS
         /// <returns></returns>
         public async Task Handle(UnsubscribeEvent @event, CancellationToken token)
         {
-            //分组相同撤销订阅
+            //分组相同或币对相同撤销订阅
             if (@event.Group == TosVM.Group)
             {
                 if (_tosSubjectObserver != null)

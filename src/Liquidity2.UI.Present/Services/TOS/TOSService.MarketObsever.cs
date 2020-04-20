@@ -1,9 +1,5 @@
-﻿using Liquidity2.Extensions.EventBus.EventObserver;
-using Liquidity2.Service.Market.DTO;
+﻿using Liquidity2.Service.Market.DTO;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Liquidity2.UI.Services.TOS
 {
@@ -12,10 +8,10 @@ namespace Liquidity2.UI.Services.TOS
         private class MarketObserver : IMarketObsever
         {
             private readonly MarketSubscribeDataType type;
-            private readonly Func<string, MarketSubscribeDataType, int, Task> func;
+            private readonly Action func;
             private bool unsubscribe;
 
-            public MarketObserver(string symbol, MarketSubscribeDataType type, Func<string, MarketSubscribeDataType, int, Task> func, int precision = 0)
+            public MarketObserver(string symbol, MarketSubscribeDataType type, Action func, int precision = 0)
             {
                 this.type = type;
                 this.func = func;
@@ -30,7 +26,7 @@ namespace Liquidity2.UI.Services.TOS
                 if (unsubscribe)
                     return;
 
-                func(ExactSymbol.Symbol, type, ExactSymbol.Precision);
+                func.Invoke();
             }
         }
     }

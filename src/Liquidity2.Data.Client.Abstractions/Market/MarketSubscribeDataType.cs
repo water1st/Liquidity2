@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Liquidity2.Data.Client.Abstractions.Market
+﻿namespace Liquidity2.Data.Client.Abstractions.Market
 {
     public enum MarketSubscribeDataType
     {
@@ -17,6 +13,10 @@ namespace Liquidity2.Data.Client.Abstractions.Market
         /// <summary>
         /// TOS
         /// </summary>
-        TOSItem = 2
+        TOSItem = 2,
+        /// <summary>
+        /// Ticker
+        /// </summary>
+        TickerItem = 3
     }
 }

@@ -17,6 +17,10 @@ namespace Liquidity2.Service.Market.DTO
         /// <summary>
         /// TOS
         /// </summary>
-        TOSItem = 2
+        TOSItem = 2,
+        /// <summary>
+        /// Ticker
+        /// </summary>
+        TickerItem = 3
     }
 }
