@@ -13,10 +13,8 @@ namespace Liquidity2.Service
             services.AddSingleton<IMarketMapper, MarketMapper>();
             services.AddSingleton<IMarketService, MarketService>();
             services.AddSingleton<ISubscribeManagerFactory, SubscribeManagerFactory>();
-            services.AddSingleton<ISubscribeManager<L2SubscribeModel>, SubscribeManager<L2SubscribeModel>>();
-            services.AddSingleton<ISubscribeManager<TOSSubscribeModel>, SubscribeManager<TOSSubscribeModel>>();
-            services.AddSingleton<ISubscribeManager<KLineSubscribeModel>, SubscribeManager<KLineSubscribeModel>>();
-            services.AddSingleton<ISubscribeManager<TickerSubscribeModel>, SubscribeManager<TickerSubscribeModel>>();
+
+            services.AddSingleton(typeof(ISubscribeManager<>), typeof(SubscribeManager<>));
 
             return services;
         }

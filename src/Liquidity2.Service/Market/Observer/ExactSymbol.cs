@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Liquidity2.UI.Services.TOS
+namespace Liquidity2.Service.Market
 {
     public class ExactSymbol : IEquatable<ExactSymbol>
     {

@@ -34,22 +34,16 @@ namespace Liquidity2.UI.Services.TOS
             eventBus.Subscribe<MarketTOSQueryToUIEvent>(this);
         }
 
-        public async Task<IMarketObsever> SubscribeTosData(string symbol, IEventHandler<TOSDataIncomingEvent> eventHandler)
+        public async Task<Service.Market.IMarketObsever> SubscribeTosData(string symbol, IEventHandler<TOSDataIncomingEvent> eventHandler)
         {
-           var disposable = await _marketService.SubscribeTosData(symbol);
-            return new MarketObserver(
-                symbol,
-                MarketSubscribeDataType.TOSItem,
-                disposable.Dispose);
+           var obsever = await _marketService.SubscribeTosData(symbol);
+            return obsever;
         }
 
-        public async Task<IMarketObsever> SubscribeL2Data(string symbol, IEventHandler<L2DataIncomingEvent> eventHandler, int precision)
+        public async Task<Service.Market.IMarketObsever> SubscribeL2Data(string symbol, IEventHandler<L2DataIncomingEvent> eventHandler, int precision)
         {
-            var disposable = await _marketService.SubscribeL2Data(symbol, precision);
-            return new MarketObserver(
-                symbol,
-                MarketSubscribeDataType.L2Item,
-                disposable.Dispose, precision);
+            var obsever = await _marketService.SubscribeL2Data(symbol, precision);
+            return obsever;
         }
 
         public async Task GetL2Data(string symbol)

@@ -3,7 +3,6 @@ using Liquidity2.Extensions.EventBus.EventObserver;
 using Liquidity2.UI.Components.UsersControl;
 using Liquidity2.UI.Core;
 using Liquidity2.UI.Services.DTO;
-using Liquidity2.UI.Services.TOS;
 using Liquidity2.UI.Services.TOS.Events;
 using Liquidity2.UI.Windows.TOS.EventHandlers;
 using Liquidity2.UI.Windows.TOS.Events;
@@ -29,16 +28,16 @@ namespace Liquidity2.UI.Windows.TOS
         IPrecisionChangeEventHandler,
          ITemplateLoader, IEventObserver
     {
-        private readonly ITOSService _tosService;
+        private readonly Services.TOS.ITOSService _tosService;
         private readonly IWindowCommonBehavior _windowCommonBehavior;
         private readonly IEventBus _bus;
         private readonly ITOSWindowDataMapper _mapper;
-        private IMarketObsever _tosSubjectObserver;
-        private IMarketObsever _l2SubjectObserver;
+        private Service.Market.IMarketObsever _tosSubjectObserver;
+        private Service.Market.IMarketObsever _l2SubjectObserver;
         private bool _groupActivate;
         private string[] _viewHeader;
 
-        public TOSWindow(IWindowCommonBehavior windowCommonBehavior, ITOSService tosService, IEventBus bus, ITOSWindowDataMapper mapper)
+        public TOSWindow(IWindowCommonBehavior windowCommonBehavior, Services.TOS.ITOSService tosService, IEventBus bus, ITOSWindowDataMapper mapper)
         {
             _tosService = tosService;
             windowCommonBehavior.SetEffectWindow(this);

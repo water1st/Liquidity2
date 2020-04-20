@@ -6,11 +6,11 @@ namespace Liquidity2.Service.Market
 {
     public interface IMarketService
     {
-        Task<IDisposable> SubscribeTosData(string symbol);
+        Task<IMarketObsever> SubscribeTosData(string symbol);
 
-        Task<IDisposable> SubscribeL2Data(string symbol, int precision = 0);
+        Task<IMarketObsever> SubscribeL2Data(string symbol, int precision = 0);
 
-        Task<IDisposable> SubscribeTickerData();
+        Task SubscribeTickerData();
 
         Task GetL2Data(string symbol);
 

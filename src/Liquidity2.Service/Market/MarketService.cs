@@ -39,10 +39,9 @@ namespace Liquidity2.Service.Market
             Subscribe(_eventBus);
         }
 
-        public async Task<IDisposable> SubscribeTickerData()
+        public async Task SubscribeTickerData()
         {
-            var disposabler = await _tickerSubscribeManager.AddSubscribe(new TickerSubscribeModel(null, (MarketSubscribeDataType)DTO.MarketSubscribeDataType.TickerItem));
-            return disposabler;
+             await _tickerSubscribeManager.AddSubscribe(new TickerSubscribeModel(null, (MarketSubscribeDataType)DTO.MarketSubscribeDataType.TickerItem));
         }
 
         public async Task GetAllTickers()
@@ -60,16 +59,22 @@ namespace Liquidity2.Service.Market
             await _marketQuery.QueryTrade(symbol);
         }
 
-        public async Task<IDisposable> SubscribeTosData(string symbol)
+        public async Task<IMarketObsever> SubscribeTosData(string symbol)
         {
            var disposable = await _tosSubscribeManager.AddSubscribe(new TOSSubscribeModel(symbol, (MarketSubscribeDataType)DTO.MarketSubscribeDataType.TOSItem));
-            return disposable;
+            return new MarketObserver(
+                symbol,
+                DTO.MarketSubscribeDataType.L2Item,
+                disposable.Dispose);
         }
 
-        public async Task<IDisposable> SubscribeL2Data(string symbol, int precision = 0)
+        public async Task<IMarketObsever> SubscribeL2Data(string symbol, int precision = 0)
         {
             var disposable = await _l2SubscribeManager.AddSubscribe(new L2SubscribeModel(symbol, (MarketSubscribeDataType)DTO.MarketSubscribeDataType.L2Item) { Precision = precision });
-            return disposable;
+            return new MarketObserver(
+                symbol,
+                DTO.MarketSubscribeDataType.L2Item,
+                disposable.Dispose,precision);
         }
 
         private void Subscribe(IEventBus eventBus)

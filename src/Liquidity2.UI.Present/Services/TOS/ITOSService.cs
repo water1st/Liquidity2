@@ -6,9 +6,9 @@ namespace Liquidity2.UI.Services.TOS
 {
     public interface ITOSService
     {
-        Task<IMarketObsever> SubscribeTosData(string subscribeTosRequest, IEventHandler<TOSDataIncomingEvent> eventHandler);
+        Task<Service.Market.IMarketObsever> SubscribeTosData(string subscribeTosRequest, IEventHandler<TOSDataIncomingEvent> eventHandler);
 
-        Task<IMarketObsever> SubscribeL2Data(string subscribeL2Request, IEventHandler<L2DataIncomingEvent> eventHandler, int precision = 0);
+        Task<Service.Market.IMarketObsever> SubscribeL2Data(string subscribeL2Request, IEventHandler<L2DataIncomingEvent> eventHandler, int precision = 0);
 
         Task GetL2Data(string getL2DataRequest);
 
