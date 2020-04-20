@@ -1,6 +1,7 @@
 ﻿using Liquidity2.Extensions.EventBus.EventObserver;
 using Liquidity2.Extensions.WindowPostions;
 using Liquidity2.UI.Core;
+using Liquidity2.UI.Present.Windows.Asset;
 using Liquidity2.UI.Present.Windows.Entrust;
 using Liquidity2.UI.Present.Windows.Kline;
 using Liquidity2.UI.Windows;
@@ -32,7 +33,8 @@ namespace Liquidity2.UI.Services
 
         public Task ShowAssetWindow()
         {
-            throw new NotImplementedException();
+            var window = _windowFactory.Create<AssetWindow>();
+            return ShowWindow(window);
         }
 
         public Task ShowEntrustWindow()
