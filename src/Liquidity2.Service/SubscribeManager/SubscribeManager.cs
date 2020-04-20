@@ -27,6 +27,7 @@ namespace Liquidity2.Service.SubscribeManager
             if (subscribe.ObserverCount == 1)
             {
                 await Subscribe(subscribeModel);
+                subscribe.Id = subscribeModel.Id;
             }
             var disposabler = new Disposabler(async () => {
                 await RemoveSubscribe(subscribeModel);
