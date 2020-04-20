@@ -1,7 +1,5 @@
 ﻿using Liquidity2.UI.Services.DTO;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Liquidity2.UI.Services.TOS.DTO
 {

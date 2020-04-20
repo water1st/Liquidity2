@@ -3,7 +3,6 @@ using Liquidity2.Extensions.EventBus.EventObserver;
 using Liquidity2.UI.Components.UsersControl;
 using Liquidity2.UI.Core;
 using Liquidity2.UI.Services.DTO;
-using Liquidity2.UI.Services.TOS;
 using Liquidity2.UI.Services.TOS.Events;
 using Liquidity2.UI.Windows.TOS.EventHandlers;
 using Liquidity2.UI.Windows.TOS.Events;
@@ -21,23 +20,24 @@ namespace Liquidity2.UI.Windows.TOS
     public class TOSWindow : Window,
         IEventHandler<TOSDataIncomingEvent>,
         IEventHandler<L2DataIncomingEvent>,
-        //IEventHandler<TosGroupSubscribeEvent>,
+        IEventHandler<GroupSubscribeEvent>,
         //IEventHandler<SelfSelectSearchEvent>,
         IEventHandler<L2DataQueryEvent>,
         IEventHandler<TOSDataQueryEvent>,
+        IEventHandler<UnsubscribeEvent>,
         IPrecisionChangeEventHandler,
          ITemplateLoader, IEventObserver
     {
-        private readonly ITOSService _tosService;
+        private readonly Services.TOS.ITOSService _tosService;
         private readonly IWindowCommonBehavior _windowCommonBehavior;
         private readonly IEventBus _bus;
         private readonly ITOSWindowDataMapper _mapper;
-        private ITOSMarketObsever _tosSubjectObserver;
-        private IL2MarketObsever _l2SubjectObserver;
+        private Service.Market.IMarketObsever _tosSubjectObserver;
+        private Service.Market.IMarketObsever _l2SubjectObserver;
         private bool _groupActivate;
         private string[] _viewHeader;
 
-        public TOSWindow(IWindowCommonBehavior windowCommonBehavior, ITOSService tosService, IEventBus bus, ITOSWindowDataMapper mapper)
+        public TOSWindow(IWindowCommonBehavior windowCommonBehavior, Services.TOS.ITOSService tosService, IEventBus bus, ITOSWindowDataMapper mapper)
         {
             _tosService = tosService;
             windowCommonBehavior.SetEffectWindow(this);
@@ -105,8 +105,11 @@ namespace Liquidity2.UI.Windows.TOS
                 var precision = TosVM.MaxPrecision - _mapper.MapToPrecisionInt(precisionString);
                 TosVM.NowPrecision = precision;
 
+                //切换精度取消旧订阅
                 var @event = new PrecisionChangeUnsubscribeEvent(TosVM.Symbol, precision);
                 await _bus.Publish(@event, CancellationToken.None);
+
+                //订阅新精度数据
                 var precisionSubscribeEvent = new PrecisionChangeSubscribeEvent(TosVM.Symbol, precision);
                 await _bus.Publish(precisionSubscribeEvent, CancellationToken.None);
             }
@@ -151,6 +154,10 @@ namespace Liquidity2.UI.Windows.TOS
         {
             TosVM.Symbol = e.PropertyName.ToLower();
             TosVM.NowPrecision = 0;
+
+            //取消旧币对
+            _bus.Publish(new UnsubscribeEvent(TosVM.Group, TosVM.Symbol), CancellationToken.None);
+
             //注意：异步方法不要用Task.Wait()或者Task.Result
             //应使用ContinueWith创建匿名委托把后续方法放在匿名委托里执行
             SubscribeData().ContinueWith(task =>
@@ -158,7 +165,7 @@ namespace Liquidity2.UI.Windows.TOS
                 // 通知其他同组窗口更变订阅
                 if (_groupActivate && !string.IsNullOrEmpty(TosVM.Symbol))
                 {
-                    _bus.Publish(new GroupSubscribeEvent(WindowId, _tosSubjectObserver.Symbol, TosVM.Group), CancellationToken.None);
+                    _bus.Publish(new GroupSubscribeEvent(WindowId, _tosSubjectObserver.ExactSymbol.Symbol, TosVM.Group), CancellationToken.None);
                 }
             });
         }
@@ -182,7 +189,7 @@ namespace Liquidity2.UI.Windows.TOS
         public async Task Handle(TOSDataIncomingEvent @event, CancellationToken token)
         {
             //收到的信息不为当前订阅则不处理   
-            if (@event.Symbol != _tosSubjectObserver.Symbol)
+            if (@event.Symbol != TosVM.Symbol)
                 return;
 
             //插入TOS列表中
@@ -218,7 +225,7 @@ namespace Liquidity2.UI.Windows.TOS
         public async Task Handle(L2DataIncomingEvent @event, CancellationToken token)
         {
             //收到消息不为当前订阅则不处理
-            if (@event.Symbol != _l2SubjectObserver.Symbol)
+            if (@event.Symbol != TosVM.Symbol)
                 return;
 
             _viewHeader = @event.Symbol.Split("-");
@@ -482,7 +489,7 @@ namespace Liquidity2.UI.Windows.TOS
         public async Task Handle(TOSDataQueryEvent @event, CancellationToken token)
         {
             //收到的信息不为当前订阅则不处理   
-            if (@event.Symbol != _tosSubjectObserver.Symbol)
+            if (@event.Symbol != TosVM.Symbol)
                 return;
 
             await Dispatcher.InvokeAsync(() =>
@@ -500,7 +507,6 @@ namespace Liquidity2.UI.Windows.TOS
         public void LoadeTemplate()
         {
             _windowCommonBehavior.LoadeTemplate();
-
             Title = TosVM.TosTitle;
         }
 
@@ -510,8 +516,10 @@ namespace Liquidity2.UI.Windows.TOS
             registrator.Register<L2DataIncomingEvent>(this);
             registrator.Register<L2DataQueryEvent>(this);
             registrator.Register<TOSDataQueryEvent>(this);
+            registrator.Register<GroupSubscribeEvent>(this);
             registrator.Register<PrecisionChangeSubscribeEvent>(this);
             registrator.Register<PrecisionChangeUnsubscribeEvent>(this);
+            registrator.Register<UnsubscribeEvent>(this);
         }
 
         /// <summary>
@@ -524,12 +532,7 @@ namespace Liquidity2.UI.Windows.TOS
         {
             if (@event.Symbol == TosVM.Symbol)
             {
-                if (_l2SubjectObserver != null)
-                {
-                    await _l2SubjectObserver.Unsubscribe();
-                    TosVM.NowPrecision = @event.Precision;
-                    TosVM.SelectPrecision = _mapper.MapToPrecisionString(TosVM.MaxPrecision - @event.Precision);
-                }
+                _l2SubjectObserver = await _tosService.SubscribeL2Data(TosVM.Symbol, this, @event.Precision);
             }
         }
 
@@ -543,7 +546,63 @@ namespace Liquidity2.UI.Windows.TOS
         {
             if (@event.Symbol == TosVM.Symbol)
             {
-                _l2SubjectObserver = await _tosService.SubscribeL2Data(TosVM.Symbol, this, @event.Precision);
+                if (_l2SubjectObserver != null)
+                {
+                    _l2SubjectObserver.Dispose();
+                    TosVM.NowPrecision = @event.Precision;
+                    TosVM.SelectPrecision = _mapper.MapToPrecisionString(TosVM.MaxPrecision - @event.Precision);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 接收联动订阅事件
+        /// </summary>
+        /// <param name="event"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public async Task Handle(GroupSubscribeEvent @event, CancellationToken token)
+        {
+            if (@event.SenderId != WindowId && @event.Group == TosVM.Group)
+            {
+                TosVM.Symbol = @event.Symbol;
+                TosVM.NowPrecision = 0;
+                await SubscribeData();
+            }
+        }
+
+        /// <summary>
+        /// 关闭窗口取消订阅
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnClosed(EventArgs e)
+        {
+            _tosSubjectObserver?.Dispose();
+            _l2SubjectObserver?.Dispose();
+            //_windowEventObserver.Unsubscribe();
+            base.OnClosed(e);
+        }
+
+        /// <summary>
+        /// 接收撤销订阅
+        /// </summary>
+        /// <param name="event"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public async Task Handle(UnsubscribeEvent @event, CancellationToken token)
+        {
+            //分组相同或币对相同撤销订阅
+            if (@event.Group == TosVM.Group)
+            {
+                if (_tosSubjectObserver != null)
+                {
+                     _tosSubjectObserver.Dispose();
+                }
+
+                if (_l2SubjectObserver != null)
+                {
+                     _l2SubjectObserver.Dispose();
+                }
             }
         }
     }

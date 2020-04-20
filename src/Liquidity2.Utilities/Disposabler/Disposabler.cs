@@ -16,7 +16,7 @@ namespace Liquidity2.Utilities
         {
             if (!_disposed && _dispose != null)
             {
-                _dispose();
+                _dispose.Invoke();
                 _disposed = true;
             }
         }

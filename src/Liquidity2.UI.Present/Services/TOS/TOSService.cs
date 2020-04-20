@@ -1,40 +1,83 @@
 ﻿using Liquidity2.Extensions.EventBus;
+using Liquidity2.Service.Market;
+using Liquidity2.Service.Market.DTO;
+using Liquidity2.Service.Market.Events;
 using Liquidity2.UI.Services.TOS.Events;
-using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Liquidity2.UI.Services.TOS
 {
-    public class TOSService : ITOSService
+    public partial class TOSService : ITOSService,
+        IEventHandler<MarketL2DataIncomingToUIEvent>,
+        IEventHandler<MarketTOSDataIncomingToUIEvent>,
+        IEventHandler<MarketL2QueryToUIEvent>,
+        IEventHandler<MarketTOSQueryToUIEvent>
     {
-        public Task GetAllTickers()
+        private readonly IMarketService _marketService;
+        private readonly IEventBus _eventBus;
+        private readonly ITOSMapper _mapper;
+
+        public TOSService(IMarketService marketSever, IEventBus eventBus, ITOSMapper mapper)
         {
-            throw new NotImplementedException();
+            _marketService = marketSever;
+            _eventBus = eventBus;
+            _mapper = mapper;
+            Subscribe(_eventBus);
         }
 
-        public Task GetL2Data(string getL2DataRequest)
+        private void Subscribe(IEventBus eventBus)
         {
-            throw new NotImplementedException();
+            eventBus.Subscribe<MarketL2DataIncomingToUIEvent>(this);
+            eventBus.Subscribe<MarketTOSDataIncomingToUIEvent>(this);
+            eventBus.Subscribe<MarketL2QueryToUIEvent>(this);
+            eventBus.Subscribe<MarketTOSQueryToUIEvent>(this);
         }
 
-        public Task GetTOSData(string getTOSDataRequest)
+        public async Task<Service.Market.IMarketObsever> SubscribeTosData(string symbol, IEventHandler<TOSDataIncomingEvent> eventHandler)
         {
-            throw new NotImplementedException();
+           var obsever = await _marketService.SubscribeTosData(symbol);
+            return obsever;
         }
 
-        public Task<IL2MarketObsever> SubscribeL2Data(string subscribeL2Request, IEventHandler<L2DataIncomingEvent> eventHandler, int precision = 0)
+        public async Task<Service.Market.IMarketObsever> SubscribeL2Data(string symbol, IEventHandler<L2DataIncomingEvent> eventHandler, int precision)
         {
-            throw new NotImplementedException();
+            var obsever = await _marketService.SubscribeL2Data(symbol, precision);
+            return obsever;
         }
 
-        public Task SubscribeTickerData()
+        public async Task GetL2Data(string symbol)
         {
-            throw new NotImplementedException();
+            await _marketService.GetL2Data(symbol);
         }
 
-        public Task<ITOSMarketObsever> SubscribeTosData(string subscribeTosRequest, IEventHandler<TOSDataIncomingEvent> eventHandler)
+        public async Task GetTOSData(string symbol)
         {
-            throw new NotImplementedException();
+            await _marketService.GetTOSData(symbol);
+        }
+
+        public async Task Handle(MarketTOSDataIncomingToUIEvent @event, CancellationToken token)
+        {
+            var tosDataIncomingEvent = _mapper.MapToTosIncomgingEvent(@event);
+            await _eventBus.Publish(tosDataIncomingEvent, token);
+        }
+
+        public async Task Handle(MarketL2DataIncomingToUIEvent @event, CancellationToken token)
+        {
+            var l2DataIncomingEvent = _mapper.MapToL2IncomingEvent(@event);
+            await _eventBus.Publish(l2DataIncomingEvent, token);
+        }
+
+        public async Task Handle(MarketL2QueryToUIEvent @event, CancellationToken token)
+        {
+            var l2QueryEvent = _mapper.MapToL2QueryEvent(@event);
+            await _eventBus.Publish(l2QueryEvent, token);
+        }
+
+        public async Task Handle(MarketTOSQueryToUIEvent @event, CancellationToken token)
+        {
+            var tosQueryEvent = _mapper.MapToTOSQueryEvent(@event);
+            await _eventBus.Publish(tosQueryEvent, token);
         }
     }
 }

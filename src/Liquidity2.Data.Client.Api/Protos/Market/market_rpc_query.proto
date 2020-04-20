@@ -1,0 +1,112 @@
+﻿syntax = "proto3";
+package com.pg.xtrade.markets.cryptocurrency.request; 
+
+import "Protos/Market/market_model.proto";
+option csharp_namespace = "Markets.Rpc.Protobuf.Request";
+
+/*--------------------------*/
+/*------ Rpc services ------*/
+/*--------------------------*/
+service QueryMarketService{
+    //查询挂单表
+    rpc QueryOrderBook(RequestOrderBook) returns (ResponseOrderBook) {}
+    //查询TOS
+    rpc QueryTrade(RequestTrade) returns (ResponseTrades) {}
+    //查询K线，通过时间段
+    rpc QueryCandlesByTime(RequestCandlesByTime) returns (ResponseCandles) {}
+    //查询K线，通过根数
+    rpc QueryCandlesByLimit(RequestCandlesByLimit) returns (ResponseCandles) {}
+    //查询K线分时图
+    rpc QueryCandlesTimingChart(RequestTimingChart) returns (ResponseTimingChart) {}
+    //查询聚合的Ticker, 通过币对
+    rpc QueryTickerByPair(RequestTicker) returns (ResponseTicker) {}
+    //查询聚合的Ticker列表
+    rpc QueryTickers(RequestAllTickers) returns (ResponseAllTickers) {}
+}
+
+/*--------------------------*/
+/*---- Request defines -----*/
+/*--------------------------*/
+
+//TOS请求
+message RequestTrade{
+    string pair = 1;
+    repeated ExchangeType exchanges = 2; //交易所
+}
+
+//查询挂单表
+message RequestOrderBook{
+    string pair = 1;
+    Precision precision = 2;
+    repeated ExchangeType exchanges = 3;
+    PrecisionType precisionType = 4;
+}
+
+//通过日期区间查询K线信息
+message RequestCandlesByTime{
+    string pair = 1;
+    int64 from = 2;             //开始时间戳 seconds
+    int64 to = 3;               //结束时间戳 seconds
+    CandleType type = 4;
+}
+
+//通过偏移量查询K线信息
+message RequestCandlesByLimit{
+    string pair = 1;
+    int32 offset = 2;         //偏移量 | k线根数
+    int32 size = 3;           //获取数量 | k线根数
+    CandleType type = 4;
+}
+
+//查询分时图
+message RequestTimingChart{
+    string pair = 1;
+}
+
+//查询Ticker请求
+message RequestTicker{ 
+    string pair = 1;
+}
+
+//查询所有Ticker请求
+message RequestAllTickers{ 
+
+}
+
+/*--------------------------*/
+/*---- Response defines ----*/
+/*--------------------------*/
+
+//十档数据
+message ResponseOrderBook{
+    repeated BookItem asks = 1;
+    repeated BookItem bids = 2;
+    int32 precision = 3;
+}
+
+//TOS数据
+message ResponseTrades{
+    repeated TradeItem items = 1; 
+}
+
+//K线数据
+message ResponseCandles{
+    repeated CandleItem items = 1;
+    CandleType type = 2;
+}
+
+//分时图
+message ResponseTimingChart{
+    repeated CandleItem items = 1;
+    double startPrice = 2;
+}
+
+//Ticker数据
+message ResponseTicker{
+    Ticker item = 1;    //如果未找到为NULL
+}
+
+//Ticker列表
+message ResponseAllTickers{
+    repeated Ticker items = 1;
+}

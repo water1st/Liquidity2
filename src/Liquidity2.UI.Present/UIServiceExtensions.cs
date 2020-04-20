@@ -23,6 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddSingleton<IWindowPresentService, WindowPresentService>();
             services.AddSingleton<ITOSService, TOSService>();
+            services.AddSingleton<ITOSMapper, TOSMapper>();
         }
 
         private static void AddEventObservers(IServiceCollection services)
