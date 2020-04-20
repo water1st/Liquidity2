@@ -116,9 +116,11 @@ namespace Liquidity2.Data.Client.Api.Subjects.Market
                     tickerSubscrib = false;
                     await reconnectService.Reconnect(CreateAsyncMessageStream, async result =>
                     {
+                        logger.LogInformation($"行情服务重连成功");
                         stream = result;
                     }, error =>
                     {
+                        logger.LogInformation($"行情服务重连失败，停止重连");
                         run = false;
                         return Task.CompletedTask;
                     });
