@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Liquidity2.UI.Components.UsersControl.Buttons
+namespace Liquidity2.UI.Components.UsersControl.SearchButton
 {
     public class SearchButton : Button, INotifyPropertyChanged
     {
@@ -16,7 +16,7 @@ namespace Liquidity2.UI.Components.UsersControl.Buttons
         private Visibility _searchBtnGridVisibility;
         public Visibility SearchControlVisibility
         {
-            get { return _searchControlVisibility; }
+            get => _searchControlVisibility;
             set
             {
                 _searchControlVisibility = value;
@@ -25,7 +25,7 @@ namespace Liquidity2.UI.Components.UsersControl.Buttons
         }
         public Visibility SearchBtnGridVisibility
         {
-            get { return _searchBtnGridVisibility; }
+            get => _searchBtnGridVisibility;
             set
             {
                 _searchBtnGridVisibility = value;
@@ -36,7 +36,7 @@ namespace Liquidity2.UI.Components.UsersControl.Buttons
         private bool _popupOpen;
         public bool PopupOpen
         {
-            get { return _popupOpen; }
+            get => _popupOpen;
             set
             {
                 _popupOpen = value;

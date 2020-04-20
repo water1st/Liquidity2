@@ -62,7 +62,8 @@ namespace Liquidity2.UI.Services
 
         public Task ShowOrderWindow()
         {
-            throw new NotImplementedException();
+            var window = _windowFactory.Create<OrderWindow>();
+            return ShowWindow(window);
         }
 
         public Task ShowSelfSelectWindow()
