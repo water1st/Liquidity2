@@ -1,0 +1,483 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local ="clr-namespace:Liquidity2.UI.Core;assembly=Liquidity2.UI.Core">
+
+    <Style BasedOn="{StaticResource MainWindow_Style}" x:Key="EntrustWindow_Style" TargetType="{x:Type local:WindowBase}">
+        <!--<Setter Property="WindowStyle" Value="None"/>-->
+        <Style.Resources>
+            <SolidColorBrush x:Key="BackgroundHighlighted" Color="#54545C" />
+            <SolidColorBrush x:Key="BorderBrushHighlighted" Color="#6A6A75" />
+            <SolidColorBrush x:Key="TabItem.Background" Color="#171B2B" />
+            <!--选中时的标签背景色-->
+            <SolidColorBrush x:Key="TabItem.BackgroundSelected" Color="#282E43" />
+            <!--鼠标经过时的标签背景色-->
+            <SolidColorBrush x:Key="TabItem.BackgroundMouseOver" Color="#1C97EA" />
+            <SolidColorBrush x:Key="BackgroundNormal" Color="#3F3F46" />
+            <SolidColorBrush x:Key="BorderBrushNormal" Color="#54545C" />
+            <!--TabItem前景色,即标签字体颜色-->
+            <SolidColorBrush x:Key="TabItem.Foreground" Color="#FFFFFF" />
+            <!--ListView字体背景颜色-->
+            <SolidColorBrush x:Key="ListView.Background" Color="#171B2B" />
+            <SolidColorBrush x:Key="ListViewItemSelected" Color="#3379F3" />
+            <SolidColorBrush x:Key="ListViewItemColor1" Color="#212639" />
+            <SolidColorBrush x:Key="ListViewItemColor2" Color="#171B2B" />
+            <SolidColorBrush x:Key="GridViewColumnHeaderColor" Color="#11121A" />
+
+            <Style x:Key="CancelOrderButton" TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="40"/>
+                <Setter Property="Background" Value="#171B2B"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border BorderThickness="1" CornerRadius="2" BorderBrush="#1564F7" Background="{TemplateBinding Background}">
+                                <TextBlock Text="{TemplateBinding Content}" TextAlignment="Center" Foreground="#FFFFFF"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#1564F7"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!--表格内容模板-->
+            <DataTemplate x:Key="EntrustTime">
+                <TextBlock   TextAlignment="Center"   Text="{Binding CreateTime}" />
+            </DataTemplate>
+            <DataTemplate x:Key="EntrustSymbol">
+                <TextBlock   TextAlignment="Center"   Text="{Binding Pair_symbol}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="EntrustExchange">
+                <TextBlock  TextAlignment="Center" Text="{Binding Exchange}" />
+            </DataTemplate>
+            <DataTemplate x:Key="EntrustSide">
+                <TextBlock  TextAlignment="Center" Text="{Binding Order_side}" />
+            </DataTemplate>
+            <DataTemplate x:Key="EntrustPrice">
+                <TextBlock  TextAlignment="Center" Text="{Binding Price}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="EntrustAmount">
+                <TextBlock  TextAlignment="Center" Text="{Binding Amount}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="EntrustTotal">
+                <TextBlock TextAlignment="Center" Text="{Binding Total}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="EntrustVolume">
+                <TextBlock  TextAlignment="Center" Text="{Binding Volume}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="EntrustSubVolume">
+                <TextBlock TextAlignment="Center" Text="{Binding UntradedVolume}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="CancelOrder">
+                <Button Style="{StaticResource CancelOrderButton}" Content="撤单"  Command="{Binding CancelOrderCommand,RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding CancelParameter}"/>
+            </DataTemplate>
+
+            <!--全部委托内容模板-->
+            <DataTemplate x:Key="HisEntrustTime">
+                <TextBlock TextAlignment="Center" Text="{Binding Time}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="HisEntrustSymbol">
+                <TextBlock TextAlignment="Center" Text="{Binding Symbol}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="HisEntrustEntrustSide">
+                <TextBlock TextAlignment="Center" Text="{Binding EntrustSide}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="HisEntrustPrice">
+                <TextBlock TextAlignment="Center" Text="{Binding Price}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="HisEntrustAmount">
+                <TextBlock TextAlignment="Center" Text="{Binding Amount}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="HisEntrustOrderStatus">
+                <TextBlock TextAlignment="Center" Text="{Binding OrderStatus}"/>
+            </DataTemplate>
+
+            <!--成交记录模板-->
+            <DataTemplate x:Key="BillDetialSymobl">
+                <TextBlock TextAlignment="Center" Text="{Binding Symbol}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="BillDetialExchange">
+                <TextBlock TextAlignment="Center" Text="{Binding Exchange}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="BillDetialPrice">
+                <TextBlock TextAlignment="Center" Text="{Binding FilledPriceAvg}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="BillDetialAmount">
+                <TextBlock TextAlignment="Center" Text="{Binding Amount}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="BillDetialStatus">
+                <TextBlock TextAlignment="Center" Text="{Binding OrderStatus}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="BillDetialType">
+                <TextBlock TextAlignment="Center" Text="{Binding EntrustSide}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="BillDetialTime">
+                <TextBlock TextAlignment="Center" Text="{Binding Time}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="BillDetialBrokerage">
+                <TextBlock TextAlignment="Center" Text="{Binding Brokerage}"/>
+            </DataTemplate>
+            <!--Tab模板-->
+            <Style x:Key="TabPanelStyle" TargetType="{x:Type TabPanel}">
+                <Setter Property="Width" Value="704"/>
+                <Setter Property="Height" Value="185"/>
+                <Setter Property="Background" Value="#171B2B"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+            </Style>
+
+            <Style x:Key="TabControlStyle" TargetType="{x:Type TabControl}">
+                <Setter Property="Width" Value="700"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TabControl}">
+                            <Grid KeyboardNavigation.TabNavigation="Local">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Border Background="Transparent"
+                                BorderBrush="{DynamicResource TabItem.BackgroundSelected}"
+                                BorderThickness="0,0,0,3">
+                                    <TabPanel Name="HeaderPanel"
+                                      Margin="0,0,4,-1"
+                                      Panel.ZIndex="1"
+                                      IsItemsHost="True"
+                                      KeyboardNavigation.TabIndex="1" />
+                                </Border>
+                                <Border Grid.Row="1"
+                                Background="{DynamicResource TabItem.Background}"/>
+                                <ContentPresenter Name="PART_SelectedContentHost" Grid.Row="1" ContentSource="SelectedContent" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="TabItemStyle" TargetType="{x:Type TabItem}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Background" Value="#171B2B" />
+                <Setter Property="Foreground" Value="{StaticResource TabItem.Foreground}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TabItem}">
+                            <Grid Height="28" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter Grid.Column="0" Margin="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center"  ContentSource="Header" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Background" Value="{DynamicResource TabItem.BackgroundMouseOver}" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="true">
+                                    <Setter Property="Background" Value="{DynamicResource TabItem.BackgroundSelected}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="ListViewStyle" TargetType="{x:Type ListView}">
+                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+                <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="AlternationCount" Value="2"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListView">
+                            <Border Name="Border" BorderThickness="0">
+                                <Border.Background >
+                                    <SolidColorBrush Color="Black" />
+                                </Border.Background>
+                                <ScrollViewer Style="{DynamicResource {x:Static GridView.GridViewScrollViewerStyleKey}}">
+                                    <ItemsPresenter />
+                                </ScrollViewer>
+                            </Border>
+                        </ControlTemplate>
+
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!--表头模板-->
+            <Style x:Key="{x:Type GridViewColumnHeader}" TargetType="GridViewColumnHeader">
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Background" Value="{StaticResource GridViewColumnHeaderColor}" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="GridViewColumnHeader">
+                            <Grid>
+                                <Border x:Name="HeaderBorder" BorderThickness="0,1,0,1" Padding="2,0,2,0">
+                                    <ContentPresenter x:Name="HeaderContent" Margin="0,0,0,1" RecognizesAccessKey="True"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="{x:Type ListViewItem}" TargetType="{x:Type ListViewItem}">
+                <Setter Property="Control.Background" Value="Black" />
+                <Setter Property="Control.BorderBrush" Value="Blue" />
+                <Setter Property="Control.BorderThickness" Value="2" />
+                <Setter Property="Control.Foreground" Value="White" />
+                <Setter Property="FrameworkElement.Margin" Value="1" />
+                <Setter Property="FrameworkElement.Height" Value="20" />
+                <Setter Property="Control.FontSize" Value="12" />
+                <Setter Property="Control.VerticalContentAlignment" Value="Center" />
+                <Setter Property="ItemsControl.AlternationCount" Value="2" />
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="ListBoxItem.IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                            <Border >
+                                <Border Name="InnerBorder"  BorderBrush="{StaticResource BorderBrushNormal}" BorderThickness="0" TextBlock.Foreground="White"  Background="{StaticResource ListViewItemColor1}">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition MaxHeight="3"/>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <GridViewRowPresenter Grid.RowSpan="2" VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                                    </Grid>
+                                </Border>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="UIElement.IsMouseOver" Value="True">
+                                    <Setter TargetName="InnerBorder" Property="Border.BorderThickness" Value="1" />
+                                    <Setter TargetName="InnerBorder"  Property="DocumentViewerBase.BorderBrush" Value="{StaticResource ListViewItemSelected}"/>
+                                </Trigger>
+                                <Trigger Property="ListBoxItem.IsSelected" Value="True">
+                                    <Setter TargetName="InnerBorder" Property="Border.BorderThickness" Value="1" />
+                                    <Setter TargetName="InnerBorder"  Property="DocumentViewerBase.BorderBrush" Value="{StaticResource ListViewItemSelected}"/>
+                                </Trigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="ItemsControl.AlternationIndex" Value="1" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter TargetName="InnerBorder" Property="ToolTip.Background" Value="{StaticResource ListViewItemColor2}" />
+                                </MultiTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!--表格滚动条模板-->
+            <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
+                <Setter Property="OverridesDefaultStyle" Value="true"/>
+                <Setter Property="IsTabStop" Value="false"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Thumb}">
+                            <Grid>
+                                <!--滚动条颜色-->
+                                <Border Background="#4D597E"  CornerRadius="3"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="for_scrollbar" TargetType="{x:Type ScrollBar}">
+                <Setter Property="Background" Value="#4D597E"/>
+                <Setter Property="Margin" Value="0,1,1,6"/>
+                <Setter Property="Width"  Value="10"/>
+                <Setter Property="MinWidth"  Value="5"/>
+                <Setter Property="Opacity"   Value="1"/>
+                <Setter Property="BorderBrush" Value="{StaticResource ListView.Background}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ScrollBar}">
+                            <Grid x:Name="Bg" SnapsToDevicePixels="true">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="1"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <RepeatButton  Grid.Row="0" Visibility="Hidden"/>
+                                <Track x:Name="PART_Track"   Grid.Row="1"  IsEnabled="{TemplateBinding IsMouseOver}" IsDirectionReversed="true">
+                                    <Track.Thumb>
+                                        <Thumb Style="{StaticResource ScrollBarThumb}"/>
+                                    </Track.Thumb>
+                                </Track>
+                                <RepeatButton Grid.Row="2" Visibility="Hidden" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="{x:Static GridView.GridViewScrollViewerStyleKey}" TargetType="ScrollViewer">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ScrollViewer">
+                            <Grid Background="{TemplateBinding Background}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <DockPanel Margin="{TemplateBinding Padding}">
+                                    <ScrollViewer DockPanel.Dock="Top" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Focusable="false">
+                                        <GridViewHeaderRowPresenter Margin="2,0,2,0"
+                                          Columns="{Binding Path=TemplatedParent.View.Columns, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ColumnHeaderContainerStyle="{Binding Path=TemplatedParent.View.ColumnHeaderContainerStyle, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ColumnHeaderTemplate="{Binding Path=TemplatedParent.View.ColumnHeaderTemplate, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ColumnHeaderTemplateSelector="{Binding   Path=TemplatedParent.View.ColumnHeaderTemplateSelector,  RelativeSource={RelativeSource TemplatedParent}}"
+                                          AllowsColumnReorder="{Binding Path=TemplatedParent.View.AllowsColumnReorder, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ColumnHeaderContextMenu="{Binding Path=TemplatedParent.View.ColumnHeaderContextMenu, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ColumnHeaderToolTip="{Binding  Path=TemplatedParent.View.ColumnHeaderToolTip, RelativeSource={RelativeSource TemplatedParent}}"
+                                          SnapsToDevicePixels="{TemplateBinding  SnapsToDevicePixels}" />
+                                    </ScrollViewer>
+                                    <ScrollContentPresenter Name="PART_ScrollContentPresenter"
+                                    KeyboardNavigation.DirectionalNavigation="Local"
+                                    CanContentScroll="True"
+                                    CanHorizontallyScroll="False"
+                                    CanVerticallyScroll="False" />
+                                </DockPanel>
+                                <ScrollBar Name="PART_HorizontalScrollBar"   Grid.Row="1"  Maximum="{TemplateBinding ScrollableWidth}"   ViewportSize="{TemplateBinding ViewportWidth}"
+                                 Value="{TemplateBinding HorizontalOffset}"  Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Style="{StaticResource for_scrollbar}">
+                                </ScrollBar>
+                                <ScrollBar Name="PART_VerticalScrollBar"  Grid.Column="1"  Maximum="{TemplateBinding ScrollableHeight}"   ViewportSize="{TemplateBinding ViewportHeight}"
+                                 Value="{TemplateBinding VerticalOffset}"  Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Style="{StaticResource for_scrollbar}">
+                                </ScrollBar>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        </Style.Resources>
+        <Setter Property="Width" Value="750"/>
+        <Setter Property="Height" Value="308"/>
+        <Setter Property="Title" Value="委托管理"/>
+        <Setter Property="ContentTemplate" >
+            <Setter.Value>
+                <DataTemplate>
+                    <Grid >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="18*" />
+                                <ColumnDefinition Width="12*" />
+                                <ColumnDefinition Width="8.75*"/>
+                                <ColumnDefinition Width="8.75*"/>
+                                <ColumnDefinition Width="8.75*"/>
+                                <ColumnDefinition Width="8.75*"/>
+                                <ColumnDefinition Width="8.75*"/>
+                                <ColumnDefinition Width="8.75*"/>
+                                <ColumnDefinition Width="8.75*"/>
+                                <ColumnDefinition Width="8.75*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" x:Name="column1"/>
+                            <Grid Grid.Column="1" x:Name="column2"/>
+                            <Grid Grid.Column="2" x:Name="column3"/>
+                            <Grid Grid.Column="3" x:Name="column4"/>
+                            <Grid Grid.Column="4" x:Name="column5"/>
+                            <Grid Grid.Column="5" x:Name="column6"/>
+                            <Grid Grid.Column="6" x:Name="column7"/>
+                            <Grid Grid.Column="7" x:Name="column8"/>
+                            <Grid Grid.Column="8" x:Name="column9"/>
+                            <Grid Grid.Column="9" x:Name="column10"/>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="18*" />
+                                <ColumnDefinition Width="14*" />
+                                <ColumnDefinition Width="14*"/>
+                                <ColumnDefinition Width="12*"/>
+                                <ColumnDefinition Width="14*"/>
+                                <ColumnDefinition Width="14*"/>
+                                <ColumnDefinition Width="14*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" x:Name="hisolumn1"/>
+                            <Grid Grid.Column="1" x:Name="hisolumn2"/>
+                            <Grid Grid.Column="2" x:Name="hisolumn3"/>
+                            <Grid Grid.Column="3" x:Name="hisolumn4"/>
+                            <Grid Grid.Column="4" x:Name="hisolumn5"/>
+                            <Grid Grid.Column="5" x:Name="hisolumn6"/>
+                            <Grid Grid.Column="6" x:Name="hisolumn7"/>
+                        </Grid>
+                        <TabControl Padding="0" BorderThickness="0" SelectedIndex="{Binding EntrustVM.SelectedIndex,RelativeSource={RelativeSource AncestorType=Window}}">
+                            <TabItem  Header="当前委托">
+                                <ListView  Name="FundAccountDetail" ItemsSource="{Binding EntrustListData}" >
+                                    <ListView.DataContext>
+                                        <Binding Path="EntrustVM" RelativeSource="{RelativeSource AncestorType=Window}"/>
+                                    </ListView.DataContext>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="时间" Width="{Binding ElementName=column1,Path=ActualWidth}" CellTemplate="{DynamicResource EntrustTime}"/>
+                                            <GridViewColumn Header="交易对" Width="{Binding ElementName=column2,Path=ActualWidth}" CellTemplate="{StaticResource EntrustSymbol}"/>
+                                            <GridViewColumn Header="交易所" Width="{Binding ElementName=column3,Path=ActualWidth}" CellTemplate="{StaticResource EntrustExchange}"/>
+                                            <GridViewColumn Header="方向" Width="{Binding ElementName=column4,Path=ActualWidth}" CellTemplate="{StaticResource EntrustSide}"/>
+                                            <GridViewColumn Header="价格" Width="{Binding ElementName=column5,Path=ActualWidth}" CellTemplate="{StaticResource EntrustPrice}"/>
+                                            <GridViewColumn Header="数量" Width="{Binding ElementName=column6,Path=ActualWidth}" CellTemplate="{StaticResource EntrustAmount}"/>
+                                            <GridViewColumn Header="委托总额" Width="{Binding ElementName=column7,Path=ActualWidth}" CellTemplate="{StaticResource EntrustTotal}"/>
+                                            <GridViewColumn Header="已成交" Width="{Binding ElementName=column8,Path=ActualWidth}" CellTemplate="{StaticResource EntrustVolume}"/>
+                                            <GridViewColumn Header="未成交" Width="{Binding ElementName=column9,Path=ActualWidth}" CellTemplate="{StaticResource EntrustSubVolume}"/>
+                                            <GridViewColumn Header="操作" Width="{Binding ElementName=column10,Path=ActualWidth}" CellTemplate="{StaticResource CancelOrder}"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </TabItem>
+                            <TabItem Header="全部委托">
+                                <ListView Name="TransactionAccountDetail" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding HistoryEntrustListData}">
+                                    <ListView.DataContext>
+                                        <Binding Path="EntrustVM" RelativeSource="{RelativeSource AncestorType=Window}"/>
+                                    </ListView.DataContext>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="时间" Width="{Binding ElementName=hisolumn1,Path=ActualWidth}" CellTemplate="{DynamicResource HisEntrustTime}"/>
+                                            <GridViewColumn Header="交易对" Width="{Binding ElementName=hisolumn2,Path=ActualWidth}" CellTemplate="{StaticResource HisEntrustSymbol}"/>
+                                            <GridViewColumn Header="交易所" Width="{Binding ElementName=column3,Path=ActualWidth}" CellTemplate="{StaticResource EntrustExchange}"/>
+                                            <GridViewColumn Header="方向" Width="{Binding ElementName=hisolumn4,Path=ActualWidth}" CellTemplate="{StaticResource HisEntrustEntrustSide}"/>
+                                            <GridViewColumn Header="价格" Width="{Binding ElementName=hisolumn5,Path=ActualWidth}" CellTemplate="{StaticResource HisEntrustPrice}"/>
+                                            <GridViewColumn Header="数量" Width="{Binding ElementName=hisolumn6,Path=ActualWidth}" CellTemplate="{StaticResource HisEntrustAmount}"/>
+                                            <GridViewColumn Header="状态" Width="{Binding ElementName=hisolumn7,Path=ActualWidth}" CellTemplate="{StaticResource HisEntrustOrderStatus}"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </TabItem>
+                            <TabItem Header="成交记录">
+                                <ListView ItemsSource="{Binding BillDetialListData}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                    <ListView.DataContext>
+                                        <Binding Path="EntrustVM" RelativeSource="{RelativeSource AncestorType=Window}"/>
+                                    </ListView.DataContext>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="时间" Width="{Binding ElementName=hisolumn1,Path=ActualWidth}" CellTemplate="{StaticResource BillDetialTime}"/>
+                                            <GridViewColumn Header="交易对" Width="{Binding ElementName=hisolumn2,Path=ActualWidth}" CellTemplate="{StaticResource BillDetialSymobl}"/>
+                                            <GridViewColumn Header="交易所" Width="{Binding ElementName=column3,Path=ActualWidth}" CellTemplate="{StaticResource BillDetialExchange}"/>
+                                            <GridViewColumn Header="方向" Width="{Binding ElementName=hisolumn4,Path=ActualWidth}" CellTemplate="{StaticResource BillDetialType}"/>
+                                            <GridViewColumn Header="价格" Width="{Binding ElementName=hisolumn5,Path=ActualWidth}" CellTemplate="{StaticResource BillDetialPrice}"/>
+                                            <GridViewColumn Header="数量" Width="{Binding ElementName=column6,Path=ActualWidth}" CellTemplate="{StaticResource BillDetialAmount}"/>
+                                            <GridViewColumn Header="状态" Width="{Binding ElementName=column7,Path=ActualWidth}" CellTemplate="{StaticResource BillDetialStatus}" />
+                                            <GridViewColumn Header="手续费" Width="{Binding ElementName=hisolumn7,Path=ActualWidth}" CellTemplate="{StaticResource BillDetialBrokerage}" />
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
