@@ -11,9 +11,11 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Grid>
+                            <Grid Background="#11121A">
                                 <Border Name="BackgroundOver" Opacity="0" Background="#162E60" />
-                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Name="MainContent" />
+                                <Border BorderBrush="#00010A" BorderThickness="0,0,0,1">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Name="MainContent" />
+                                </Border>
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
@@ -44,13 +46,13 @@
                 <Setter Property="Height" Value="18" />
             </Style>
             <Style x:Key="NavigationButtonPath" TargetType="Path">
-                <Setter Property="Fill" Value="#FFFFFF" />
+                <Setter Property="Fill" Value="#CFD0D1" />
                 <Setter Property="Opacity" Value="0.800000012" />
             </Style>
             <Style x:Key="NavigationButtonTextBlock" TargetType="TextBlock">
                 <Setter Property="Margin" Value="0,4,0,0" />
                 <Setter Property="FontSize" Value="10" />
-                <Setter Property="Foreground" Value="#FFFFFF" />
+                <Setter Property="Foreground" Value="#CFD0D1" />
             </Style>
         </ControlTemplate.Resources>
         <StackPanel Background="#00010A">
@@ -157,7 +159,7 @@
                 </StackPanel>
             </Button>
 
-            <Button Style="{StaticResource NavigationButton}">
+            <!--<Button Style="{StaticResource NavigationButton}">
                 <Button.InputBindings>
                     <MouseBinding Gesture="LeftClick" Command="{Binding NavigationViewModel.AccountButtonClickCmd, RelativeSource={RelativeSource AncestorType=Window}}"/>
                 </Button.InputBindings>
@@ -171,7 +173,7 @@
                     </Canvas>
                     <TextBlock Text="交易账户" Style="{StaticResource NavigationButtonTextBlock}" />
                 </StackPanel>
-            </Button>
+            </Button>-->
 
             <Button Style="{StaticResource NavigationButton}">
                 <Button.InputBindings>
@@ -189,8 +191,6 @@
                 </StackPanel>
             </Button>
 
-
-
             <!--<Button Style="{StaticResource NavigationButton}">
                 <StackPanel>
                     <Canvas Style="{StaticResource NavigationButtonCanvas}">
@@ -204,7 +204,18 @@
                 </StackPanel>
             </Button>-->
 
-
+            <Button Style="{StaticResource NavigationButton}" Command="{Binding NavigationViewModel.ErrorButtonClickCmd,RelativeSource={RelativeSource AncestorType=Window}}">
+                <StackPanel>
+                    <Canvas Style="{StaticResource NavigationButtonCanvas}">
+                        <Path Style="{StaticResource NavigationButtonPath}">
+                            <Path.Data>
+                                <PathGeometry Figures="M8.5,0 C3.81285714,0 0,3.38932148 0,7.55555556 C0,11.1557274 2.83356,14.2290252 6.77513143,14.948717 L8.00641714,16.73616 C8.12003374,16.9018118 8.30397909,17.000138 8.5,17 C8.69622857,17 8.88021714,16.901677 8.99426286,16.73616 L10.2255486,14.9480119 C14.16644,14.2290252 17,11.1564326 17,7.55555556 C17,3.38932148 13.1871429,3.3553407e-15 8.5,0 Z M4.25058286,8.81481481 C3.58088,8.81481481 3.03629714,8.25006222 3.03629714,7.55555556 C3.03629714,6.86104889 3.58088,6.2962963 4.25058286,6.2962963 C4.92028571,6.2962963 5.46486857,6.86104889 5.46486857,7.55555556 C5.46486857,8.25006222 4.92028571,8.81481481 4.25058286,8.81481481 Z M8.50058286,8.81481481 C7.83088,8.81481481 7.28629714,8.25006222 7.28629714,7.55555556 C7.28629714,6.86104889 7.83088,6.2962963 8.50058286,6.2962963 C9.17028571,6.2962963 9.71486857,6.86104889 9.71486857,7.55555556 C9.71486857,8.25006222 9.17028571,8.81481481 8.50058286,8.81481481 Z M12.7505829,8.81481481 C12.08088,8.81481481 11.5362971,8.25006222 11.5362971,7.55555556 C11.5362971,6.86104889 12.08088,6.2962963 12.7505829,6.2962963 C13.4203829,6.2962963 13.9648686,6.86104889 13.9648686,7.55555556 C13.9648686,8.25006222 13.4202857,8.81481481 12.7505829,8.81481481 Z" />
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                    <TextBlock Text="错误消息" Style="{StaticResource NavigationButtonTextBlock}"/>
+                </StackPanel>
+            </Button>
 
             <!--<Button Style="{StaticResource NavigationButton}" Command="{Binding NavigationViewModel.InstallButtonClickCmd, RelativeSource={RelativeSource AncestorType=Window}}">
                 <StackPanel>
@@ -230,7 +241,7 @@
                             </Path.Data>
                         </Path>
                     </Canvas>
-                    <TextBlock Text="退出" Style="{StaticResource NavigationButtonTextBlock}" />
+                    <TextBlock Text="退出" Style="{StaticResource NavigationButtonTextBlock}" Foreground="#EC2832"/>
                 </StackPanel>
             </Button>
         </StackPanel>
@@ -238,10 +249,11 @@
     <Style x:Key="NavigationWindow_Style" TargetType="{x:Type Window}">
         <Setter Property="Template" Value="{StaticResource NavigationWindow_Template}" />
         <Setter Property="Width" Value="80" />
-        <Setter Property="Height" Value="685" />
+        <Setter Property="Height" Value="650.5" />
         <Setter Property="Foreground" Value="#FFFFFF" />
         <Setter Property="WindowStyle" Value="None" />
         <Setter Property="AllowsTransparency" Value="True" />
-        <Setter Property="ResizeMode" Value="NoResize"/>
+        <Setter Property="ResizeMode" Value="CanMinimize"/>
+        <Setter Property="Title" Value="导航栏"/>
     </Style>
 </ResourceDictionary>
