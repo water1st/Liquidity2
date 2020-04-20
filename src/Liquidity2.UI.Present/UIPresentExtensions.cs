@@ -1,4 +1,5 @@
 ﻿using Liquidity2.UI.Core.Builder;
+using Liquidity2.UI.Present.Windows.Kline;
 using Liquidity2.UI.Templates;
 using Liquidity2.UI.Windows;
 using Liquidity2.UI.Windows.TOS;
@@ -23,6 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
             builder.AddTemplate(blackTemplate, $"/{assemblyName};component/Templates/{blackTemplate}/NavigationWindow_Template.xaml");
             builder.AddTemplate(blackTemplate, $"/{assemblyName};component/Templates/{blackTemplate}/TOSWindow_Template.xaml");
             builder.AddTemplate(blackTemplate, $"/{assemblyName};component/Templates/{blackTemplate}/OrderWindow_Template.xaml");
+            builder.AddTemplate(blackTemplate, $"/{assemblyName};component/Templates/{blackTemplate}/KLineWindow_Template.xaml");
         }
 
         private static void AddWindows(IServiceCollection services)
@@ -32,6 +34,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<TOSWindow>();
             services.AddTransient<ITOSWindowDataMapper, TOSWindowDataMapper>();
             services.AddTransient<OrderWindow>();
+            services.AddTransient<KLineWindow>();
+            services.AddTransient<IKLineDataMapper, KLineDataMapper>();
         }
     }
 }

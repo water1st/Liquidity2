@@ -1,6 +1,7 @@
 ﻿using Liquidity2.Extensions.EventBus.EventObserver;
 using Liquidity2.Extensions.WindowPostions;
 using Liquidity2.UI.Core;
+using Liquidity2.UI.Present.Windows.Kline;
 using Liquidity2.UI.Windows;
 using Liquidity2.UI.Windows.TOS;
 using System;
@@ -45,7 +46,8 @@ namespace Liquidity2.UI.Services
 
         public Task ShowKLineWindow()
         {
-            throw new NotImplementedException();
+            var window = _windowFactory.Create<KLineWindow>();
+            return ShowWindow(window);
         }
 
         public Task ShowLoginWindow()
