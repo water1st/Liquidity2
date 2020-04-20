@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Liquidity2.UI.Components.Windows;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
@@ -21,11 +22,11 @@ namespace Liquidity2.UI.Components.UsersControl.GroupButton
         public GroupWindow()
         {
             InitializeTemplates();
-            this.ShowInTaskbar = false;
+            ShowInTaskbar = false;
             DataContext = this;
 
             //创建window后获得焦点
-            this.Deactivated += GroupWindow_Deactivated;
+            Deactivated += GroupWindow_Deactivated;
 
             BtnClickCmd = new CustomRoutedCommand(nameof(BtnClickCmd), typeof(GroupWindow), this);
             this.AddCommandBinding(BtnClickCmd, BtnClickcb_CanExecute, BtnClickcb_Executed);
@@ -35,16 +36,16 @@ namespace Liquidity2.UI.Components.UsersControl.GroupButton
         {
             if (baseWindow != null)
             {
-                this.Left = baseWindow.Left + baseWindow.Width - this.Width - 10;
-                this.Top = baseWindow.Top + 30;
+                Left = baseWindow.Left + baseWindow.Width - Width - 10;
+                Top = baseWindow.Top + 30;
             }
-            this.Show();
+            Show();
         }
 
         public void CloseWindow()
         {
-            this.Deactivated -= GroupWindow_Deactivated;
-            this.Close();
+            Deactivated -= GroupWindow_Deactivated;
+            Close();
         }
 
         private void InitializeTemplates()
@@ -55,7 +56,7 @@ namespace Liquidity2.UI.Components.UsersControl.GroupButton
         private void BtnClickcb_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var group = e.Parameter;
-            this.InputCmd.Execute(group);
+            InputCmd.Execute(group);
             e.Handled = true;
         }
 
@@ -67,7 +68,7 @@ namespace Liquidity2.UI.Components.UsersControl.GroupButton
 
         private void GroupWindow_Deactivated(object sender, EventArgs e)
         {
-            this.CloseWindow();
+            CloseWindow();
         }
     }
 }

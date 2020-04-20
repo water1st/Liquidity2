@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:userControl="clr-namespace:Liquidity2.UI.Components.UsersControl;assembly=Liquidity2.UI.Components"
-                    xmlns:searchButton="clr-namespace:Liquidity2.UI.Components.UsersControl.Buttons;assembly=Liquidity2.UI.Components"
                     xmlns:groupButton="clr-namespace:Liquidity2.UI.Components.UsersControl.GroupButton;assembly=Liquidity2.UI.Components"
+                    xmlns:searchButton="clr-namespace:Liquidity2.UI.Components.UsersControl.SearchButton;assembly=Liquidity2.UI.Components"
+                    xmlns:userControl="clr-namespace:Liquidity2.UI.Components.UsersControl;assembly=Liquidity2.UI.Components"
                     xmlns:tosConvert="clr-namespace:Liquidity2.UI.Windows.TOS.Converter;assembly=Liquidity2.UI.Present">
 
     <ControlTemplate x:Key="TOSWindow_Template">

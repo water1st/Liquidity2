@@ -1,4 +1,4 @@
-﻿namespace Liquidity2.UI.Components.UsersControl.GroupButton
+﻿namespace Liquidity2.UI.Components.Windows
 {
     public class WindowPosition
     {

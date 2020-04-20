@@ -1,4 +1,5 @@
-﻿using Liquidity2.UI.Core;
+﻿using Liquidity2.UI.Components.Windows;
+using Liquidity2.UI.Core;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Windows;
@@ -23,7 +24,7 @@ namespace Liquidity2.UI.Components.UsersControl.GroupButton
         private Visibility canvasVisibility;
         public Visibility CanvasVisibility
         {
-            get { return canvasVisibility; }
+            get => canvasVisibility;
             set
             {
                 canvasVisibility = value;
@@ -34,7 +35,7 @@ namespace Liquidity2.UI.Components.UsersControl.GroupButton
         private Visibility blockVisibility;
         public Visibility BlockVisibility
         {
-            get { return blockVisibility; }
+            get => blockVisibility;
             set
             {
                 blockVisibility = value;
@@ -45,7 +46,7 @@ namespace Liquidity2.UI.Components.UsersControl.GroupButton
         private string groupText;
         public string GroupText
         {
-            get { return groupText; }
+            get => groupText;
             set
             {
                 groupText = value;

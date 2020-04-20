@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:buttons="clr-namespace:Liquidity2.UI.Components.UsersControl.Buttons;assembly=Liquidity2.UI.Components">
+                    xmlns:buttons="clr-namespace:Liquidity2.UI.Components.UsersControl.SearchButton;assembly=Liquidity2.UI.Components">
     <ControlTemplate x:Key="SearchTextBox_Template" TargetType="{x:Type UserControl}">
         <Popup IsOpen="{Binding PopupOpen, RelativeSource={RelativeSource AncestorType=buttons:SearchButton}}" StaysOpen="False" Placement="Left">
             <Grid Width="158" Height="20" Background="{x:Null}">
