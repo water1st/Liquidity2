@@ -3,7 +3,6 @@ using Liquidity2.Extensions.WindowPostions;
 using Liquidity2.UI.Core;
 using Liquidity2.UI.Present.Windows.Asset;
 using Liquidity2.UI.Present.Windows.Entrust;
-using Liquidity2.UI.Present.Windows.Error;
 using Liquidity2.UI.Present.Windows.Kline;
 using Liquidity2.UI.Windows;
 using Liquidity2.UI.Windows.SelfSelect;
@@ -47,8 +46,7 @@ namespace Liquidity2.UI.Services
 
         public Task ShowErrorWindow()
         {
-            var window = _windowFactory.Create<ErrorWindow>();
-            return ShowWindow(window);
+            throw new NotImplementedException();
         }
 
         public Task ShowKLineWindow()

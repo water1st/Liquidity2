@@ -1,7 +1,6 @@
 ﻿using Liquidity2.UI.Core.Builder;
 using Liquidity2.UI.Present.Windows.Asset;
 using Liquidity2.UI.Present.Windows.Entrust;
-using Liquidity2.UI.Present.Windows.Error;
 using Liquidity2.UI.Present.Windows.Kline;
 using Liquidity2.UI.Templates;
 using Liquidity2.UI.Windows;
@@ -30,7 +29,6 @@ namespace Microsoft.Extensions.DependencyInjection
             builder.AddTemplate(blackTemplate, $"/{assemblyName};component/Templates/{blackTemplate}/KLineWindow_Template.xaml");
             builder.AddTemplate(blackTemplate, $"/{assemblyName};component/Templates/{blackTemplate}/EntrustWindow_Template.xaml");
             builder.AddTemplate(blackTemplate, $"/{assemblyName};component/Templates/{blackTemplate}/AssetWindow_Template.xaml");
-            builder.AddTemplate(blackTemplate, $"/{assemblyName};component/Templates/{blackTemplate}/ErrorWindow_Template.xaml");
         }
 
         private static void AddWindows(IServiceCollection services)
@@ -46,7 +44,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<IEntrustDataMapper, EntrustDataMapper>();
             services.AddTransient<AssetWindow>();
             services.AddTransient<IAssetDataMapper, AssetDataMapper>();
-            services.AddTransient<ErrorWindow>();
         }
     }
 }
