@@ -1,4 +1,5 @@
-﻿using Liquidity2.Extensions.WindowPostions;
+﻿using Liquidity2.Extensions.Identity;
+using Liquidity2.Extensions.WindowPostions;
 using Liquidity2.UI.Core;
 using Liquidity2.UI.Services;
 using System.Windows;
@@ -11,19 +12,36 @@ namespace Liquidity2.UI.Windows
         private readonly IWindowCommonBehavior _windowCommonBehavior;
         private readonly IWindowPresentService _presentService;
 
-        public NavigationViewModel NavigationViewModel { get; }
+        public NavigationViewModel NavigationViewModel { get; private set; }
         public WindowPostion Postion { get => _windowCommonBehavior.Postion; set => _windowCommonBehavior.Postion = value; }
 
         public NavigationWindow(IWindowCommonBehavior windowCommonBehavior, IWindowPresentService presentService)
         {
-            Style = (Style)Application.Current.Resources[GetType().Name + "_Style"];
-            Left = Top = 50;
             _windowCommonBehavior = windowCommonBehavior;
-            _windowCommonBehavior.SetEffectWindow(this);
             _presentService = presentService;
-            NavigationViewModel = new NavigationViewModel(_windowCommonBehavior) /*{ Account = User.CurrentUser.UserName }*/;
+            _windowCommonBehavior.SetEffectWindow(this);
 
+            InitViewModel();
             BindingCommand();
+        }
+
+        private void InitViewModel()
+        {
+            NavigationViewModel = new NavigationViewModel
+            {
+                Account = User.Current.Name,
+                AssetButtonClickCmd = new CustomRoutedCommand("AssetButtonClickCmd", typeof(NavigationWindow)),
+                TosButtonClickCmd = new CustomRoutedCommand("TosButtonClickCmd", typeof(NavigationWindow)),
+                KLineButtonClickCmd = new CustomRoutedCommand("KLineButtonClickCmd", typeof(NavigationWindow)),
+                OrderButtonClickCmd = new CustomRoutedCommand("OrderButtonClickCmd", typeof(NavigationWindow)),
+                EntrustButtonClickCmd = new CustomRoutedCommand("EntrustButtonClickCmd", typeof(NavigationWindow)),
+                SelfSelectButtonClickCmd = new CustomRoutedCommand("SelfSelectButtonClickCmd", typeof(NavigationWindow)),
+                AccountButtonClickCmd = new CustomRoutedCommand("AccountButtonClickCmd", typeof(NavigationWindow)),
+                ExitButtonClickCmd = new CustomRoutedCommand("ExitButtonClickCmd", typeof(NavigationWindow)),
+                InstallButtonClickCmd = new CustomRoutedCommand("InstallButtonClickCmd", typeof(NavigationWindow)),
+                ErrorButtonClickCmd = new CustomRoutedCommand("ErrorButtonClickCmd", typeof(NavigationWindow)),
+                WindowDragMoveCmd = _windowCommonBehavior.WindowDragMoveCmd,
+            };
         }
 
         private void BindingCommand()
