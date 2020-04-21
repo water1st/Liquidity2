@@ -1,21 +1,10 @@
 ﻿using Liquidity2.Data.Client.Api;
-using Liquidity2.Extensions.Authentication;
 using Liquidity2.Extensions.Authentication.Grpc.Interceptors;
-using Liquidity2.Extensions.BackgroundJob;
-using Liquidity2.Extensions.Blocker.WPFBlocker;
-using Liquidity2.Extensions.Data.LocalStorage;
-using Liquidity2.Extensions.Data.Network;
-using Liquidity2.Extensions.DependencyInjection;
-using Liquidity2.Extensions.EventBus;
-using Liquidity2.Extensions.Lifecycle;
-using Liquidity2.Extensions.WindowPostions;
 using Liquidity2.Service;
-using Liquidity2.UI.Components;
 using Liquidity2.UI.Core;
 using Liquidity2.UI.Templates;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.IO;
 using static Markets.Rpc.Protobuf.Request.QueryMarketService;
 using static Markets.Rpc.Protobuf.Subscribe.SubMarketService;
 
@@ -50,12 +39,7 @@ namespace Liquidity2.UI.Present
                         options.IssuerUri = Configurations.ACCESSTOKEN_ENDPOINT;
                         options.Scope = Configurations.CLIENT_SCOPE;
                     }).AddAuthenticationInterceptors();
-                    service.AddLocalStorage(options =>
-                    {
-                        var fileName = $"{Directory.GetCurrentDirectory()}\\localstorage.db";
-                        options.UseSQLite($"Data Source={fileName};Version=3;");
-                    });
-
+                    service.AddLocalStorageDAL();
                     service.AddGrpcClient<SubMarketServiceClient>(options =>
                     {
                         options.Address = Configurations.MARKET_GRPC_SERVICE_ADDRESS;
