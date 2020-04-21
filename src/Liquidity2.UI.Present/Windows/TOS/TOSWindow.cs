@@ -3,6 +3,8 @@ using Liquidity2.Extensions.EventBus.EventObserver;
 using Liquidity2.UI.Components.UsersControl;
 using Liquidity2.UI.Core;
 using Liquidity2.UI.Services.DTO;
+using Liquidity2.UI.Services.SelfSelect;
+using Liquidity2.UI.Services.SelfSelect.Events;
 using Liquidity2.UI.Services.TOS.Events;
 using Liquidity2.UI.Windows.TOS.EventHandlers;
 using Liquidity2.UI.Windows.TOS.Events;
@@ -21,7 +23,7 @@ namespace Liquidity2.UI.Windows.TOS
         IEventHandler<TOSDataIncomingEvent>,
         IEventHandler<L2DataIncomingEvent>,
         IEventHandler<GroupSubscribeEvent>,
-        //IEventHandler<SelfSelectSearchEvent>,
+        IEventHandler<SelfSelectSearchEvent>,
         IEventHandler<L2DataQueryEvent>,
         IEventHandler<TOSDataQueryEvent>,
         IEventHandler<UnsubscribeEvent>,
@@ -29,6 +31,7 @@ namespace Liquidity2.UI.Windows.TOS
          ITemplateLoader, IEventObserver
     {
         private readonly Services.TOS.ITOSService _tosService;
+        private readonly ISelfSelectService _selfSelectService;
         private readonly IWindowCommonBehavior _windowCommonBehavior;
         private readonly IEventBus _bus;
         private readonly ITOSWindowDataMapper _mapper;
@@ -596,13 +599,28 @@ namespace Liquidity2.UI.Windows.TOS
             {
                 if (_tosSubjectObserver != null)
                 {
-                     _tosSubjectObserver.Dispose();
+                    _tosSubjectObserver.Dispose();
                 }
 
                 if (_l2SubjectObserver != null)
                 {
-                     _l2SubjectObserver.Dispose();
+                    _l2SubjectObserver.Dispose();
                 }
+            }
+        }
+
+        public async Task Handle(SelfSelectSearchEvent @event, CancellationToken token)
+        {
+            if (@event.Group == TosVM.Group)
+            {
+                if (_l2SubjectObserver != null && _tosSubjectObserver != null)
+                {
+                    _l2SubjectObserver.Dispose();
+                    _tosSubjectObserver.Dispose();
+                }
+                TosVM.Symbol = @event.Symbol;
+                TosVM.NowPrecision = 0;
+                await SubscribeData();
             }
         }
     }

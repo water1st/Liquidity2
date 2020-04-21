@@ -1,6 +1,4 @@
-﻿using Liquidity2.Service.Market.DTO;
-using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Liquidity2.Service.Market
 {
