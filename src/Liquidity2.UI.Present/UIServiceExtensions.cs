@@ -2,6 +2,7 @@
 using Liquidity2.Extensions.Lifecycle.Application;
 using Liquidity2.UI.Core.Builder;
 using Liquidity2.UI.Services;
+using Liquidity2.UI.Services.SelfSelect;
 using Liquidity2.UI.Services.TOS;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -23,6 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddSingleton<IWindowPresentService, WindowPresentService>();
             services.AddSingleton<ITOSService, TOSService>();
+            services.AddSingleton<ISelfSelectService, SelfSelectService>();
             services.AddSingleton<ITOSMapper, TOSMapper>();
         }
 

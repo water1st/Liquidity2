@@ -6,6 +6,7 @@ using Liquidity2.UI.Present.Windows.Entrust;
 using Liquidity2.UI.Present.Windows.Error;
 using Liquidity2.UI.Present.Windows.Kline;
 using Liquidity2.UI.Windows;
+using Liquidity2.UI.Windows.SelfSelect;
 using Liquidity2.UI.Windows.TOS;
 using System;
 using System.Threading.Tasks;
@@ -76,7 +77,8 @@ namespace Liquidity2.UI.Services
 
         public Task ShowSelfSelectWindow()
         {
-            throw new NotImplementedException();
+            var window = _windowFactory.Create<SelfSelectWindow>();
+            return ShowWindow(window);
         }
 
         public Task ShowSettingWindow()
