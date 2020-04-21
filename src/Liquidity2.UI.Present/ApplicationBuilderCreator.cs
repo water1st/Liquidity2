@@ -1,5 +1,6 @@
 ﻿using Liquidity2.Data.Client.Api;
 using Liquidity2.Extensions.Authentication;
+using Liquidity2.Extensions.Authentication.Grpc.Interceptors;
 using Liquidity2.Extensions.BackgroundJob;
 using Liquidity2.Extensions.Blocker.WPFBlocker;
 using Liquidity2.Extensions.Data.LocalStorage;
@@ -48,7 +49,7 @@ namespace Liquidity2.UI.Present
                         options.ClientSecret = Configurations.CLIENT_SECRET;
                         options.IssuerUri = Configurations.ACCESSTOKEN_ENDPOINT;
                         options.Scope = Configurations.CLIENT_SCOPE;
-                    });
+                    }).AddAuthenticationInterceptors();
                     service.AddLocalStorage(options =>
                     {
                         var fileName = $"{Directory.GetCurrentDirectory()}\\localstorage.db";

@@ -18,10 +18,12 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ClientCredentialAuthorizationService>();
             services.AddSingleton<IEventObserver>(provider => provider.GetRequiredService<ClientCredentialAuthorizationService>());
             services.AddSingletonNamedService<IAuthorizationService>(AuthorizationType.ClientCredentialAuthentication.ToString(), (provider, key) => provider.GetRequiredService<ClientCredentialAuthorizationService>());
+            services.AddSingleton<IClientCredentialAuthorizationService>(provider => provider.GetService<ClientCredentialAuthorizationService>());
 
             services.AddSingleton<IdentityAuthorizationService>();
             services.AddSingleton<IEventObserver>(provider => provider.GetRequiredService<IdentityAuthorizationService>());
             services.AddSingletonNamedService<IAuthorizationService>(AuthorizationType.IdentityAuthentication.ToString(), (provider, key) => provider.GetRequiredService<IdentityAuthorizationService>());
+            services.AddSingleton<IIdentityAuthorizationService>(provider => provider.GetService<IdentityAuthorizationService>());
 
             return new AuthorizationBuilder(services);
         }
