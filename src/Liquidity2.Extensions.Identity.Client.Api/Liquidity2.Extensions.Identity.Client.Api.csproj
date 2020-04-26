@@ -4,4 +4,8 @@
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Liquidity2.Extensions.Identity\Liquidity2.Extensions.Identity.csproj" />
+  </ItemGroup>
+
 </Project>

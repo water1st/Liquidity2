@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Liquidity2.Extensions.Data.CRUD.Abstractions\Liquidity2.Extensions.Data.CRUD.Abstractions.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.Data.Dapper.Extend\Liquidity2.Extensions.Data.Dapper.Extend.csproj" />
+  </ItemGroup>
+
+</Project>

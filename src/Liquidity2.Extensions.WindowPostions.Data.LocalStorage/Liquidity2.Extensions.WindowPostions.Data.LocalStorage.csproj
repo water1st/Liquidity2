@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>Liquidity2.Extensions.WindowPostions</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.30" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Liquidity2.Extensions.Data.LocalStorage\Liquidity2.Extensions.Data.LocalStorage.csproj" />
+    <ProjectReference Include="..\Liquidity2.Extensions.WindowPostions\Liquidity2.Extensions.WindowPostions.csproj" />
+  </ItemGroup>
+
+</Project>

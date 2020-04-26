@@ -1,5 +1,4 @@
 ﻿using Liquidity2.Extensions.Authentication.Client;
-using System;
 
 namespace Liquidity2.Extensions.Authentication.Mapper
 {
@@ -7,7 +6,8 @@ namespace Liquidity2.Extensions.Authentication.Mapper
     {
         public JWT Map(RefreshAccessTokenResponse response)
         {
-            throw new NotImplementedException();
+            var jwt = new JWT(response.Type, response.AccessToken, response.RefreshToken, response.ExpiresIn);
+            return jwt;
         }
     }
 }

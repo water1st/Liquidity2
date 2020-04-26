@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Liquidity2.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Liquidity2.Extensions.DependencyInjection
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class DependencyInjectionServiceExtensions
     {

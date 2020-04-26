@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Liquidity2.UI.Core;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,19 @@ namespace Liquidity2.UI.Present
     /// </summary>
     public partial class App : Application
     {
+        private IWpfApplication application;
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            application = ApplicationBuilderCreator.CreateAppBuilder().Build();
+            application.Start();
+            base.OnStartup(e);
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            application.Dispose();
+            base.OnExit(e);
+        }
     }
 }

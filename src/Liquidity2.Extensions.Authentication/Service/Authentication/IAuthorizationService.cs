@@ -5,10 +5,10 @@ namespace Liquidity2.Extensions.Authentication.Service
     /// <summary>
     /// 认证
     /// </summary>
-    public interface IAuthorizationService
+    public interface IAuthenticationService
     {
-        Task Authorization(string userName, string password);
-
         Task Authorization();
+
+        Task Authorization(string username, string password);
     }
 }

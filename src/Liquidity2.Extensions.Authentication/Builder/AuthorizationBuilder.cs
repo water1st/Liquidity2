@@ -3,7 +3,7 @@ using System;
 
 namespace Liquidity2.Extensions.Authentication
 {
-    public class AuthorizationBuilder : IAuthorizationBuilder
+    internal class AuthorizationBuilder : IAuthorizationBuilder
     {
         public AuthorizationBuilder(IServiceCollection service)
         {

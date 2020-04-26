@@ -1,15 +1,18 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Liquidity2.Extensions.Authentication;
+using Liquidity2.Extensions.Authentication.Client;
+using Liquidity2.Extensions.Authentication.Client.Api;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Linq;
 using System.Net.Http;
 
-namespace Liquidity2.Extensions.Authentication.Client.Api
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class AuthenticationServiceApiClientExtensions
     {
-        public static IAuthorizationBuilder AddApiClient(this IAuthorizationBuilder builder)
+        public static IAuthorizationBuilder AddOpenidClient(this IAuthorizationBuilder builder)
         {
             var service = builder.Services;
             service.TryAddSingleton<IAuthenticationClientFactory, AuthenticationClientFactory>();
@@ -36,8 +39,8 @@ namespace Liquidity2.Extensions.Authentication.Client.Api
             services.AddTransientNamedService<IAuthenticationClient>(name,
                 (provider, name) =>
                 {
-                    var httpClientFactory = provider.GetService<IHttpClientFactory>();
-                    var optionsMonitor = provider.GetService<IOptionsMonitor<AuthorizationOptions>>();
+                    var httpClientFactory = provider.GetRequiredService<IHttpClientFactory>();
+                    var optionsMonitor = provider.GetRequiredService<IOptionsMonitor<AuthorizationOptions>>();
                     var logger = provider.GetService<ILogger<AuthenticationClient>>();
                     var httpClient = httpClientFactory.CreateClient(name);
                     var options = optionsMonitor.Get(name);

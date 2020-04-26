@@ -47,29 +47,29 @@ namespace Liquidity2.Extensions.EventBus.EventObserver
             }
         }
 
-        public static void AddEventObserverWithSingleton<TImplementation>(this IServiceCollection services) where TImplementation : class, IEventObserver
+        public static void AddSingletonEventObserver<TImplementation>(this IServiceCollection services) where TImplementation : class, IEventObserver
         {
             var implementationType = typeof(TImplementation);
             services.AddSingleton(implementationType);
             services.AddSingleton(interfaceType, provider => provider.GetRequiredService(implementationType));
         }
 
-        public static void AddEventObserverWithSingleton<TImplementation>(this IServiceCollection services, Func<IServiceProvider, TImplementation> factory) where TImplementation : class, IEventObserver
+        public static void AddSingletonEventObserver<TImplementation>(this IServiceCollection services, Func<IServiceProvider, TImplementation> factory) where TImplementation : class, IEventObserver
         {
             var implementationType = typeof(TImplementation);
             services.AddSingleton(factory);
             services.AddSingleton(interfaceType, factory);
         }
 
-        public static void AddEventObserverWithSingleton<TService, TImplementation>(this IServiceCollection services) where TImplementation : class, IEventObserver, TService
+        public static void AddSingletonEventObserver<TService, TImplementation>(this IServiceCollection services) where TImplementation : class, IEventObserver, TService
         {
-            services.AddEventObserverWithSingleton<TImplementation>();
+            services.AddSingletonEventObserver<TImplementation>();
             services.AddSingleton(typeof(TService), provider => provider.GetRequiredService<TImplementation>());
         }
 
-        public static void AddEventObserverWithSingleton<TService, TImplementation>(this IServiceCollection services, Func<IServiceProvider, TImplementation> factory) where TImplementation : class, IEventObserver, TService
+        public static void AddSingletonEventObserver<TService, TImplementation>(this IServiceCollection services, Func<IServiceProvider, TImplementation> factory) where TImplementation : class, IEventObserver, TService
         {
-            services.AddEventObserverWithSingleton(factory);
+            services.AddSingletonEventObserver(factory);
             services.AddSingleton(typeof(TService), factory);
         }
     }

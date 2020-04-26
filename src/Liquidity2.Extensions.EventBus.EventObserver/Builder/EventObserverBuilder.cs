@@ -12,12 +12,12 @@ namespace Liquidity2.Extensions.EventBus.EventObserver
 
         public void AddObserverFromExisting<TService, TImplementation>() where TImplementation : class, IEventObserver, TService => _services.AddObserverFromExisting<TService, TImplementation>();
 
-        public void AddEventObserverWithSingleton<TImplementation>() where TImplementation : class, IEventObserver => _services.AddEventObserverWithSingleton<TImplementation>();
+        public void AddSingletonEventObserver<TImplementation>() where TImplementation : class, IEventObserver => _services.AddSingletonEventObserver<TImplementation>();
 
-        public void AddEventObserverWithSingleton<TImplementation>(Func<IServiceProvider, TImplementation> factory) where TImplementation : class, IEventObserver => _services.AddEventObserverWithSingleton(factory);
+        public void AddSingletonEventObserver<TImplementation>(Func<IServiceProvider, TImplementation> factory) where TImplementation : class, IEventObserver => _services.AddSingletonEventObserver(factory);
 
-        public void AddEventObserverWithSingleton<TService, TImplementation>() where TImplementation : class, IEventObserver, TService => _services.AddEventObserverWithSingleton<TService, TImplementation>();
+        public void AddSingletonEventObserver<TService, TImplementation>() where TImplementation : class, IEventObserver, TService => _services.AddSingletonEventObserver<TService, TImplementation>();
 
-        public void AddEventObserverWithSingleton<TService, TImplementation>(Func<IServiceProvider, TImplementation> factory) where TImplementation : class, IEventObserver, TService => _services.AddEventObserverWithSingleton<TService, TImplementation>(factory);
+        public void AddSingletonEventObserver<TService, TImplementation>(Func<IServiceProvider, TImplementation> factory) where TImplementation : class, IEventObserver, TService => _services.AddSingletonEventObserver<TService, TImplementation>(factory);
     }
 }
