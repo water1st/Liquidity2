@@ -2,6 +2,6 @@
 {
     public class TemplateNames
     {
-        public const string BLACK = "Black";
+        public const string TEST = "Test";
     }
 }

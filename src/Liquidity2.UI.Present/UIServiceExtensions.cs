@@ -22,21 +22,17 @@ namespace Microsoft.Extensions.DependencyInjection
 
         private static void AddServices(IServiceCollection services)
         {
-            services.AddSingleton<IWindowPresentService, WindowPresentService>();
-            services.AddSingleton<ITOSService, TOSService>();
-            services.AddSingleton<ISelfSelectService, SelfSelectService>();
-            services.AddSingleton<ITOSMapper, TOSMapper>();
+            //services.AddSingleton<IYYUIService, IYYUIService>();
         }
 
         private static void AddEventObservers(IServiceCollection services)
         {
-            services.AddObserverFromExisting<AuthenticationService>();
+            //services.AddSingletonEventObserver<IXXUIService, XXUIService>();
         }
 
         private static void AddLifecycleStageObjects(IServiceCollection services)
         {
             services.AddApplicationStageObject<AuthenticationService>();
-            services.AddApplicationStageObject<MainInterfacePresentService>();
         }
     }
 }

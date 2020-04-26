@@ -5,12 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Protos\Market\market_model.proto" />
-    <None Remove="Protos\Market\market_rpc_query.proto" />
-    <None Remove="Protos\Market\market_rpc_subscribe.proto" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.11.4" />
     <PackageReference Include="Grpc.Net.ClientFactory" Version="2.28.0" />
     <PackageReference Include="Grpc.Tools" Version="2.28.1">
@@ -27,12 +21,6 @@
     <ProjectReference Include="..\Liquidity2.Extensions.DependencyInjection\Liquidity2.Extensions.DependencyInjection.csproj" />
     <ProjectReference Include="..\Liquidity2.Extensions.EventBus.Abstractions\Liquidity2.Extensions.EventBus.Abstractions.csproj" />
     <ProjectReference Include="..\Liquidity2.Utilities\Liquidity2.Utilities.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Protobuf Include="Protos\Market\market_model.proto" />
-    <Protobuf Include="Protos\Market\market_rpc_query.proto" />
-    <Protobuf Include="Protos\Market\market_rpc_subscribe.proto" />
   </ItemGroup>
 
 </Project>

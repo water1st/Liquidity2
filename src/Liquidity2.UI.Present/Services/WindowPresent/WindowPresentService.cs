@@ -1,13 +1,6 @@
 ﻿using Liquidity2.Extensions.EventBus.EventObserver;
 using Liquidity2.Extensions.WindowPostions;
 using Liquidity2.UI.Core;
-using Liquidity2.UI.Present.Windows.Asset;
-using Liquidity2.UI.Present.Windows.Entrust;
-using Liquidity2.UI.Present.Windows.Error;
-using Liquidity2.UI.Present.Windows.Kline;
-using Liquidity2.UI.Windows;
-using Liquidity2.UI.Windows.SelfSelect;
-using Liquidity2.UI.Windows.TOS;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,68 +21,14 @@ namespace Liquidity2.UI.Services
             _registrator = registrator;
         }
 
-        public Task ShowAccountWindow()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task ShowAssetWindow()
-        {
-            var window = _windowFactory.Create<AssetWindow>();
-            return ShowWindow(window);
-        }
-
-        public Task ShowEntrustWindow()
-        {
-            var window = _windowFactory.Create<EntrustWindow>();
-            return ShowWindow(window);
-        }
-
-        public Task ShowErrorWindow()
-        {
-            var window = _windowFactory.Create<ErrorWindow>();
-            return ShowWindow(window);
-        }
-
-        public Task ShowKLineWindow()
-        {
-            var window = _windowFactory.Create<KLineWindow>();
-            return ShowWindow(window);
-        }
-
         public Task ShowLoginWindow()
         {
-            var window = _windowFactory.Create<LoginWindow>();
-            return ShowWindow(window);
-        }
-
-        public Task ShowNavigationWindow()
-        {
-            var window = _windowFactory.Create<NavigationWindow>();
-            return ShowWindow(window);
-        }
-
-        public Task ShowOrderWindow()
-        {
-            var window = _windowFactory.Create<OrderWindow>();
-            return ShowWindow(window);
-        }
-
-        public Task ShowSelfSelectWindow()
-        {
-            var window = _windowFactory.Create<SelfSelectWindow>();
-            return ShowWindow(window);
-        }
-
-        public Task ShowSettingWindow()
-        {
             throw new NotImplementedException();
         }
 
-        public Task ShowTosWindow()
+        public Task ShowXXWindow()
         {
-            var window = _windowFactory.Create<TOSWindow>();
-            return ShowWindow(window);
+            throw new NotImplementedException();
         }
 
         private async Task ShowWindow<TWindow>(TWindow window) where TWindow : Window

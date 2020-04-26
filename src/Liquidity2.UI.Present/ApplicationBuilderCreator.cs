@@ -5,8 +5,6 @@ using Liquidity2.UI.Core;
 using Liquidity2.UI.Templates;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using static Markets.Rpc.Protobuf.Request.QueryMarketService;
-using static Markets.Rpc.Protobuf.Subscribe.SubMarketService;
 
 namespace Liquidity2.UI.Present
 {
@@ -34,21 +32,12 @@ namespace Liquidity2.UI.Present
                     .AddOpenidClient()
                     .ConfigureIdentityOptions(options =>
                     {
-                        options.ClientId = Configurations.CLIENT_CLIENT_ID;
-                        options.ClientSecret = Configurations.CLIENT_SECRET;
-                        options.IssuerUri = Configurations.ACCESSTOKEN_ENDPOINT;
-                        options.Scope = Configurations.CLIENT_SCOPE;
+                        //options.ClientId = "test";
+                        //options.ClientSecret = "test";
+                        //options.IssuerUri = new Uri("test");
+                        //options.Scope = "test";
                     }).AddAuthenticationInterceptors();
                     service.AddLocalStorageDAL();
-                    service.AddGrpcClient<SubMarketServiceClient>(options =>
-                    {
-                        options.Address = Configurations.MARKET_GRPC_SERVICE_ADDRESS;
-                    });
-
-                    service.AddGrpcClient<QueryMarketServiceClient>(options =>
-                    {
-                        options.Address = Configurations.MARKET_GRPC_SERVICE_ADDRESS;
-                    });
 
                     service.AddMemoryCache();
 
@@ -58,12 +47,13 @@ namespace Liquidity2.UI.Present
                     service.AddBlocker();
                     service.AddReconnectService();
                     service.AddBackgroundJobService();
-                    service.AddUICore(builder => builder.UseTemplate(TemplateNames.BLACK))
+                    service.AddUICore(builder => builder.UseTemplate(TemplateNames.TEST))
                     .AddUIComponents()
                     .AddUIService()
                     .AddWindows();
-                    ServiceExtensions.AddServices(service);
-                    DataApiExtensions.AddServices(service);
+
+                    service.AddBLL();
+                    service.AddRpcDALServices();
                 });
         }
     }

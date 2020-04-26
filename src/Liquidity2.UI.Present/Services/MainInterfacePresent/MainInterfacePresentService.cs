@@ -27,7 +27,7 @@ namespace Liquidity2.UI.Services
             //如：定位、本地化
             //LoadUISetting()...
 
-           await _windowPresent.ShowNavigationWindow();
+           await _windowPresent.ShowXXWindow();
         }
     }
 }
